@@ -1,0 +1,123 @@
+{
+  "simulated": true,
+  "virtual_playback": true,
+  "clinical_evidence": false,
+  "description": "Software integration benchmark with invented patient/song effects, drift and noise. Fixed comparator uses the existing DEAM arousal ordering with identical observation gates.",
+  "episodes_per_patient": 8,
+  "seeds": 3,
+  "approved_song_ids": [
+    "jamendo:1210604",
+    "jamendo:275229",
+    "jamendo:26436",
+    "jamendo:26430"
+  ],
+  "metric": "mean trend-adjusted reference-distance reward in final half of episodes; higher is better",
+  "summary": {
+    "invented_song_effect": {
+      "adaptive": 0.47098834507477844,
+      "fixed_arousal_prior": 0.4988022339636669
+    },
+    "no_audio_effect": {
+      "adaptive": 0.011599456185888594,
+      "fixed_arousal_prior": 0.011599456185888594
+    }
+  },
+  "runs": [
+    {
+      "seed": 0,
+      "condition": "invented_song_effect",
+      "policy": "adaptive",
+      "updates": 8,
+      "mean_reward": 0.5836119299221377,
+      "final_half_reward": 0.5880856785317058
+    },
+    {
+      "seed": 0,
+      "condition": "invented_song_effect",
+      "policy": "fixed_arousal_prior",
+      "updates": 8,
+      "mean_reward": 0.612207763255471,
+      "final_half_reward": 0.6166773451983723
+    },
+    {
+      "seed": 0,
+      "condition": "no_audio_effect",
+      "policy": "adaptive",
+      "updates": 8,
+      "mean_reward": 0.011611929922136532,
+      "final_half_reward": 0.01607734519837116
+    },
+    {
+      "seed": 0,
+      "condition": "no_audio_effect",
+      "policy": "fixed_arousal_prior",
+      "updates": 8,
+      "mean_reward": 0.011611929922136532,
+      "final_half_reward": 0.01607734519837116
+    },
+    {
+      "seed": 1,
+      "condition": "invented_song_effect",
+      "policy": "adaptive",
+      "updates": 8,
+      "mean_reward": 0.4687572626993017,
+      "final_half_reward": 0.4635085743418685
+    },
+    {
+      "seed": 1,
+      "condition": "invented_song_effect",
+      "policy": "fixed_arousal_prior",
+      "updates": 8,
+      "mean_reward": 0.4707822626993014,
+      "final_half_reward": 0.4835419076752011
+    },
+    {
+      "seed": 1,
+      "condition": "no_audio_effect",
+      "policy": "adaptive",
+      "updates": 8,
+      "mean_reward": 0.011273929365967383,
+      "final_half_reward": 0.024016907675201083
+    },
+    {
+      "seed": 1,
+      "condition": "no_audio_effect",
+      "policy": "fixed_arousal_prior",
+      "updates": 8,
+      "mean_reward": 0.011273929365967383,
+      "final_half_reward": 0.024016907675201083
+    },
+    {
+      "seed": 2,
+      "condition": "invented_song_effect",
+      "policy": "adaptive",
+      "updates": 8,
+      "mean_reward": 0.39030617352614116,
+      "final_half_reward": 0.36137078235076103
+    },
+    {
+      "seed": 2,
+      "condition": "invented_song_effect",
+      "policy": "fixed_arousal_prior",
+      "updates": 8,
+      "mean_reward": 0.4077145068594744,
+      "final_half_reward": 0.3961874490174274
+    },
+    {
+      "seed": 2,
+      "condition": "no_audio_effect",
+      "policy": "adaptive",
+      "updates": 8,
+      "mean_reward": 0.006252006859474334,
+      "final_half_reward": -0.005295884315906463
+    },
+    {
+      "seed": 2,
+      "condition": "no_audio_effect",
+      "policy": "fixed_arousal_prior",
+      "updates": 8,
+      "mean_reward": 0.006252006859474334,
+      "final_half_reward": -0.005295884315906463
+    }
+  ]
+}
