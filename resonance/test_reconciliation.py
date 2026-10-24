@@ -140,6 +140,15 @@ def test_spotify_stop_during_startup_never_confirms_or_fades_back_up():
     assert 'playback_started' not in events
 
 
+def test_launcher_checks_both_runtime_dependencies(monkeypatch):
+    import launch
+    monkeypatch.setattr(launch, 'venv_python', lambda: Path(sys.executable))
+    monkeypatch.setattr(launch.subprocess, 'run', Mock(return_value=Mock(returncode=0)))
+    launch.ensure_env()
+    check = launch.subprocess.run.call_args.args[0]
+    assert 'pygame' in check[-1] and 'numpy' in check[-1]
+
+
 def test_spotify_requires_matching_track_confirmation(monkeypatch):
     import spotify
     fake = FakeSpotify()
