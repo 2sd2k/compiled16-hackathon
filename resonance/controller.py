@@ -181,9 +181,10 @@ class Player:
 
 # ---------- controller ----------
 class Controller:
-    def __init__(self, source, threshold, baseline_s=BASELINE_S):
+    def __init__(self, source, threshold, baseline_s=BASELINE_S, player=None, quiet=False):
         self.source, self.thr, self.baseline_s = source, threshold, baseline_s
-        self.player = Player()
+        self.quiet = quiet
+        self.player = player or Player()
         self.calm = load_calm_list()
         self.lock = threading.Lock()
         self.hr, self.smooth = [], []
@@ -205,7 +206,8 @@ class Controller:
 
     def log(self, msg):
         self.events.appendleft({"time": time.strftime("%H:%M:%S"), "msg": msg})
-        print(f"[{time.strftime('%H:%M:%S')}] {msg}", flush=True)
+        if not self.quiet:
+            print(f"[{time.strftime('%H:%M:%S')}] {msg}", flush=True)
 
     # Inputs from keys or the console. Each one stands in for a real-world signal.
     def input(self, action):
@@ -345,7 +347,8 @@ class Controller:
                 "baseline_needed": self.baseline_s,
                 "now_playing": None if not tr else {
                     "title": tr.get("title") or tr["song_id"], "artist": tr.get("artist", ""),
-                    "bpm": tr["bpm"], "key": f"{tr['key']} {tr['mode']}", "license": tr.get("license", "")},
+                    "bpm": tr["bpm"], "key": f"{tr['key']} {tr['mode']}", "license": tr.get("license", ""),
+                    "why": tr.get("calm_reason", ""), "arousal": tr.get("deam_pred_arousal")},
                 "silent_pause_s": max(0, self.pause_until - self.t),
                 "events": list(self.events),
             }

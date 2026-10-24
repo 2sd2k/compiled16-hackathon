@@ -144,7 +144,7 @@ function render(s) {
   $("thr").textContent = s.baseline == null ? `+${s.threshold}` : `${Math.round(s.baseline + s.threshold)}`;
   const p = s.now_playing;
   $("playing").innerHTML = p
-    ? `♪ <b>${esc(p.title)}</b> · ${esc(p.artist)}<br><span style="color:var(--muted)">${p.bpm.toFixed(0)} bpm · ${esc(p.key)} · ${esc(p.license || "license unknown")} · from the approved calm list</span>`
+    ? `♪ <b>${esc(p.title)}</b> · ${esc(p.artist)}<br><span style="color:var(--muted)">${esc(p.why || `${p.bpm.toFixed(0)} bpm`)} · ${esc(p.key)}${p.arousal != null ? ` · predicted arousal ${p.arousal.toFixed(1)}/9` : ""} · approved calm list</span>`
     : "Room is silent.";
   $("nurseBtn").textContent = s.room === "Nurse present" ? "Nurse leaves" : "Nurse enters";
   $("nurseBtn").classList.toggle("on", s.room === "Nurse present");
