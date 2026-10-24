@@ -101,6 +101,7 @@ code { font-size: 12px; }
         <div><span class="k">Elevated at</span><span id="thr" class="v">–</span></div>
       </div>
       <div class="playing" id="playing">Room is silent.</div>
+      <div id="live" class="spotify" hidden></div>
       <div id="adaptive" class="spotify" hidden></div>
       <div id="spotify" class="spotify" hidden>
         <span id="spState"></span>
@@ -193,6 +194,19 @@ function render(s) {
   $("playing").innerHTML = p
     ? `♪ <b>${esc(p.title)}</b> · ${esc(p.artist)}<br><span style="color:var(--muted)">${esc(p.why)} · ${esc(p.detail)} · approved calm list · via ${esc(p.source)}</span>`
     : "Room is silent.";
+  const lv = s.live, lvBox = $("live");
+  lvBox.hidden = !lv;
+  if (lv) {
+    const STATE = { starting: "starting", scanning: "looking for the watch", not_found: "no watch found: start Broadcast Heart Rate on the watch",
+      choose: "several sensors found: start with --source garmin:DEVICE_ID", connected: `connected to ${lv.device}`,
+      reconnecting: "connection lost, reconnecting", error: `Bluetooth problem: ${lv.error}` };
+    const age = lv.last_reading_age_s;
+    const fresh = lv.state === "connected" && age != null
+      ? (age <= 3 ? ` · last reading ${age.toFixed(0)} s ago` : " · no fresh reading (music paused until it returns)") : "";
+    const contact = lv.sensor_contact === false ? " · watch reports no skin contact" : "";
+    lvBox.textContent = `Garmin: ${STATE[lv.state] || lv.state}${fresh}${contact}`;
+    lvBox.className = "spotify" + (lv.state === "connected" && age != null && age <= 3 && lv.sensor_contact !== false ? "" : " err");
+  }
   const ad = s.adaptive, adBox = $("adaptive");
   adBox.hidden = !(s.learning_enabled && ad && !ad.external);
   if (!adBox.hidden) {

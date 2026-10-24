@@ -107,7 +107,7 @@ class ListSource:
 
 MAX_UPLOAD_BYTES = 5_000_000
 HR_COLUMNS = ("hr", "heart_rate", "heartrate", "heart rate", "bpm", "pulse")
-T_COLUMNS = ("t", "time", "seconds", "time_s")
+T_COLUMNS = ("t", "time", "seconds", "time_s", "elapsed_s")  # elapsed_s: Garmin receiver CSVs
 
 
 def _num(s):
@@ -181,10 +181,9 @@ def make_source(spec):
         values, _ = parse_hr_csv(Path(arg).read_text(encoding="utf-8-sig"))
         return ListSource(values, source_label(Path(arg).name))
     if kind == "garmin":
-        # Planned live input: the watch's "broadcast heart rate" mode sends the standard BLE Heart Rate
-        # Service (0x180D), readable with a BLE library such as bleak. Implement next() to return the
-        # latest bpm once per second; everything downstream stays the same.
-        raise SystemExit("Garmin input is not connected yet. Use --source sim or csv:FILE for now.")
+        # Live watch via Josh's Bluetooth receiver; see garmin_source.py. garmin:DEVICE_ID picks a watch.
+        from garmin_source import GarminSource
+        return GarminSource(arg or None)
     if kind == "hku":
         sessions = json.loads(SESSIONS.read_text())["sessions"]
         s = next(x for x in sessions if x["participant_id"] == arg)
@@ -308,6 +307,8 @@ class Controller(AdaptiveControllerMixin):
             raise ValueError('Adaptive simulated playback requires speed 1')
         with self.lock:
             self.player.silence(fade_s=1.5)
+            if hasattr(self.source, "close"):
+                self.source.close()  # e.g. release the Garmin Bluetooth connection
             self.source, self.speed = source, speed
             self._reset()
             self.log(f"Input switched to {source.label}{note}; replay speed {self.speed:g}×. "
@@ -492,8 +493,9 @@ class Controller(AdaptiveControllerMixin):
                 "input": self.source.label,
                 "simulated": bool(getattr(self.source, "interactive_simulation", False)) or self.source.label.startswith("FAKE"),
                 "interactive": bool(getattr(self.source, "interactive_simulation", False)),
-                "replay": None if getattr(self.source, 'interactive_simulation', False) else {
+                "replay": None if not isinstance(self.source, ListSource) else {
                     "t": self.source.i, "n": len(self.source.values), "speed": self.speed, "done": self.done},
+                "live": self.source.status() if hasattr(self.source, "status") else None,
                 "room": self.room_state(),
                 "hr": self.smooth[-1] if self.smooth else None,
                 "baseline": self.baseline,
@@ -672,6 +674,8 @@ def main():
         ap.error('Adaptive playback requires --speed 1; use offline tests for accelerated simulation')
     if args.speed <= 0 or args.baseline_s < 1:
         ap.error('speed and baseline-s must be positive')
+    if args.source.startswith('garmin') and args.speed != 1:
+        ap.error('Live Garmin input runs in real time; --speed only applies to recorded files')
 
     source = (ResponseSimSource(args.patient_id, args.seed, args.no_audio_effect)
               if args.sim_response or args.no_audio_effect else make_source(args.source))
@@ -690,6 +694,10 @@ def main():
     ctrl = Controller(source, args.threshold, args.baseline_s, player=player, patient_id=args.patient_id,
                       adapter=adapter, external_selection=args.external_selection, approved_ids=approvals,
                       music=args.music)
+    if hasattr(source, "on_status"):
+        source.on_status = ctrl.log  # live Garmin connection messages go to the event log
+        ctrl.log("Live Garmin input: the adaptive learner stays off (simulation only); music uses the "
+                 "evidence-based calm-list ranking.")
     if auth:
         ctrl.spotify_auth, player.on_error = auth, ctrl.log
         if not auth.configured:

@@ -15,6 +15,16 @@ The first run sets up Python packages and asks once for the team's **Spotify Cli
 
 **What the launcher runs:** the full flow. Josh's Python heart-rate simulator (`resonance/response_simulator.py`) feeds the controller. When heart rate is elevated, **Josh's adaptive layer** (`adaptive_adapter.py`) picks a song from the approved calm list and learns, per person, how heart rate responded (`ADAPTIVE.md`). The controller plays it and the console shows everything, including the adaptive layer's status. Press `r` (or "Heart rate rises") to start an episode. The adaptive layer waits for heart rate to settle for 30 s and 60 s after the simulated change before choosing, so music starts about 1–1.5 minutes after the rise. Simulated responses are invented for testing, not clinical evidence. `--classic` runs the original rule-based picks without the adaptive layer.
 
+## Live heart rate from a Garmin watch
+
+1. On the watch (tested design: Forerunner 265): **Health & Wellness → Wrist Heart Rate → Broadcast Heart Rate → START**.
+2. Turn on Bluetooth on the computer. On a Mac, allow the Terminal under **System Settings → Privacy & Security → Bluetooth** when asked.
+3. Start in live mode: `python resonance/launch.py --live`, or `python resonance/controller.py --source garmin`.
+
+The console shows **Garmin: connected to …** and the age of the last reading. The bridge (`resonance/garmin_source.py`) uses Josh's receiver and decoder (`resonance/garmin-bluetooth/garmin_hr.py`). It finds the watch, reconnects after drop-outs, and gives the controller the latest reading once per second. Stale readings (over 3 s old), no skin contact, or out-of-range values count as "no signal": music fades and no decisions are made until a good reading returns. Readings are never repeated or invented. With several heart-rate sensors nearby, run `python resonance/garmin-bluetooth/garmin_hr.py --scan` and start with `--source garmin:DEVICE_ID`.
+
+On live data the adaptive learner stays off (Josh's design: it learns only from simulated sessions), so music uses the evidence-based calm-list ranking. Stop, nurse and all room rules work the same. Recorded receiver CSVs (`garmin_hr.py --csv`) can be replayed through the console's upload box.
+
 ## Quick start for teammates (test with your own dataset files)
 
 The working code is on **`main`** (and `chc166/dev`). You need Git and Python 3.12. The double-click launchers above do steps 2–4 for you.
