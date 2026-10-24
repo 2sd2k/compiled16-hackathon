@@ -1,5 +1,8 @@
 # DEAM acoustic emotion baseline
 
+Teammate integration: [model/data handoff and demo assets](TEAM-HANDOFF.md),
+[HR input contract](model_contract.json), and [recorded example](examples/hr_result.json).
+
 Reproducible regression of perceived **arousal and valence**, using the files
 already committed under `data/deam`. This is an auxiliary music representation
 baseline, separate from the HR-response objective in `PRODUCT-BRIEF.md`.

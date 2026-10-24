@@ -1,0 +1,79 @@
+{
+  "contract_version": "1.0",
+  "status": "file_based_inference_contract_not_an_HTTP_endpoint",
+  "model_id": "music_mouv_hr_state_plus_audio_ridge",
+  "artifact": "baseline/hr_model.joblib",
+  "features": [
+    {
+      "name": "initial_hr",
+      "units": "bpm",
+      "description": "Mean of raw HR samples in trial seconds [0,10)."
+    },
+    {
+      "name": "prior_hr_slope",
+      "units": "bpm/second",
+      "description": "Linear slope fitted to those same ten samples."
+    },
+    {
+      "name": "danceability",
+      "units": "score",
+      "description": "Published Spotify descriptor."
+    },
+    {
+      "name": "energy",
+      "units": "score",
+      "description": "Published Spotify descriptor; not waveform RMS."
+    },
+    {
+      "name": "loudness",
+      "units": "dB",
+      "description": "Published Spotify loudness; not playback volume or waveform dBFS."
+    },
+    {
+      "name": "speechiness",
+      "units": "score",
+      "description": "Published Spotify descriptor."
+    },
+    {
+      "name": "accousticness",
+      "units": "score",
+      "description": "Source column spelling is intentional: accousticness."
+    },
+    {
+      "name": "instrumentalness",
+      "units": "score",
+      "description": "Published Spotify descriptor."
+    },
+    {
+      "name": "liveness",
+      "units": "score",
+      "description": "Published Spotify descriptor."
+    },
+    {
+      "name": "tempo",
+      "units": "bpm",
+      "description": "Published Spotify track tempo."
+    }
+  ],
+  "input_format": "CSV; all ten columns required; audio NaNs use stored training medians; HR state must be finite and initial_hr positive",
+  "output_column": "predicted_within_trial_hr_change_bpm",
+  "output_units": "bpm",
+  "target": {
+    "definition": "mean(HR[30,40)) minus mean(HR[0,10))",
+    "time_origin": "first available trial HR sample, not verified music onset",
+    "positive_means": "HR increased",
+    "negative_means": "HR decreased"
+  },
+  "recommended_use": "offline recorded-example demonstration and benchmark; audio has not improved held-out prediction over HR state alone",
+  "simulator_compatibility": {
+    "song_ids": "Spotify track IDs here; Jamendo song IDs in simulator library. No automatic cross-catalog mapping.",
+    "waveform_fields_are_not_spotify_inputs": true,
+    "controller_hr_is_rolling_median_not_training_window_mean": true
+  },
+  "display_labels": {
+    "prediction": "Experimental predicted HR change (bpm)",
+    "recorded_outcome": "Recorded within-trial HR change (bpm)",
+    "synthetic_outcome": "Simulated HR change (bpm)"
+  },
+  "artifact_sha256": "cf5c67571932273c372140c2f1fff690488cb13d58a085fd8ce65635a13dd1b4"
+}

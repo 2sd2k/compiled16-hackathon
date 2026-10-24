@@ -11,7 +11,7 @@
   "inspect_hku.py": "f232423ff8528529ccd7a988ae14af35a84656389931a653d51965b2df3a8a7d",
   "test_baseline.py": "bd08999ad37b4af7fdb5411c2f2983cd755d542bef3c2092972583b51cdf5f1f",
   "model.joblib": "ea871c78c803a1f8fca856a5658d4b1126c9e2155d0fcebc7813723755370247",
-  "README.md": "76c93f793a2ab650746b71a87a2a639fe99057923575396fc61c549fd24971ed",
+  "README.md": "18e6fe384b37ae6835b1fa04bffb97be5c9ff78aef76bab09ac6e2959b6fa58b",
   "download_data.py": "f253b9c8936f0f9d7974c64de10f2fb3f7745980497f66994ad18efdd3f1f201",
   "test_predictions.csv": "33f2e14be2469e15d7bca4745c87b0913d42ba9dd621f08d11e713da35f89d6d",
   "RESEARCH.md": "0f2ddbb673b27e3bcc23573662ddb4af5997a6c6b99a38e03f8277996f0ca6b7",
@@ -22,5 +22,11 @@
   "hr_model.joblib": "cf5c67571932273c372140c2f1fff690488cb13d58a085fd8ce65635a13dd1b4",
   "hr_metrics.json": "5bd1ed9c4d8fa33ae6f7e458ca6c5ff3d96760a91af20a6322630bee8503a0c1",
   "data.py": "04d65830dc935edca1a8d0cd5cfbb2bfde736d9547ad67849b96f9f7f66ff800",
-  "NO_CHANGE_VALIDATION.md": "d034d1c689e347b00f277df420863670c85c2d5da1aee5991a9b666aae773fa7"
+  "NO_CHANGE_VALIDATION.md": "d034d1c689e347b00f277df420863670c85c2d5da1aee5991a9b666aae773fa7",
+  "TEAM-HANDOFF.md": "15248bac36e3704e0915790624f45015c33e430fff2abd3cf292455b721c6d93",
+  "model_contract.json": "312c537a014f3170e3304bb19fa9b7b87c0f1ca4b6fedc6927ab3de96ec44b2f",
+  "examples/hr_input.csv": "fed777bdb252b6f831fff7c2fd8959d892c12bcd80b34fd3dd3143d151813284",
+  "examples/hr_result.json": "81fcaf4cc3fec943c9f8d65bc17ce9462bbabda0fdc8f63bd091449f4621ca17",
+  "demo_audio_check.json": "50fcfed406583cdb3dfcba493e95d26e33fc8de415d51e690d9e9979ba7f27bf",
+  "hku_alignment_audit.json": "446dadded68c196e1a08c6f805f00a355a854f19dc66c2aed108e15f5a81984f"
 }

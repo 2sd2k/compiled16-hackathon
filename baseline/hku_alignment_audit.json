@@ -1,0 +1,22 @@
+{
+  "archive_sha256": "bd270b0dda92c7dd2efb298fd0c900ecc1dbf5f7b2f0eb1da9a8f7445aa1e21e",
+  "simulator_library_commit": "446f7d3",
+  "source_records": 956,
+  "potential_fixed_40_second_records": 579,
+  "potential_participants": 30,
+  "potential_song_ids": 382,
+  "records_with_library_features": 577,
+  "matched_song_ids": 381,
+  "hr_length_play_duration_disagreements": 0,
+  "hr_sample_rate_hz": 1,
+  "sample_rate_source": "HKU956 archive README",
+  "proposed_target": "mean HR samples [30,40) minus mean HR samples [0,10)",
+  "audio_offset_verified": false,
+  "ready_for_aligned_audio_HR_training": false,
+  "blockers": [
+    "Confirm exact audio start/seek offsets for each listening record.",
+    "Extract features over the verified same first 40-second exposure; current library summaries are generally first 90 seconds and DEAM vectors first 45 seconds.",
+    "Keep this HKU experiment separate from Music-Mouv and evaluate by participant and song."
+  ],
+  "next_experiment": "Build matched-window waveform features; retrain a separate HKU model against zero-change and HR-state controls; no claim that existing Spotify HR model directly accepts these features."
+}
