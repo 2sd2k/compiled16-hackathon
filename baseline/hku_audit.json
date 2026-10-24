@@ -1,0 +1,22 @@
+{
+  "source": "https://doi.org/10.25442/hku.21080821",
+  "archive_sha256": "bd270b0dda92c7dd2efb298fd0c900ecc1dbf5f7b2f0eb1da9a8f7445aa1e21e",
+  "listening_records": 956,
+  "participants": 30,
+  "unique_listened_song_ids": 592,
+  "audio_link_rows": 592,
+  "bundled_mp3_files": 0,
+  "hr_sample_counts": {
+    "min": 27,
+    "max": 329,
+    "median": 44.0
+  },
+  "hr_audit": {
+    "missing_hr": 0,
+    "invalid_hr": 0,
+    "shorter_than_60_samples": 721,
+    "at_least_60_samples": 235
+  },
+  "license": "CC BY-NC 4.0",
+  "decision": "Audio link manifest is not audio. Acquire and verify actual stimuli and alignment before an acoustic-HR model. No DEAM song-ID join or synthetic labels."
+}
