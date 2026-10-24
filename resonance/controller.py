@@ -100,12 +100,11 @@ def make_source(spec):
 
 # ---------- music ----------
 def load_calm_list():
-    """Calm list: reliable tempo in 55-70 bpm and a local file, so the demo works offline."""
+    """Calm list (see analysis/classify_calm.py) with a local file, so the demo works offline."""
     if not LIBRARY.exists():
         return []
     tracks = json.loads(LIBRARY.read_text(encoding="utf-8"))["tracks"]
-    calm = [t for t in tracks if t.get("bpm_reliable") and CALM_BPM[0] <= t["bpm"] <= CALM_BPM[1]
-            and (AUDIO_DIR / f"{t['song_id']}.mp3").exists()]
+    calm = [t for t in tracks if t.get("calm") and (AUDIO_DIR / f"{t['song_id']}.mp3").exists()]
 
     def z(key):
         vals = [t[key] for t in tracks]
@@ -114,7 +113,8 @@ def load_calm_list():
 
     zs = [z(k) for k in ("onsets_per_s", "loudness_dbfs", "dynamics_db", "treble_share", "brightness_hz")]
     for t in calm:
-        tempo = 1 - (t["bpm"] - CALM_BPM[0]) / (CALM_BPM[1] - CALM_BPM[0])   # slower is better (evidence)
+        felt = min(max(t.get("felt_bpm", t["bpm"]), CALM_BPM[0]), CALM_BPM[1])
+        tempo = 1 - (felt - CALM_BPM[0]) / (CALM_BPM[1] - CALM_BPM[0])       # slower is better (evidence)
         texture = -sum(f(t) for f in zs) / len(zs)                          # calmer texture (heuristic)
         observed = -(t["hku_hr_delta_mean"] or 0) / 4 if t.get("hku_listeners", 0) >= 2 else 0
         t["score"] = tempo + 0.6 * texture + 0.4 * observed
@@ -300,7 +300,11 @@ class Controller:
         self.log(why)
 
     def _play_next(self, why):
-        choices = [t for t in self.calm if t["song_id"] not in self.recent] or self.calm
+        if not self.calm:  # library may have been built after start-up
+            self.calm = load_calm_list()
+            if self.calm:
+                self.log(f"Music library loaded: {len(self.calm)} calm tracks.")
+        choices =[t for t in self.calm if t["song_id"] not in self.recent] or self.calm
         if not choices:
             if not self.warned_empty:
                 self.log(f"{why}, but no calm track is available → staying silent.")
