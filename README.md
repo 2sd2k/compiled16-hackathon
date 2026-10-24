@@ -4,6 +4,61 @@ An adaptive hospital-room soundscape with **no screen for the patient or nurse**
 
 Heart rate is context, not a diagnosis. This is a healthy-volunteer demo and claims no clinical effect.
 
+## Quick start for teammates (test with your own dataset files)
+
+The working code is on the **`chc166/dev`** branch. You need Git and Python 3.12.
+
+**1. Get the code (once)**
+
+```bash
+git clone https://github.com/2sd2k/compiled16-hackathon.git
+cd compiled16-hackathon
+git checkout chc166/dev
+```
+
+Already cloned? Run `git fetch origin` and then `git checkout chc166/dev && git pull`.
+
+**2. Install and download the calm music (once, ~90 MB)**
+
+macOS / Linux:
+```bash
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r resonance/requirements.txt
+python resonance/fetch_audio.py
+```
+
+Windows (PowerShell):
+```powershell
+py -3.12 -m venv .venv; .venv\Scripts\Activate.ps1
+pip install -r resonance/requirements.txt
+python resonance/fetch_audio.py
+```
+
+The music isn't in Git; `fetch_audio.py` downloads the 67 calm-list tracks from Jamendo into `data/raw/audio/` (gitignored). After this, the controller runs offline.
+
+**3. Run it**
+
+```bash
+python resonance/controller.py
+```
+
+Open **http://127.0.0.1:8765** (the Developer / Demo Console). Turn your sound on.
+
+**4. Test a dataset file**
+
+In the console, go to **Load a heart-rate file**, choose a CSV, pick a speed (4× is good), then click **Load & replay**. Watch the room state and event log, and listen. Try the three examples in `resonance/fake_data/`, or make your own:
+
+```
+t,hr
+0,72.1
+1,71.8
+...
+```
+
+One row per second, heart rate in bpm. The first 2 minutes are treated as rest (the baseline); music starts when heart rate stays 10+ bpm above it for 20 s. To generate new fake scenarios, edit `SCENARIOS` in `resonance/make_fake_hr.py` and run it. To grade a file's phases without listening, add a matching `_labels.csv` (`start_s,end_s,label`) and run `python resonance/scorecard.py`.
+
+Keys in the controller's terminal: `r` heart rate rises, `c` rests, `n` nurse in/out, `s` stop/resume, `q` quit. Label anything made-up as fake (name it `fake_...csv`) so the console shows **FAKE**.
+
 ## How it works
 
 ```

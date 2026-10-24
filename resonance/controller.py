@@ -490,19 +490,40 @@ def serve(ctrl, port):
 
 
 def keyboard(ctrl, stop_event):
+    """Single keypresses (no Enter) on Windows, macOS and Linux."""
+    keys = {"s": "stop", "n": "nurse", "r": "rise", "c": "rest"}
+
+    def handle(k):
+        k = k.lower()
+        if k == "q":
+            stop_event.set()
+        elif k in keys:
+            ctrl.input(keys[k])
+
     try:
         import msvcrt
     except ImportError:
+        msvcrt = None
+    if msvcrt:
+        while not stop_event.is_set():
+            if msvcrt.kbhit():
+                handle(msvcrt.getwch())
+            time.sleep(0.05)
         return
-    keys = {"s": "stop", "n": "nurse", "r": "rise", "c": "rest"}
+
+    if not sys.stdin.isatty():
+        return
+    import atexit
+    import select
+    import termios
+    import tty
+    fd = sys.stdin.fileno()
+    saved = termios.tcgetattr(fd)
+    atexit.register(termios.tcsetattr, fd, termios.TCSADRAIN, saved)
+    tty.setcbreak(fd)  # Ctrl-C still works
     while not stop_event.is_set():
-        if msvcrt.kbhit():
-            k = msvcrt.getwch().lower()
-            if k == "q":
-                stop_event.set()
-            elif k in keys:
-                ctrl.input(keys[k])
-        time.sleep(0.05)
+        if select.select([sys.stdin], [], [], 0.1)[0]:
+            handle(sys.stdin.read(1))
 
 
 def main():
