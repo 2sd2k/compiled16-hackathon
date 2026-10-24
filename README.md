@@ -18,7 +18,7 @@ git checkout chc166/dev
 
 Already cloned? Run `git fetch origin` and then `git checkout chc166/dev && git pull`.
 
-**2. Install and download the calm music (once, ~90 MB)**
+**2. Install and download the calm music (once, ~90 MB, about 5 minutes)**
 
 macOS / Linux:
 ```bash
