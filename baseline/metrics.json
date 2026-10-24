@@ -1,0 +1,132 @@
+{
+  "seed": 42,
+  "target_order": [
+    "arousal_mean",
+    "valence_mean"
+  ],
+  "target_scale": [
+    1,
+    9
+  ],
+  "selection_metric": "mean validation MAE across both targets",
+  "selected": "extra_trees",
+  "fit_partition": "train only",
+  "split_counts": {
+    "train": 1261,
+    "validation": 271,
+    "test": 270
+  },
+  "validation": {
+    "ridge_1": {
+      "arousal_mean": {
+        "mae": 0.7831314923420911,
+        "r2": 0.3428705804375878
+      },
+      "valence_mean": {
+        "mae": 0.8076101377335134,
+        "r2": 0.25563382680394897
+      }
+    },
+    "ridge_10": {
+      "arousal_mean": {
+        "mae": 0.7300693333056348,
+        "r2": 0.4400027251091049
+      },
+      "valence_mean": {
+        "mae": 0.7511813695305714,
+        "r2": 0.33980558587871357
+      }
+    },
+    "ridge_100": {
+      "arousal_mean": {
+        "mae": 0.6794987768765011,
+        "r2": 0.5200569930155592
+      },
+      "valence_mean": {
+        "mae": 0.7032098258982378,
+        "r2": 0.4272712231093674
+      }
+    },
+    "ridge_1000": {
+      "arousal_mean": {
+        "mae": 0.7132158402317985,
+        "r2": 0.4892416611012136
+      },
+      "valence_mean": {
+        "mae": 0.6979845395140296,
+        "r2": 0.4567128064017998
+      }
+    },
+    "extra_trees": {
+      "arousal_mean": {
+        "mae": 0.7029085126059144,
+        "r2": 0.5058777608651508
+      },
+      "valence_mean": {
+        "mae": 0.672374574433626,
+        "r2": 0.501601367706366
+      }
+    }
+  },
+  "mean_baseline_validation": {
+    "arousal_mean": {
+      "mae": 1.068008784687371,
+      "r2": -0.00032271322020993587
+    },
+    "valence_mean": {
+      "mae": 0.9616973877113867,
+      "r2": -0.00302988148473049
+    }
+  },
+  "test": {
+    "extra_trees": {
+      "arousal_mean": {
+        "mae": 0.6793010884348144,
+        "r2": 0.5377238736582747
+      },
+      "valence_mean": {
+        "mae": 0.6812553775050656,
+        "r2": 0.4458797515354167
+      }
+    },
+    "train_mean": {
+      "arousal_mean": {
+        "mae": 1.053533556554175,
+        "r2": -0.0458094227970165
+      },
+      "valence_mean": {
+        "mae": 0.9804444444444446,
+        "r2": -0.0009757699838051082
+      }
+    }
+  },
+  "data_audit": {
+    "rows": 1802,
+    "acoustic_features": 520,
+    "missing_acoustic_values": 0,
+    "exact_duplicate_feature_rows": 4,
+    "annotation_files": [
+      "annotations/annotations averaged per song/song_level/static_annotations_averaged_songs_1_2000.csv",
+      "annotations/annotations averaged per song/song_level/static_annotations_averaged_songs_2000_2058.csv"
+    ],
+    "annotations_match": true,
+    "excluded_predictors": [
+      "song_id",
+      "valence_mean",
+      "valence_std",
+      "arousal_mean",
+      "arousal_std"
+    ],
+    "sha256": {
+      "annotations.zip": "21df3fe9000397c1591fba42d453bcf6ab8a7a6be807b92798897e8bd65e3569",
+      "deam_song_level_features.csv": "f09044497e415fe22b999051cdee59d479db2486f73f896603ae4f7fe73c0ff6"
+    }
+  },
+  "versions": {
+    "python": "3.12.5",
+    "numpy": "2.2.6",
+    "pandas": "2.2.3",
+    "sklearn": "1.6.1",
+    "joblib": "1.4.2"
+  }
+}
