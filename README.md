@@ -13,6 +13,8 @@ After cloning the repo (step 1 below), double-click:
 
 The first run sets up Python packages and asks once for the team's **Spotify Client ID**; press Enter instead to use the offline music. It then starts Resonance and opens the console in your browser. Keep the window open while testing; press `q` in it or close it to stop. Needs Python 3.12 installed (https://www.python.org/downloads/).
 
+**What the launcher runs:** the full flow. Josh's Python heart-rate simulator (`resonance/response_simulator.py`) feeds the controller. When heart rate is elevated, **Josh's adaptive layer** (`adaptive_adapter.py`) picks a song from the approved calm list and learns, per person, how heart rate responded (`ADAPTIVE.md`). The controller plays it and the console shows everything, including the adaptive layer's status. Press `r` (or "Heart rate rises") to start an episode. The adaptive layer waits for heart rate to settle for 30 s and 60 s after the simulated change before choosing, so music starts about 1–1.5 minutes after the rise. Simulated responses are invented for testing, not clinical evidence. `--classic` runs the original rule-based picks without the adaptive layer.
+
 ## Quick start for teammates (test with your own dataset files)
 
 The working code is on **`main`** (and `chc166/dev`). You need Git and Python 3.12. The double-click launchers above do steps 2–4 for you.

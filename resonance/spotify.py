@@ -17,6 +17,7 @@ import json
 import secrets
 import threading
 import time
+import uuid
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -106,8 +107,10 @@ class SpotifyPlayer:
         self.track = None
         self.device = None  # {"id", "name"}
         self.last_error = ""
+        self.on_event = None  # set by the controller's adaptive layer
         self._lock = threading.Lock()
         self._started = 0
+        self._exposure, self._ended_reported = None, False
         self._state_checked, self._state = 0, None
 
     # --- Web API ---
@@ -163,26 +166,62 @@ class SpotifyPlayer:
                 self.on_error(f"Spotify: {e}")
             self.last_error = str(e)
 
-    # --- controller interface ---
-    def play(self, track):
-        self.track, self._started = track, time.time()
-        threading.Thread(target=self._guard, args=(self._play, track), daemon=True).start()
+    # --- controller interface (same events as adaptive_player.Player) ---
+    def _notify(self, kind, track, exposure, **details):
+        if getattr(self, "on_event", None):
+            self.on_event(kind, track, exposure, **details)
 
-    def _play(self, track):
+    def play(self, track, exposure_id=None):
+        if self.track is not None and not self._ended_reported:
+            self._notify("playback_interrupted", self.track, self._exposure, reason="replaced")
+        token = exposure_id or uuid.uuid4().hex
+        self.track, self._exposure, self._ended_reported = track, token, False
+        self._started = time.time()
+        self._notify("playback_requested", track, token)
+        threading.Thread(target=self._play, args=(track, token), daemon=True).start()
+        return token
+
+    def _play(self, track, token):
         with self._lock:
-            if self.track is not track:
+            if self._exposure != token:
                 return
-            dev = self.device or self._pick_device()
-            self._volume(0)
             try:
-                self._api("PUT", "/me/player/play", {"device_id": dev["id"]}, {"uris": [track["uri"]]})
-            except SpotifyError:
-                dev = self._pick_device()  # device may have changed; try once more
-                self._api("PUT", "/me/player/play", {"device_id": dev["id"]}, {"uris": [track["uri"]]})
-            self._ramp(0, VOLUME, 5)
+                dev = self.device or self._pick_device()
+                self._volume(0)
+                try:
+                    self._api("PUT", "/me/player/play", {"device_id": dev["id"]}, {"uris": [track["uri"]]})
+                except SpotifyError:
+                    dev = self._pick_device()  # device may have changed; try once more
+                    self._api("PUT", "/me/player/play", {"device_id": dev["id"]}, {"uris": [track["uri"]]})
+                # Only report a start once Spotify confirms this track is playing (learning windows rely on it).
+                for _ in range(16):
+                    if self._exposure != token:
+                        return
+                    state = self._api("GET", "/me/player") or {}
+                    if state.get("is_playing") and (state.get("item") or {}).get("id") == track["song_id"]:
+                        break
+                    time.sleep(0.5)
+                else:
+                    raise SpotifyError("Spotify did not confirm the song started.")
+                if self._exposure != token:
+                    return
+                self._started = time.time()
+                self.last_error = ""
+                self._notify("playback_started", track, token)
+                self._ramp(0, VOLUME, 5)
+            except SpotifyError as e:
+                if str(e) != self.last_error:
+                    self.on_error(f"Spotify: {e}")
+                self.last_error = str(e)
+                if self._exposure == token:
+                    self.track, self._exposure = None, None
+                self._notify("playback_interrupted", track, token, reason="spotify_error")
 
     def silence(self, fade_s=3.0):
-        self.track = None
+        track, token = self.track, self._exposure
+        self.track, self._exposure = None, None  # cancel any in-flight start
+        if track is not None and not self._ended_reported:
+            self._notify("playback_interrupted", track, token, reason="silence", fade_s=fade_s)
         threading.Thread(target=self._guard, args=(self._silence, fade_s), daemon=True).start()
 
     def _silence(self, fade_s):
@@ -209,7 +248,11 @@ class SpotifyPlayer:
                 return False
         s = self._state or {}
         item = (s.get("item") or {}).get("id")
-        return not s.get("is_playing") or (item is not None and item != self.track.get("song_id"))
+        ended = not s.get("is_playing") or (item is not None and item != self.track.get("song_id"))
+        if ended and not self._ended_reported:
+            self._ended_reported = True
+            self._notify("playback_ended", self.track, self._exposure, reason="track_ended")
+        return ended
 
     def status(self):
         return {"configured": self.auth.configured, "connected": self.auth.connected,

@@ -13,12 +13,14 @@ Usage:
     python resonance/controller.py --source hku:hku1903 replay a recorded HKU956 session
     --music spotify (default) plays calm Music-Mouv songs through the Spotify app (see spotify.py);
     --music jamendo plays the offline local Jamendo files instead.
+    Adaptive layer (Josh): --sim-response --demo-approve-calm --adaptive-state FILE (see ADAPTIVE.md).
 """
 import argparse
 import collections
 import csv
 import io
 import json
+import math
 import os
 import random
 import statistics
@@ -27,9 +29,21 @@ import threading
 import time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+from urllib.parse import urlparse, parse_qs
 
 os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "1"
 import pygame  # noqa: E402
+
+try:
+    from .adaptive_controller import AdaptiveControllerMixin, CONTRACT, song_id
+    from .adaptive_player import Player
+    from .adaptive_adapter import AdaptiveAdapter
+    from .response_simulator import ResponseSimSource
+except ImportError:
+    from adaptive_controller import AdaptiveControllerMixin, CONTRACT, song_id
+    from adaptive_player import Player
+    from adaptive_adapter import AdaptiveAdapter
+    from response_simulator import ResponseSimSource
 
 REPO = Path(__file__).resolve().parent.parent
 LIBRARY = REPO / "app" / "data" / "music_library.json"
@@ -60,6 +74,7 @@ VOLUME = 0.6
 # ---------- heart-rate sources ----------
 class SimSource:
     """Labeled synthetic heart rate. 'rise' / 'rest' set a target the signal drifts toward."""
+    interactive_simulation = True
     label = "SIMULATED heart rate"
 
     def __init__(self, base=72.0):
@@ -183,8 +198,8 @@ def _prefs():
     return prefs.get("preferences", {}), [str(s) for s in prefs.get("excluded", [])]
 
 
-def load_calm_list(music="jamendo"):
-    return load_spotify_calm_list() if music == "spotify" else load_jamendo_calm_list()
+def calm_list_for(music):
+    return load_spotify_calm_list() if music == "spotify" else load_calm_list()
 
 
 def load_spotify_calm_list():
@@ -192,6 +207,7 @@ def load_spotify_calm_list():
 
     Ranked with Josh's rank_music: patient preference first, then lowest Spotify energy (its
     perceptual intensity, standing in for arousal; mapped to the 1-9 scale). Valence is off.
+    This order is the cold-start prior; with the adaptive layer on, it chooses within the list.
     """
     if not SPOTIFY_LIBRARY.exists():
         return []
@@ -206,7 +222,7 @@ def load_spotify_calm_list():
                       target_arousal=1.0, valence_weight=0)
 
 
-def load_jamendo_calm_list():
+def load_calm_list():
     """Calm list (see analysis/classify_calm.py) with a local file, so the demo works offline."""
     if not LIBRARY.exists():
         return []
@@ -232,65 +248,31 @@ def load_jamendo_calm_list():
     return [{**t, "song_id": str(t["song_id"])} for t in ranked]
 
 
-class Player:
-    def __init__(self):
-        pygame.mixer.init()
-        self.track = None
-        self._lock = threading.Lock()
-
-    def _ramp(self, target, seconds):
-        start = pygame.mixer.music.get_volume()
-        steps = max(1, int(seconds / 0.05))
-        for i in range(1, steps + 1):
-            pygame.mixer.music.set_volume(start + (target - start) * i / steps)
-            time.sleep(0.05)
-
-    # Fades run on a worker thread so the control loop never waits on audio.
-    def play(self, track):
-        self.track = track
-        self._started = time.time()
-        threading.Thread(target=self._play, args=(track,), daemon=True).start()
-
-    def _play(self, track):
-        with self._lock:
-            if pygame.mixer.music.get_busy():
-                self._ramp(0, 2.5)
-            if self.track is not track:  # superseded while fading out
-                return
-            pygame.mixer.music.load(str(AUDIO_DIR / f"{track['song_id']}.mp3"))
-            pygame.mixer.music.set_volume(0)
-            pygame.mixer.music.play()
-            self._ramp(VOLUME, 5)
-
-    def silence(self, fade_s=3.0):
-        self.track = None
-        threading.Thread(target=self._silence, args=(fade_s,), daemon=True).start()
-
-    def _silence(self, fade_s):
-        with self._lock:
-            if self.track is not None:  # a newer play() won
-                return
-            if pygame.mixer.music.get_busy():
-                self._ramp(0, fade_s)
-            pygame.mixer.music.stop()
-
-    def ended(self):
-        # Allow time for the fade-in thread to start playback before calling a track finished.
-        return (self.track is not None and time.time() - getattr(self, "_started", 0) > 10
-                and not pygame.mixer.music.get_busy())
-
-
 # ---------- controller ----------
-class Controller:
-    def __init__(self, source, threshold, baseline_s=BASELINE_S, player=None, quiet=False, music="jamendo"):
+class Controller(AdaptiveControllerMixin):
+    def __init__(self, source, threshold, baseline_s=BASELINE_S, player=None, quiet=False,
+                 patient_id="sim-patient-01", adapter=None, external_selection=False, approved_ids=None,
+                 music="jamendo"):
         self.source, self.thr, self.baseline_s = source, threshold, baseline_s
         self.quiet, self.music = quiet, music
-        self.player = player or Player()
-        self.calm = load_calm_list(music)
-        self.lock = threading.Lock()
-        self.events = collections.deque(maxlen=60)
         self.speed = 1.0
-        self._reset()
+        self.sim_source_factory = SimSource
+        self.player = player or Player()
+        self.calm = calm_list_for(music)
+        self.lock = threading.RLock()
+        self.hr, self.smooth = [], []
+        self.baseline = None
+        self.elevated = False
+        self.above = self.below = 0
+        self.stopped = self.nurse = False
+        self.music_s = self.elevated_music_s = self.resting_s = 0
+        self.pause_until = -1
+        self.recent = collections.deque(maxlen=3)
+        self.events = collections.deque(maxlen=60)
+        self.t = 0
+        self.done = False
+        self.warned_empty = False
+        self._adaptive_init(patient_id, adapter, external_selection, approved_ids)
         if music == "spotify":
             self.rank_note = "ranked by lowest Spotify energy via Josh's rank_music"
             what = f"{len(self.calm)} Spotify tracks from Music-Mouv, slow (~{CALM_BPM[0]}-{CALM_BPM[1]} bpm felt) and low energy"
@@ -298,11 +280,14 @@ class Controller:
             self.rank_note = "ranked by Josh's arousal model, checked against HKU956 listener ratings"
             what = f"{len(self.calm)} local Jamendo tracks, slow (~{CALM_BPM[0]}-{CALM_BPM[1]} bpm felt tempo) and sparse"
         self.log(f"Started. Input: {source.label}. Calm list: {what} [Bernardi 2006].")
+        if self.adapter:
+            self.log("Adaptive layer on: Josh's per-person learner picks within the calm list and learns "
+                     "from simulated heart-rate responses (simulation only, not a clinical claim).")
         if not self.calm:
             self.log("No calm tracks available: the room will stay silent. Build the music library first.")
 
     def _reset(self):
-        """Fresh run: new baseline, silent room, no stop/nurse carried over."""
+        """Fresh source/session; retain per-person model, never pending windows."""
         self.hr, self.smooth = [], []
         self.baseline = None
         self.elevated = False
@@ -312,15 +297,18 @@ class Controller:
         self.music_s = self.elevated_music_s = self.resting_s = 0
         self.pause_until = -1
         self.recent = collections.deque(maxlen=3)
-        self.t = 0
-        self.done = False
-        self.warned_empty = False
+        self.t, self.done, self.warned_empty = 0, False, False
+        self._adaptive_init(self.patient_id, self.adapter, self.external_selection, self.approved_ids)
 
     def load_source(self, source, speed=1.0, note=""):
-        """Swap the heart-rate input (console upload or back to simulated) and start over."""
+        """Console upload/replay, with a new observation session and baseline."""
+        speed = max(.5, min(20.0, float(speed)))
+        if (getattr(source, 'interactive_simulation', False) and (self.adapter or self.external_selection)
+                and speed != 1):
+            raise ValueError('Adaptive simulated playback requires speed 1')
         with self.lock:
             self.player.silence(fade_s=1.5)
-            self.source, self.speed = source, max(0.5, min(20.0, float(speed)))
+            self.source, self.speed = source, speed
             self._reset()
             self.log(f"Input switched to {source.label}{note}; replay speed {self.speed:g}×. "
                      f"Learning a new baseline from its first {self.baseline_s} s.")
@@ -348,15 +336,19 @@ class Controller:
                     self.log("Nurse entered → audio faded out so speech and alarms are clear.")
                 else:
                     self.log("Nurse left → room returns to its previous state.")
-                    if getattr(self, "paused_track", None) and not self.stopped:
+                    if (getattr(self, "paused_track", None) and not self.stopped and not self.selection_enabled
+                            and self.t >= self.pause_until):
                         self.player.play(self.paused_track)
             elif action in ("rise", "rest"):
-                if isinstance(self.source, SimSource):
+                if getattr(self.source, "interactive_simulation", False):
                     self.source.set(action)
                     self.log(f"[simulated input] heart rate {'rising' if action == 'rise' else 'returning to rest'}.")
             elif action.startswith("threshold:"):
                 self.thr = max(6, min(15, int(action.split(":")[1])))
                 self.log(f"[test] threshold set to +{self.thr} bpm.")
+            else:
+                raise ValueError("Unknown controller input")
+            self._control_changed(action, source=action in ("rise", "rest"))
 
     def room_state(self):
         if self.stopped:
@@ -368,24 +360,56 @@ class Controller:
         return "Elevated" if self.elevated else "Resting"
 
     def tick(self):
+        with self.lock:
+            self._tick_locked()
+        # Model/checkpoint work must never hold the controller's Stop/control lock.
+        self._adaptive_run()
+        with self.lock:
+            self._drain_player_events()
+
+    def _tick_locked(self):
+        self._drain_player_events()
+        if self.done:
+            return
         v = self.source.next()
         if v is None:
-            if not self.done:
-                self.done = True
-                self.log("Recorded input ended.")
+            self.done = True
+            self._opportunity = None
+            self.player.silence(fade_s=.3)
+            self._emit('source_ended')
+            self._drain_player_events()
+            self.log("Recorded input ended.")
             return
-        with self.lock:
-            self.t += 1
-            self.hr.append(v)
-            self.smooth.append(statistics.median(self.hr[-SMOOTH_S:]))
-            if self.baseline is None and len(self.hr) >= self.baseline_s:
-                self.baseline = statistics.median(self.hr[:self.baseline_s])
-                self.log(f"Baseline set: {self.baseline:.0f} bpm (median of first {self.baseline_s} s"
-                         f"{'' if self.baseline_s == BASELINE_S else ', shortened for demo'}).")
-            if self.baseline is None:
-                return
+        self.t += 1
+        self.signal_ok = isinstance(v, (float, int)) and math.isfinite(v) and v > 0
+        self.hr.append(v if self.signal_ok else None)
+        window = self.hr[-SMOOTH_S:]
+        smooth_valid = all(x is not None for x in window)
+        self.smooth.append(statistics.median(window) if smooth_valid else None)
+        if self.baseline is None:
+            if self.signal_ok:
+                self._baseline_samples.append(v)
+            else:
+                self._baseline_samples.clear()
+            if len(self._baseline_samples) >= self.baseline_s:
+                self.baseline = statistics.median(self._baseline_samples[:self.baseline_s])
+                self.log(f"Baseline set: {self.baseline:.0f} bpm (median of {self.baseline_s} valid samples).")
+        self._sample_event(v)
+        if not self.signal_ok or not smooth_valid:
+            self.above = self.below = 0
+            self.elevated = False
+            self._opportunity = None
+            if self.player.track:
+                self.player.silence(fade_s=.3)
+        elif self.baseline is not None:
             self._update_elevated()
             self._decide()
+        self._drain_player_events()
+
+    def _track_available(self, track):
+        if self.music == "spotify":
+            return bool(track.get("uri"))  # streamed by the Spotify app, nothing cached locally
+        return (AUDIO_DIR / f"{track['song_id']}.mp3").exists()
 
     def _update_elevated(self):
         sm = self.smooth[-1]
@@ -405,6 +429,8 @@ class Controller:
 
     def _decide(self):
         playing = self.player.track
+        if not self.elevated:
+            self._opportunity = None
         if playing:
             self.music_s += 1
         self.elevated_music_s = self.elevated_music_s + 1 if (playing and self.elevated) else 0
@@ -420,6 +446,8 @@ class Controller:
             self._pause("Still elevated after 3 min of calm music → trying silence, which lowered HR most "
                         "[Bernardi 2006].")
         elif self.elevated and (not playing or self.player.ended()):
+            if playing:
+                self.player.track = None
             self._play_next("Elevated" if not playing else "Track ended, still elevated")
         elif playing and not self.elevated and self.resting_s >= RESTING_FADE_S:
             self.player.silence(fade_s=6)
@@ -434,14 +462,20 @@ class Controller:
 
     def _play_next(self, why):
         if not self.calm:  # library may have been built after start-up
-            self.calm = load_calm_list()
+            self.calm = calm_list_for(self.music)
             if self.calm:
                 self.log(f"Music library loaded: {len(self.calm)} calm tracks.")
-        choices =[t for t in self.calm if t["song_id"] not in self.recent] or self.calm
+        pool = self.calm
+        if self.selection_enabled:
+            pool = [t for t in pool if song_id(t["song_id"]) in self.approved_ids]
+        choices = [t for t in pool if t["song_id"] not in self.recent] or pool
         if not choices:
             if not self.warned_empty:
                 self.log(f"{why}, but no calm track is available → staying silent.")
                 self.warned_empty = True
+            return
+        if self.selection_enabled:
+            self._offer_selection(choices)
             return
         t = choices[0]
         self.recent.append(t["song_id"])
@@ -454,19 +488,21 @@ class Controller:
         with self.lock:
             tr = self.player.track
             return {
+                **self._adaptive_snapshot(),
                 "input": self.source.label,
-                "simulated": isinstance(self.source, SimSource) or self.source.label.startswith("FAKE"),
-                "interactive": isinstance(self.source, SimSource),
-                "replay": None if isinstance(self.source, SimSource) else {
+                "simulated": bool(getattr(self.source, "interactive_simulation", False)) or self.source.label.startswith("FAKE"),
+                "interactive": bool(getattr(self.source, "interactive_simulation", False)),
+                "replay": None if getattr(self.source, 'interactive_simulation', False) else {
                     "t": self.source.i, "n": len(self.source.values), "speed": self.speed, "done": self.done},
                 "room": self.room_state(),
                 "hr": self.smooth[-1] if self.smooth else None,
                 "baseline": self.baseline,
                 "threshold": self.thr,
                 "history": self.smooth[-300:],
-                "baseline_progress": min(len(self.hr), self.baseline_s),
+                "baseline_progress": min(len(self._baseline_samples), self.baseline_s),
                 "baseline_needed": self.baseline_s,
                 "now_playing": None if not tr else {
+                    "song_id": song_id(tr["song_id"]), "exposure_id": self._active_exposure,
                     "title": tr.get("title") or tr["song_id"], "artist": tr.get("artist", ""),
                     "why": tr.get("calm_reason", ""), "detail": tr.get("detail", ""),
                     "source": "Spotify" if self.music == "spotify" else "local file"},
@@ -497,13 +533,9 @@ def serve(ctrl, port):
             self._send(code, html.encode(), "text/html; charset=utf-8")
 
         def do_GET(self):
-            path, _, query = self.path.partition("?")
+            parsed = urlparse(self.path)
             auth = getattr(ctrl, "spotify_auth", None)
-            if path == "/state":
-                self._send(200, json.dumps(ctrl.snapshot()).encode(), "application/json")
-            elif path in ("/", "/index.html"):
-                self._send(200, CONSOLE.read_bytes(), "text/html; charset=utf-8")
-            elif path == "/spotify/login":
+            if parsed.path == "/spotify/login":
                 if not auth or not auth.configured:
                     return self._page(400, "Spotify is not set up yet",
                                       "<p>Add your Spotify app's Client ID to <code>resonance/spotify_config.json</code> "
@@ -511,46 +543,65 @@ def serve(ctrl, port):
                 self.send_response(302)
                 self.send_header("Location", auth.login_url())
                 self.end_headers()
-            elif path == "/callback" and auth:
+                return
+            if parsed.path == "/callback" and auth:
                 try:
-                    auth.handle_callback(query)
+                    auth.handle_callback(parsed.query)
                 except Exception as e:  # SpotifyError or network failure
                     ctrl.log(f"Spotify sign-in failed: {e}")
                     return self._page(400, "Spotify sign-in failed", f"<p>{e}</p>")
                 ctrl.log("Spotify connected. Keep the Spotify app open on this computer.")
-                self._page(200, "Spotify connected", "<p>Keep the Spotify app open on this computer. "
-                                                     "You can close this tab.</p>")
+                return self._page(200, "Spotify connected", "<p>Keep the Spotify app open on this computer. "
+                                                            "You can close this tab.</p>")
+            if parsed.path == "/state":
+                self._send(200, json.dumps(ctrl.snapshot(), allow_nan=False).encode(), "application/json")
+            elif parsed.path == "/telemetry":
+                try:
+                    query = parse_qs(parsed.query)
+                    batch = ctrl.telemetry(int(query.get('after_seq', ['0'])[0]), query.get('session_id', [None])[0])
+                    self._send(200, json.dumps(batch, allow_nan=False).encode(), "application/json")
+                except ValueError as error:
+                    self._send(409, json.dumps({'error': str(error)}).encode(), "application/json")
+            elif parsed.path in ("/", "/index.html"):
+                self._send(200, CONSOLE.read_bytes(), "text/html; charset=utf-8")
             else:
                 self._send(404, b"not found", "text/plain")
 
         def do_POST(self):
-            n = int(self.headers.get("Content-Length", 0))
-            if n > MAX_UPLOAD_BYTES:
-                return self._send(413, json.dumps({"error": "file larger than 5 MB"}).encode(), "application/json")
-            body = json.loads(self.rfile.read(n) or b"{}")
-            if self.path == "/input":
-                action = body.get("action", "")
-                if action == "source:sim":
-                    ctrl.load_source(SimSource(), speed=1.0)
+            if self.path not in ("/input", "/select", "/upload"):
+                return self._send(404, b"not found", "text/plain")
+            try:
+                n = int(self.headers.get("Content-Length", 0))
+                if n > MAX_UPLOAD_BYTES:
+                    return self._send(413, b'{"error":"file larger than 5 MB"}', "application/json")
+                if n < 0 or (self.path == '/select' and n > 65536):
+                    raise ValueError("Invalid request length")
+                payload = json.loads(self.rfile.read(n) or b'{}')
+                if self.path == "/select":
+                    result = ctrl.select(payload)
+                elif self.path == "/upload":
+                    name = Path(str(payload.get('name', 'upload.csv'))).name[:80]
+                    values, info = parse_hr_csv(str(payload.get('text', '')))
+                    dropped = f", {info['dropped']} rows dropped" if info['dropped'] else ''
+                    ctrl.load_source(ListSource(values, source_label(name)), speed=payload.get('speed', 1),
+                                     note=f" ({info['seconds']} s of heart rate{dropped})")
+                    result = info
                 else:
-                    ctrl.input(action)
-                return self._send(200, b"{}", "application/json")
-            if self.path == "/upload":
-                # Test control: replay an uploaded heart-rate CSV (a stand-in for the wearable feed).
-                name = Path(str(body.get("name", "upload.csv"))).name[:80]
-                try:
-                    values, info = parse_hr_csv(str(body.get("text", "")))
-                except ValueError as e:
-                    return self._send(400, json.dumps({"error": str(e)}).encode(), "application/json")
-                dropped = f", {info['dropped']} rows dropped" if info["dropped"] else ""
-                ctrl.load_source(ListSource(values, source_label(name)), speed=body.get("speed", 1),
-                                 note=f" ({info['seconds']} s of heart rate{dropped})")
-                return self._send(200, json.dumps(info).encode(), "application/json")
-            self._send(404, b"not found", "text/plain")
+                    action = payload.get("action", "")
+                    if action == 'source:sim':
+                        ctrl.load_source(ctrl.sim_source_factory(), speed=1)
+                    else:
+                        ctrl.input(action)
+                    result = {}
+                self._send(200, json.dumps(result).encode(), "application/json")
+            except (ValueError, TypeError, KeyError, AttributeError) as error:
+                self._send(409 if self.path == "/select" else 400,
+                           json.dumps({'error': str(error)}).encode(), "application/json")
 
     srv = ThreadingHTTPServer(("127.0.0.1", port), Handler)
     threading.Thread(target=srv.serve_forever, daemon=True).start()
-    ctrl.log(f"Developer / Demo Console at http://127.0.0.1:{port} (optional).")
+    ctrl.log(f"Developer / Demo Console at http://127.0.0.1:{srv.server_port} (optional).")
+    return srv
 
 
 def keyboard(ctrl, stop_event):
@@ -596,19 +647,49 @@ def main():
     ap.add_argument("--threshold", type=int, default=10)
     ap.add_argument("--port", type=int, default=8765)
     ap.add_argument("--no-console", action="store_true")
-    ap.add_argument("--music", choices=("spotify", "jamendo"), default="spotify",
-                    help="spotify: Music-Mouv songs via the Spotify app (default); jamendo: offline local files")
     ap.add_argument("--speed", type=float, default=1.0, help="replay speed for recorded input")
     ap.add_argument("--baseline-s", type=int, default=BASELINE_S,
                     help="seconds of rest used for the baseline (120 normally; shorter only for demos)")
+    selection = ap.add_mutually_exclusive_group()
+    selection.add_argument('--adaptive-state', type=Path, help='Enable connected adaptive adapter; checkpoint JSON path')
+    selection.add_argument('--external-selection', action='store_true', help='Let an external adapter use /select')
+    ap.add_argument('--patient-id', default='sim-patient-01')
+    approval = ap.add_mutually_exclusive_group()
+    approval.add_argument('--approved-tracks', type=Path, help='JSON {patient_id: {jamendo:song_id: preference}}')
+    approval.add_argument('--demo-approve-calm', action='store_true', help='SIMULATION ONLY: approve cached calm tracks')
+    ap.add_argument('--sim-response', action='store_true', help='Use deliberately invented patient/song responses')
+    ap.add_argument('--no-audio-effect', action='store_true', help='Synthetic control: song has no HR effect')
+    ap.add_argument('--seed', type=int, default=42)
+    ap.add_argument("--music", choices=("spotify", "jamendo"), default="spotify",
+                    help="spotify: Music-Mouv songs via the Spotify app (default); jamendo: offline local files")
     args = ap.parse_args()
+    adaptive = bool(args.adaptive_state or args.external_selection)
+    if (adaptive or args.sim_response or args.no_audio_effect or args.demo_approve_calm) and args.source != 'sim':
+        ap.error('Adaptive/demo response modes currently support --source sim only')
+    if adaptive and not (args.approved_tracks or args.demo_approve_calm):
+        ap.error('Adaptive mode needs --approved-tracks or explicit --demo-approve-calm')
+    if adaptive and args.speed != 1:
+        ap.error('Adaptive playback requires --speed 1; use offline tests for accelerated simulation')
+    if args.speed <= 0 or args.baseline_s < 1:
+        ap.error('speed and baseline-s must be positive')
 
+    source = (ResponseSimSource(args.patient_id, args.seed, args.no_audio_effect)
+              if args.sim_response or args.no_audio_effect else make_source(args.source))
+    approvals = {}
+    if args.approved_tracks:
+        approvals = json.loads(args.approved_tracks.read_text()).get(args.patient_id, {})
+    elif args.demo_approve_calm:
+        approvals = {song_id(t['song_id']): t.get('preference', .5) for t in calm_list_for(args.music)}
+    adapter = (AdaptiveAdapter(args.adaptive_state, seed=args.seed, catalog=args.music)
+               if args.adaptive_state else None)
     auth = player = None
     if args.music == "spotify":
         from spotify import SpotifyAuth, SpotifyPlayer
         auth = SpotifyAuth(args.port)
         player = SpotifyPlayer(auth)
-    ctrl = Controller(make_source(args.source), args.threshold, args.baseline_s, player=player, music=args.music)
+    ctrl = Controller(source, args.threshold, args.baseline_s, player=player, patient_id=args.patient_id,
+                      adapter=adapter, external_selection=args.external_selection, approved_ids=approvals,
+                      music=args.music)
     if auth:
         ctrl.spotify_auth, player.on_error = auth, ctrl.log
         if not auth.configured:
@@ -618,6 +699,8 @@ def main():
             ctrl.log(f"Spotify not connected yet: open http://127.0.0.1:{args.port} and click Connect Spotify.")
         else:
             ctrl.log("Spotify connected. Keep the Spotify app open on this computer.")
+    if args.sim_response or args.no_audio_effect:
+        ctrl.sim_source_factory = lambda: ResponseSimSource(args.patient_id, args.seed, args.no_audio_effect)
     if not args.no_console:
         serve(ctrl, args.port)
     stop_event = threading.Event()
@@ -628,7 +711,7 @@ def main():
         while not stop_event.is_set():
             start = time.time()
             ctrl.tick()
-            time.sleep(max(0, 1.0 / ctrl.speed - (time.time() - start)))  # speed can change on upload
+            time.sleep(max(0, 1.0 / ctrl.speed - (time.time() - start)))
     except KeyboardInterrupt:
         pass
     ctrl.player.silence(fade_s=1)

@@ -25,8 +25,9 @@ class NullPlayer:
 
     def __init__(self):
         self.track, self.ctrl, self.started = None, None, 0
+        self.on_event = None  # set by the controller's adaptive layer; unused here
 
-    def play(self, track):
+    def play(self, track, exposure_id=None):
         self.track, self.started = track, self.ctrl.t
 
     def silence(self, fade_s=0):

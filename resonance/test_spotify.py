@@ -121,6 +121,37 @@ def test_premium_error_is_reported_once():
     assert len(errors) == 1 and "Premium" in errors[0]
 
 
+@mock.patch.object(spotify.time, "sleep", lambda s: None)
+def test_simulator_adaptive_layer_and_spotify_player_connect(tmp_path):
+    """Simulated HR -> controller -> Josh's adaptive learner -> Spotify player (faked) -> learning update."""
+    import controller as c
+    from adaptive_adapter import AdaptiveAdapter
+    from adaptive_controller import song_id
+    from response_simulator import ResponseSimSource
+
+    fake = FakeSpotify()
+    player, errors = make_player(fake)
+    calm = c.load_spotify_calm_list()
+    assert calm and all(song_id(t["song_id"]).startswith("spotify:") for t in calm)
+    learner = AdaptiveAdapter(tmp_path / "adaptive.json", epsilon=0, catalog="spotify")
+    ctrl = c.Controller(ResponseSimSource("p1", seed=1), 10, player=player, quiet=True, patient_id="p1",
+                        adapter=learner, approved_ids={song_id(t["song_id"]): .5 for t in calm}, music="spotify")
+    for _ in range(125):
+        ctrl.tick()
+    ctrl.input("rise")
+    started = None
+    for _ in range(500):
+        ctrl.tick()
+        wait_idle(player)
+        started = started or next((r for r in ctrl._telemetry if r["type"] == "playback_started"), None)
+        if learner.summary("p1")["updates"]:
+            break
+    assert started and started["song_id"].startswith("spotify:") and started["policy"] == "adaptive-v1"
+    assert any(call[1] == "/me/player/play" for call in fake.calls)
+    assert learner.summary("p1")["updates"] == 1 and not errors
+    assert json.loads((tmp_path / "adaptive.json").read_text())["feature_schema"] == "spotify-descriptors-state/1"
+
+
 def test_ended_detects_stopped_or_changed_track():
     fake = FakeSpotify()
     p, _ = make_player(fake)

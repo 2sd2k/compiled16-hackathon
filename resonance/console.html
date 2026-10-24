@@ -101,6 +101,7 @@ code { font-size: 12px; }
         <div><span class="k">Elevated at</span><span id="thr" class="v">–</span></div>
       </div>
       <div class="playing" id="playing">Room is silent.</div>
+      <div id="adaptive" class="spotify" hidden></div>
       <div id="spotify" class="spotify" hidden>
         <span id="spState"></span>
         <a id="spConnect" class="btnlink" href="/spotify/login" hidden>Connect Spotify</a>
@@ -192,6 +193,17 @@ function render(s) {
   $("playing").innerHTML = p
     ? `♪ <b>${esc(p.title)}</b> · ${esc(p.artist)}<br><span style="color:var(--muted)">${esc(p.why)} · ${esc(p.detail)} · approved calm list · via ${esc(p.source)}</span>`
     : "Room is silent.";
+  const ad = s.adaptive, adBox = $("adaptive");
+  adBox.hidden = !(s.learning_enabled && ad && !ad.external);
+  if (!adBox.hidden) {
+    const WAIT = { ready: "ready to choose", waiting_for_controller: "waiting for an elevated moment",
+      pre_existing_trend: "waiting for heart rate to steady", source_command_settling_period: "settling after a simulated input change",
+      incomplete_pre_window: "collecting 30 s of heart rate", contaminated_pre_window: "waiting for 30 quiet seconds" };
+    const last = ad.last_observation;
+    const reward = last && last.updated ? ` · last response score ${last.reward >= 0 ? "+" : ""}${last.reward.toFixed(2)}` : "";
+    adBox.textContent = ad.error ? `Adaptive layer paused: ${ad.error}` : ad.updating ? "Adaptive layer: updating…"
+      : `Adaptive layer (Josh, simulation): ${ad.updates ?? 0} response${ad.updates === 1 ? "" : "s"} learned${reward} · ${WAIT[ad.waiting_reason] || ad.waiting_reason || ""}`;
+  }
   const sp = s.spotify, box = $("spotify");
   box.hidden = !sp;
   if (sp) {
