@@ -1,0 +1,75 @@
+{
+  "note": "Heart rate is context, not a diagnosis. Healthy-volunteer demo; no clinical effect is claimed. Sources verified against the originals on 2026-10-24 unless marked secondary.",
+  "sources": {
+    "bernardi2006": {
+      "cite": "Bernardi, Porta & Sleight (2006), Heart 92(4):445-452",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1860846/",
+      "design": "24 healthy adults (12 musicians); 6 tracks at 55-150 bpm in random order; a random 2-min silent pause",
+      "findings": [
+        "Faster tempo raised heart rate, blood pressure and breathing.",
+        "The slowest track (raga, 55 bpm) gave a significantly larger fall in heart rate (p < 0.01).",
+        "The silent pause lowered heart rate, blood pressure and ventilation even below baseline.",
+        "Effects depended on tempo rather than style; preference did not explain them."
+      ],
+      "caveat": "Small, healthy, young volunteers; 2-4 min exposures.",
+      "verified": true
+    },
+    "bradt2013": {
+      "cite": "Bradt, Dileo & Potvin (2013), Cochrane Review CD006577: music for stress and anxiety in coronary heart disease",
+      "url": "https://www.cochrane.org/th/evidence/CD006577_music-reduce-stress-and-anxiety-people-coronary-heart-disease",
+      "design": "26 trials, 1,369 patients",
+      "findings": [
+        "Heart rate: mean difference -3.40 bpm (95% CI -6.12 to -0.69).",
+        "Systolic BP: -5.52 mmHg.",
+        "Anxiety reduction was greatest when patients chose the music (SMD -0.89)."
+      ],
+      "caveat": "Small trials, many at high risk of bias; 'quality of the evidence is not strong'.",
+      "verified": true
+    },
+    "zhang2026": {
+      "cite": "Zhang et al. (2026), Frontiers in Psychology: music intervention and HRV, meta-analysis of 24 RCTs",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12976007/",
+      "design": "24 RCTs, 1,295 participants",
+      "findings": [
+        "Short interventions (<= 30 min) were particularly effective for HFnu.",
+        "Participant-selected music yielded superior outcomes to standardized music."
+      ],
+      "caveat": "HRV outcomes (we use HR only); subgroup findings from few studies; high heterogeneity.",
+      "verified": true
+    },
+    "kim2018": {
+      "cite": "Kim et al. (2018), Psychiatry Investigation: stress and HRV review",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5900369",
+      "design": "Review of 37 studies",
+      "findings": [
+        "Heart rate tends to rise under stress.",
+        "HR is also affected by posture, activity, caffeine, smoking, age and medications such as beta-blockers; pair with self-report."
+      ],
+      "caveat": "Narrative review; no standard definition of stress.",
+      "verified": false
+    },
+    "vieira_mri": {
+      "cite": "Vieira et al., Radiography: music interventions during MRI (via news summary)",
+      "url": "https://healthimaging.com/topics/medical-imaging/magnetic-resonance-imaging-mri/music-interventions-mri-study-anxiety",
+      "design": "Meta-analysis of 4 studies",
+      "findings": [
+        "Lower heart rate with music; some fast or aggressive patient picks did not help."
+      ],
+      "caveat": "Secondary source; the primary paper was not checked.",
+      "verified": false
+    }
+  },
+  "rules": [
+    {"id": "stop", "kind": "guardrail", "text": "If the patient says stop, go silent and stay silent until they re-enable audio.", "sources": []},
+    {"id": "care_present", "kind": "guardrail", "text": "Fade out and pause while a nurse or clinician is present.", "sources": []},
+    {"id": "approved_only", "kind": "evidence", "text": "Only play tracks the patient approved from the calm list.", "sources": ["bradt2013", "zhang2026"]},
+    {"id": "tempo_calm", "kind": "evidence", "text": "Calm list = steady tempo of roughly 55-70 bpm. The slowest tempo gave the largest heart-rate fall.", "sources": ["bernardi2006"]},
+    {"id": "no_fast", "kind": "evidence", "text": "Exclude fast or high-energy tracks (around 100 bpm and up raised heart rate).", "sources": ["bernardi2006", "vieira_mri"]},
+    {"id": "silence_option", "kind": "evidence", "text": "Silence is a real option: if heart rate stays elevated during music, try a silent pause.", "sources": ["bernardi2006"]},
+    {"id": "session_cap", "kind": "evidence", "text": "Keep music sessions to about 30 minutes, then pause and re-evaluate.", "sources": ["zhang2026"]},
+    {"id": "small_effects", "kind": "evidence", "text": "Expect a few bpm at most; judge by the trend back toward baseline, not by a target number.", "sources": ["bradt2013"]},
+    {"id": "context_not_diagnosis", "kind": "evidence", "text": "A heart-rate rise is a physiological change, not anxiety. Ignore rises caused by movement.", "sources": ["kim2018"]},
+    {"id": "tiebreak_calm_texture", "kind": "heuristic", "text": "Tie-breaker: prefer fewer note onsets, lower loudness, steadier dynamics and less treble. Not tested in the trials above.", "sources": []},
+    {"id": "tiebreak_observed", "kind": "observational", "text": "Tie-breaker: prefer tracks whose HKU956 listeners' heart rate drifted down. Observational only (self-chosen songs, ~50 s plays), not causal.", "sources": []}
+  ]
+}

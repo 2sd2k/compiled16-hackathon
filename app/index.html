@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resonance Console</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div>
+    <h1>Resonance <span class="sub">operator test console</span></h1>
+    <p class="muted">Heart rate is context, not a diagnosis. Healthy-volunteer demo; no clinical effect is claimed.</p>
+  </div>
+  <span id="sourceBadge" class="badge"></span>
+</header>
+
+<main class="grid">
+  <!-- 1. Input -->
+  <section class="panel" aria-labelledby="h-input">
+    <h2 id="h-input">1 · Heart-rate input</h2>
+    <div class="row">
+      <label>Source
+        <select id="sourceSel">
+          <option value="recorded">Recorded session (HKU956 replay)</option>
+          <option value="sim">Simulated stress episode</option>
+        </select>
+      </label>
+      <label id="pidWrap">Participant
+        <select id="pidSel"></select>
+      </label>
+    </div>
+    <div class="row">
+      <button id="playBtn" class="primary">▶ Start replay</button>
+      <button id="resetBtn">↺ Restart</button>
+      <label>Speed
+        <select id="speedSel">
+          <option value="1">1×</option>
+          <option value="5">5×</option>
+          <option value="20" selected>20×</option>
+          <option value="60">60×</option>
+        </select>
+      </label>
+    </div>
+    <p id="sourceNote" class="note"></p>
+
+    <div class="stats">
+      <div><span class="k">Heart rate (10 s median)</span><span id="hrNow" class="v">–</span></div>
+      <div><span class="k">Personal baseline</span><span id="hrBase" class="v">–</span></div>
+      <div><span class="k">Above baseline</span><span id="hrDelta" class="v">–</span></div>
+      <div><span class="k">State</span><span id="hrState" class="v">–</span></div>
+    </div>
+
+    <figure class="chart">
+      <figcaption>Heart rate, last 10 minutes <span class="legend"><i class="sw line"></i>HR <i class="sw dash"></i>baseline <i class="sw thr"></i>threshold <i class="sw band"></i>elevated</span></figcaption>
+      <div class="canvasWrap">
+        <canvas id="chart" height="220" aria-label="Heart rate over the last 10 minutes"></canvas>
+        <div id="tip" class="tip" hidden></div>
+      </div>
+    </figure>
+
+    <div class="row">
+      <label>Elevated when HR ≥ baseline +
+        <input id="thrIn" type="range" min="6" max="15" step="1" value="10"> <b id="thrVal">10</b> bpm for 20 s
+      </label>
+    </div>
+    <p class="note">Rule from <code>hr_test.py</code> (re-implemented). Movement filter: <b>not available</b> here: HKU956 released no accelerometer data.</p>
+  </section>
+
+  <!-- 2. Agent -->
+  <section class="panel" aria-labelledby="h-agent">
+    <h2 id="h-agent">2 · Evidence agent</h2>
+    <div class="row">
+      <button id="stopBtn" class="danger">Patient: “Stop”</button>
+      <button id="nurseBtn">Nurse present (simulated)</button>
+      <button id="audioBtn">🔊 Audio on</button>
+    </div>
+
+    <div id="decision" class="decision">
+      <div class="action" id="decAction">Waiting to start</div>
+      <div class="detail" id="decDetail">Press Start replay. Audio needs that click to be allowed by the browser.</div>
+    </div>
+
+    <div class="nowplaying">
+      <span class="muted">Now playing:</span> <span id="nowTrack">silence</span>
+      <span class="muted" id="sessionClock"></span>
+    </div>
+
+    <h3>Rules checked for this decision</h3>
+    <ul id="ruleList" class="rules"></ul>
+
+    <h3>Top candidates from the approved calm list</h3>
+    <table class="cand">
+      <thead><tr><th>Track</th><th>BPM</th><th>Key</th><th>Score</th><th>Why</th></tr></thead>
+      <tbody id="candBody"></tbody>
+    </table>
+    <p class="note">Score: slower within the calm band (evidence) + calmer texture (heuristic) + HKU956 observed HR drift (observational). The recorded input does not respond to the audio chosen here.</p>
+    <audio id="player" preload="none"></audio>
+  </section>
+
+  <!-- 3. Library -->
+  <section class="panel wide" aria-labelledby="h-lib">
+    <h2 id="h-lib">3 · Music library <span id="libCount" class="muted"></span></h2>
+    <div class="row filters">
+      <label>BPM from <input id="bpmMin" type="number" value="55" min="30" max="200" step="1"></label>
+      <label>to <input id="bpmMax" type="number" value="70" min="30" max="200" step="1"></label>
+      <label><input id="halfTime" type="checkbox"> count half-time readings</label>
+      <label>Mode
+        <select id="modeSel"><option value="">any</option><option>major</option><option>minor</option></select>
+      </label>
+      <label><input id="calmOnly" type="checkbox" checked> calm list only</label>
+      <label>Search <input id="search" type="search" placeholder="title or artist"></label>
+      <button id="approveAll">Approve all shown</button>
+      <button id="approveNone">Clear approvals</button>
+    </div>
+    <p class="note" id="calmNote"></p>
+    <div class="tableWrap">
+      <table id="libTable" class="lib">
+        <thead><tr>
+          <th>Approved</th>
+          <th data-k="title">Track</th>
+          <th data-k="bpm" class="num">BPM</th>
+          <th data-k="key">Key</th>
+          <th data-k="loudness_dbfs" class="num">Loudness dBFS</th>
+          <th data-k="dynamics_db" class="num">Dynamics dB</th>
+          <th data-k="brightness_hz" class="num">Brightness Hz</th>
+          <th data-k="bass_share" class="num">Bass / mid / treble</th>
+          <th data-k="onsets_per_s" class="num">Onsets/s</th>
+          <th data-k="hku_hr_delta_mean" class="num">HKU ΔHR (n)</th>
+          <th data-k="license">License</th>
+          <th></th>
+        </tr></thead>
+        <tbody id="libBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 4. Evidence -->
+  <section class="panel wide" id="evidence" aria-labelledby="h-ev">
+    <h2 id="h-ev">4 · Clinical evidence the agent uses</h2>
+    <div id="evSources" class="sources"></div>
+  </section>
+</main>
+
+<footer class="muted">
+  Physiology: HKU956 (Hu, Li &amp; Liu 2022, CC BY-NC 4.0). Audio streamed from Jamendo under each track's Creative Commons license.
+</footer>
+<script src="app.js"></script>
+</body>
+</html>
