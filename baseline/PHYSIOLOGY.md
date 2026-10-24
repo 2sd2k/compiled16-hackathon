@@ -64,7 +64,9 @@ participants can overlap in that second evaluation. Neither evaluation holds
 out both factors simultaneously. Ridge regularization is chosen separately for
 state-only, audio-only and state-plus-audio models on validation MAE from
 {1,10,100,1000}; median imputation/scaling are fitted on train only. Test compares
-them with the training-mean baseline. No model is refitted on validation/test.
+them with a no-change baseline (always predict a 0 BPM change) and the
+training-mean baseline. The no-change prediction requires no fitting or access
+to outcome labels. No model is refitted on validation/test.
 
 `hr_metrics.json` records exclusions, counts, selection, MAE/R² and a seeded
 1,000-resample held-out-group bootstrap interval for combined-minus-state MAE.
@@ -98,6 +100,7 @@ the separate track split contains 151/28/30 trials from 125/27/27 tracks.
 
 | Model | Participant-held-out MAE (BPM) | R² | Track-held-out MAE (BPM) | R² |
 | --- | ---: | ---: | ---: | ---: |
+| No change (predict 0 BPM change) | 6.417 | -0.0039 | 3.956 | -0.141 |
 | Training mean | 6.339 | -0.0005 | 3.872 | -0.103 |
 | State only | 4.607 | 0.550 | 3.673 | 0.035 |
 | Audio only | 6.363 | -0.003 | 3.883 | -0.110 |
@@ -109,3 +112,9 @@ combined-minus-state MAE is [-0.262, 0.538] BPM across held-out participants and
 [-0.079, 0.740] BPM across held-out tracks. This small observational experiment
 does not establish that music has no physiological effect. It does not support
 a claim that these audio features improve HR-response prediction.
+
+The state-only model also beats the no-change baseline in both evaluations.
+The state-plus-audio model beats no-change on held-out participants but is
+slightly worse on held-out tracks (3.972 versus 3.956 BPM MAE). The comparison
+does not establish that music causes the observed changes. Reproduction and
+test evidence for the added control is in [NO_CHANGE_VALIDATION.md](NO_CHANGE_VALIDATION.md).
