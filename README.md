@@ -4,9 +4,18 @@ An adaptive hospital-room soundscape with **no screen for the patient or nurse**
 
 Heart rate is context, not a diagnosis. This is a healthy-volunteer demo and claims no clinical effect.
 
+## Easiest way to start: double-click
+
+After cloning the repo (step 1 below), double-click:
+
+- **Mac:** `start-mac.command`. If macOS blocks it, right-click it, choose **Open**, then **Open** again.
+- **Windows:** `start-windows.bat`
+
+The first run sets up Python packages and asks once for the team's **Spotify Client ID**; press Enter instead to use the offline music. It then starts Resonance and opens the console in your browser. Keep the window open while testing; press `q` in it or close it to stop. Needs Python 3.12 installed (https://www.python.org/downloads/).
+
 ## Quick start for teammates (test with your own dataset files)
 
-The working code is on the **`chc166/dev`** branch. You need Git and Python 3.12.
+The working code is on **`main`** (and `chc166/dev`). You need Git and Python 3.12. The double-click launchers above do steps 2–4 for you.
 
 **1. Get the code (once)**
 
