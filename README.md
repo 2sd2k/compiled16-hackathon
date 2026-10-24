@@ -53,6 +53,22 @@ The baseline needs 2 minutes of rest, so start the controller at least 2 minutes
 
 `--speed 20` replays recorded input faster; `--no-console` runs with no web page at all.
 
+### Upload a heart-rate file from the console
+
+In the Demo Console, **Load a heart-rate file** → choose a CSV → pick a replay speed (1×, 4×, 10×) → **Load & replay**. The controller resets, learns a fresh baseline from the file's first 2 minutes, and replays it through the same decision loop, so you hear the music respond. **Back to simulated input** returns to the key-driven feed.
+
+- Format: a header row with `t,hr` (seconds, bpm), or a single `hr` / `heart_rate` / `bpm` / `pulse` column at one reading per second. Up to 5 MB, at least 30 s.
+- Cleaning (same as `hr_test.py`): readings outside 40–200 bpm are dropped, data is averaged to 1 Hz, gaps up to 5 s are filled with the last value, and longer gaps are skipped. The console reports what was dropped.
+- Files whose names start with `fake` are labeled **FAKE** in the console. Uploading is a test control standing in for the wearable feed.
+
+### Scorecard on the fake datasets
+
+```bash
+python resonance/scorecard.py
+```
+
+Runs the controller silently over each labeled fake file and reports, per phase, how much of the time music played and whether heart rate was flagged elevated. It also reports how soon music started after the rise, false alarms at rest, and a threshold sweep (+6 to +15 bpm). This checks that the system acts correctly and on time. Fake heart rate doesn't respond to music, so it says nothing about effect.
+
 ### 2-minute demo flow
 
 1. Wearer at rest: console shows **Resting**, room is silent.

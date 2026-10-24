@@ -15,6 +15,7 @@ Usage:
 import argparse
 import collections
 import csv
+import io
 import json
 import os
 import random
@@ -86,15 +87,81 @@ class ListSource:
         return v
 
 
+MAX_UPLOAD_BYTES = 5_000_000
+HR_COLUMNS = ("hr", "heart_rate", "heartrate", "heart rate", "bpm", "pulse")
+T_COLUMNS = ("t", "time", "seconds", "time_s")
+
+
+def _num(s):
+    try:
+        v = float(str(s).strip())
+    except ValueError:
+        return None
+    return v if v == v and abs(v) != float("inf") else None
+
+
+def parse_hr_csv(text):
+    """Heart-rate CSV -> 1 Hz values. Needs an hr column (t in seconds optional) or one bare column.
+
+    Cleaning follows hr_test.py: drop readings outside 40-200 bpm, average to 1 Hz, carry the last
+    value across gaps of up to 5 s; longer gaps are skipped rather than invented.
+    """
+    rows = [r for r in csv.reader(io.StringIO(text)) if any(c.strip() for c in r)]
+    if not rows:
+        raise ValueError("the file is empty")
+    header = [c.strip().lower() for c in rows[0]]
+    hr_col = next((header.index(c) for c in HR_COLUMNS if c in header), None)
+    t_col = next((header.index(c) for c in T_COLUMNS if c in header), None)
+    if hr_col is not None:
+        data = rows[1:]
+    elif len(rows[0]) == 1 and _num(rows[0][0]) is not None:
+        hr_col, data = 0, rows
+    else:
+        raise ValueError("no heart-rate column: use a header with 'hr' (and optionally 't' in seconds)")
+
+    readings, dropped = [], 0
+    for i, r in enumerate(data):
+        hr = _num(r[hr_col]) if hr_col < len(r) else None
+        t = (_num(r[t_col]) if t_col < len(r) else None) if t_col is not None else float(i)
+        if hr is None or t is None or not 40 <= hr <= 200:
+            dropped += 1
+            continue
+        readings.append((t, hr))
+    if not readings:
+        raise ValueError("no readings between 40 and 200 bpm")
+    readings.sort()
+    per_s = {}
+    for t, hr in readings:
+        per_s.setdefault(int(t - readings[0][0]), []).append(hr)
+    values, last, gap, filled, skipped = [], None, 0, 0, 0
+    for s in range(max(per_s) + 1):
+        if s in per_s:
+            last, gap = round(statistics.mean(per_s[s]), 1), 0
+            values.append(last)
+        else:
+            gap += 1
+            if gap <= 5:
+                values.append(last)
+                filled += 1
+            else:
+                skipped += 1
+    if len(values) < 30:
+        raise ValueError(f"only {len(values)} s of usable heart rate; need at least 30 s")
+    return values, {"rows": len(data), "dropped": dropped, "seconds": len(values),
+                    "gap_seconds_filled": filled, "gap_seconds_skipped": skipped}
+
+
+def source_label(name):
+    return f"FAKE dataset {name}" if name.lower().startswith("fake") else f"Uploaded file {name}"
+
+
 def make_source(spec):
     if spec == "sim":
         return SimSource()
     kind, _, arg = spec.partition(":")
     if kind == "csv":
-        with open(arg, newline="") as f:
-            vals = [float(r["hr"]) for r in csv.DictReader(f) if r.get("hr")]
-        name = Path(arg).name
-        return ListSource(vals, f"FAKE dataset {name}" if name.startswith("fake") else f"Recorded CSV {name}")
+        values, _ = parse_hr_csv(Path(arg).read_text(encoding="utf-8-sig"))
+        return ListSource(values, source_label(Path(arg).name))
     if kind == "garmin":
         # Planned live input: the watch's "broadcast heart rate" mode sends the standard BLE Heart Rate
         # Service (0x180D), readable with a BLE library such as bleak. Implement next() to return the
@@ -187,22 +254,37 @@ class Controller:
         self.player = player or Player()
         self.calm = load_calm_list()
         self.lock = threading.Lock()
+        self.events = collections.deque(maxlen=60)
+        self.speed = 1.0
+        self._reset()
+        self.log(f"Started. Input: {source.label}. Calm list: {len(self.calm)} local tracks, slow "
+                 f"(~{CALM_BPM[0]}-{CALM_BPM[1]} bpm felt tempo) and sparse [Bernardi 2006].")
+        if not self.calm:
+            self.log("No calm tracks available: the room will stay silent. Build the music library first.")
+
+    def _reset(self):
+        """Fresh run: new baseline, silent room, no stop/nurse carried over."""
         self.hr, self.smooth = [], []
         self.baseline = None
         self.elevated = False
         self.above = self.below = 0
         self.stopped = self.nurse = False
+        self.paused_track = None
         self.music_s = self.elevated_music_s = self.resting_s = 0
         self.pause_until = -1
         self.recent = collections.deque(maxlen=3)
-        self.events = collections.deque(maxlen=60)
         self.t = 0
         self.done = False
         self.warned_empty = False
-        self.log(f"Started. Input: {source.label}. Calm list: {len(self.calm)} local tracks, slow "
-                 f"(~{CALM_BPM[0]}-{CALM_BPM[1]} bpm felt tempo) and sparse [Bernardi 2006].")
-        if not self.calm:
-            self.log("No calm tracks available: the room will stay silent. Build the music library first.")
+
+    def load_source(self, source, speed=1.0, note=""):
+        """Swap the heart-rate input (console upload or back to simulated) and start over."""
+        with self.lock:
+            self.player.silence(fade_s=1.5)
+            self.source, self.speed = source, max(0.5, min(20.0, float(speed)))
+            self._reset()
+            self.log(f"Input switched to {source.label}{note}; replay speed {self.speed:g}×. "
+                     f"Learning a new baseline from its first {self.baseline_s} s.")
 
     def log(self, msg):
         self.events.appendleft({"time": time.strftime("%H:%M:%S"), "msg": msg})
@@ -338,6 +420,8 @@ class Controller:
                 "input": self.source.label,
                 "simulated": isinstance(self.source, SimSource) or self.source.label.startswith("FAKE"),
                 "interactive": isinstance(self.source, SimSource),
+                "replay": None if isinstance(self.source, SimSource) else {
+                    "t": self.source.i, "n": len(self.source.values), "speed": self.speed, "done": self.done},
                 "room": self.room_state(),
                 "hr": self.smooth[-1] if self.smooth else None,
                 "baseline": self.baseline,
@@ -376,12 +460,29 @@ def serve(ctrl, port):
                 self._send(404, b"not found", "text/plain")
 
         def do_POST(self):
-            if self.path != "/input":
-                return self._send(404, b"not found", "text/plain")
             n = int(self.headers.get("Content-Length", 0))
-            action = json.loads(self.rfile.read(n) or b"{}").get("action", "")
-            ctrl.input(action)
-            self._send(200, b"{}", "application/json")
+            if n > MAX_UPLOAD_BYTES:
+                return self._send(413, json.dumps({"error": "file larger than 5 MB"}).encode(), "application/json")
+            body = json.loads(self.rfile.read(n) or b"{}")
+            if self.path == "/input":
+                action = body.get("action", "")
+                if action == "source:sim":
+                    ctrl.load_source(SimSource(), speed=1.0)
+                else:
+                    ctrl.input(action)
+                return self._send(200, b"{}", "application/json")
+            if self.path == "/upload":
+                # Test control: replay an uploaded heart-rate CSV (a stand-in for the wearable feed).
+                name = Path(str(body.get("name", "upload.csv"))).name[:80]
+                try:
+                    values, info = parse_hr_csv(str(body.get("text", "")))
+                except ValueError as e:
+                    return self._send(400, json.dumps({"error": str(e)}).encode(), "application/json")
+                dropped = f", {info['dropped']} rows dropped" if info["dropped"] else ""
+                ctrl.load_source(ListSource(values, source_label(name)), speed=body.get("speed", 1),
+                                 note=f" ({info['seconds']} s of heart rate{dropped})")
+                return self._send(200, json.dumps(info).encode(), "application/json")
+            self._send(404, b"not found", "text/plain")
 
     srv = ThreadingHTTPServer(("127.0.0.1", port), Handler)
     threading.Thread(target=srv.serve_forever, daemon=True).start()
@@ -421,12 +522,12 @@ def main():
     stop_event = threading.Event()
     threading.Thread(target=keyboard, args=(ctrl, stop_event), daemon=True).start()
     print("Keys: s = stop/resume, n = nurse in/out, r = simulated rise, c = simulated rest, q = quit", flush=True)
-    period = 1.0 / args.speed
+    ctrl.speed = args.speed
     try:
         while not stop_event.is_set():
             start = time.time()
             ctrl.tick()
-            time.sleep(max(0, period - (time.time() - start)))
+            time.sleep(max(0, 1.0 / ctrl.speed - (time.time() - start)))  # speed can change on upload
     except KeyboardInterrupt:
         pass
     ctrl.player.silence(fade_s=1)

@@ -65,6 +65,12 @@ button.on { background: var(--sim); border-color: var(--sim-border); }
 .log li { padding: 6px 0; border-bottom: 1px solid var(--border); }
 .log time { color: var(--muted); font-variant-numeric: tabular-nums; margin-right: 6px; }
 .offline { color: var(--elev); font-size: 13px; }
+.upload { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.upload input[type=file] { font: inherit; font-size: 13px; color: var(--ink-2); max-width: 100%; }
+.spd { font-size: 13px; color: var(--ink-2); display: inline-flex; gap: 6px; align-items: center; }
+select { font: inherit; font-size: 13px; color: var(--ink); background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 4px 6px; }
+code { font-size: 12px; }
+.err { color: var(--elev); }
 </style>
 </head>
 <body>
@@ -107,6 +113,18 @@ button.on { background: var(--sim); border-color: var(--sim-border); }
         <button id="thrUp">Threshold +1</button>
       </div>
       <p class="hint">Same as keys in the controller window: r rise · c rest · n nurse · s stop.</p>
+
+      <h2 style="margin-top:16px">Load a heart-rate file</h2>
+      <div class="upload">
+        <input id="file" type="file" accept=".csv,text/csv" aria-label="Heart-rate CSV file">
+        <label class="spd">Replay speed
+          <select id="speed"><option value="1">1× (real time)</option><option value="4" selected>4×</option><option value="10">10×</option></select>
+        </label>
+        <button id="uploadBtn">Load &amp; replay</button>
+        <button id="simBtn">Back to simulated input</button>
+      </div>
+      <p class="hint">CSV with a header row and columns <code>t,hr</code> (seconds, bpm), or a single <code>hr</code> column at 1 per second. Example files are in <code>resonance/fake_data/</code>. Readings outside 40–200 bpm are dropped; the first 2 min of the file become the baseline.</p>
+      <p id="uploadMsg" class="hint" role="status"></p>
       <h2 style="margin-top:16px">Event log</h2>
       <ul id="log" class="log"></ul>
     </section>
@@ -123,14 +141,34 @@ async function send(action) {
   poll();
 }
 document.querySelectorAll("button[data-a]").forEach((b) => b.onclick = () => send(b.dataset.a));
+$("uploadBtn").onclick = async () => {
+  const f = $("file").files[0], msg = $("uploadMsg");
+  if (!f) { msg.textContent = "Choose a CSV file first."; msg.className = "hint err"; return; }
+  if (f.size > 5e6) { msg.textContent = "File is larger than 5 MB."; msg.className = "hint err"; return; }
+  msg.textContent = "Loading…"; msg.className = "hint";
+  const r = await fetch("/upload", { method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name: f.name, text: await f.text(), speed: +$("speed").value }) });
+  const info = await r.json();
+  if (!r.ok) { msg.textContent = `Not loaded: ${info.error}`; msg.className = "hint err"; return; }
+  msg.textContent = `Loaded ${f.name}: ${info.seconds} s of heart rate` +
+    (info.dropped ? `, ${info.dropped} rows dropped (outside 40–200 bpm or not numbers)` : "") +
+    (info.gap_seconds_skipped ? `, ${info.gap_seconds_skipped} s of long gaps skipped` : "") + ".";
+  msg.className = "hint";
+  poll();
+};
+$("simBtn").onclick = () => { $("uploadMsg").textContent = ""; send("source:sim"); };
 $("thrDown").onclick = () => last && send(`threshold:${last.threshold - 1}`);
 $("thrUp").onclick = () => last && send(`threshold:${last.threshold + 1}`);
 
+const fmt = (s) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
 function esc(s) { return String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]); }
 
 function render(s) {
   last = s;
-  $("input").textContent = s.input;
+  const rp = s.replay;
+  $("input").textContent = rp
+    ? `${s.input} · ${rp.done ? "replay ended" : `${fmt(rp.t)} / ${fmt(rp.n)} at ${rp.speed}×`}`
+    : s.input;
   $("input").className = "badge" + (s.simulated ? " sim" : "");
   document.querySelectorAll(".simOnly").forEach((b) => b.hidden = !s.interactive);
   $("room").textContent = s.room;
