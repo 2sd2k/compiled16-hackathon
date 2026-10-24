@@ -8,7 +8,8 @@ The Developer / Demo Console (http://127.0.0.1:8765) only shows state and sends 
 simulated inputs. Closing it changes nothing.
 
 Usage:
-    python resonance/controller.py                      simulated heart rate (labeled)
+    python resonance/controller.py                      live Garmin heart rate (default)
+    python resonance/controller.py --source sim         simulated heart rate (labeled, for testing)
     python resonance/controller.py --source csv:FILE    replay a t,hr CSV at 1 Hz (hr_test.py format)
     python resonance/controller.py --source hku:hku1903 replay a recorded HKU956 session
     --music spotify (default) plays calm Music-Mouv songs through the Spotify app (see spotify.py);
@@ -590,7 +591,11 @@ def serve(ctrl, port):
                     result = info
                 else:
                     action = payload.get("action", "")
-                    if action == 'source:sim':
+                    if action == 'source:live':
+                        live = make_source(getattr(ctrl, 'live_source_spec', 'garmin'))
+                        live.on_status = ctrl.log
+                        ctrl.load_source(live, speed=1)
+                    elif action == 'source:sim':
                         ctrl.load_source(ctrl.sim_source_factory(), speed=1)
                     else:
                         ctrl.input(action)
@@ -645,7 +650,8 @@ def keyboard(ctrl, stop_event):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--source", default="sim")
+    ap.add_argument("--source", default="garmin",
+                    help="garmin[:DEVICE_ID] live watch (default); sim; csv:FILE; hku:PARTICIPANT")
     ap.add_argument("--threshold", type=int, default=10)
     ap.add_argument("--port", type=int, default=8765)
     ap.add_argument("--no-console", action="store_true")
@@ -694,6 +700,7 @@ def main():
     ctrl = Controller(source, args.threshold, args.baseline_s, player=player, patient_id=args.patient_id,
                       adapter=adapter, external_selection=args.external_selection, approved_ids=approvals,
                       music=args.music)
+    ctrl.live_source_spec = args.source if args.source.startswith("garmin") else "garmin"
     if hasattr(source, "on_status"):
         source.on_status = ctrl.log  # live Garmin connection messages go to the event log
         ctrl.log("Live Garmin input: the adaptive learner stays off (simulation only); music uses the "

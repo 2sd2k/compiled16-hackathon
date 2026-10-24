@@ -1,14 +1,15 @@
 """One-step launcher for Resonance on macOS or Windows (used by start-mac.command / start-windows.bat).
 
 First run: creates .venv, installs requirements, and sets up music (asks for the team's Spotify
-Client ID, or press Enter for the offline Jamendo music). Every run: starts the controller with
-the default flow (Josh's simulated heart rate -> his adaptive layer -> music) and opens the
+Client ID, or press Enter for the offline Jamendo music). Every run: starts the controller on
+Josh's live Garmin heart rate (watch -> controller -> music) and opens the
 Developer / Demo Console in the browser. Standard library only.
 
-Usage: python resonance/launch.py [--offline] [--live | --classic] [controller.py options]
-  --live     live heart rate from a Garmin watch broadcasting over Bluetooth (Josh's receiver)
-  --classic  original rule-based picks with the rise/rest simulator (no adaptive layer)
-  any controller.py options replace the default flow
+Usage: python resonance/launch.py [--offline] [--simulated | --classic] [controller.py options]
+  default      live heart rate from Josh's Garmin watch over Bluetooth
+  --simulated  testing without a watch: simulated heart rate + Josh's adaptive layer
+  --classic    testing without a watch: rise/rest simulator, rule-based picks
+  other controller.py options (e.g. --baseline-s 30) are passed through
 """
 import json
 import os
@@ -94,20 +95,20 @@ def adaptive_flow(music, patient="sim-patient-01"):
 def main():
     sys.stdout.reconfigure(line_buffering=True)  # keep our messages in order with the controller's
     args = sys.argv[1:]
-    offline, classic, live = "--offline" in args, "--classic" in args, "--live" in args
-    args = [a for a in args if a not in ("--offline", "--classic", "--live")]
+    offline, classic, simulated = "--offline" in args, "--classic" in args, "--simulated" in args
+    args = [a for a in args if a not in ("--offline", "--classic", "--simulated", "--live")]
     if running():
         print(f"Resonance is already running. Opening {URL}")
         webbrowser.open(URL)
         return
     py = ensure_env()
     music = choose_music(py, offline)
-    if live:
-        flow, what = ["--source", "garmin"], ", LIVE Garmin heart rate (start Broadcast Heart Rate on the watch)"
-    elif classic or args:
-        flow, what = [], ""
-    else:
-        flow, what = adaptive_flow(music), ", adaptive layer on simulated heart rate"
+    if simulated:
+        flow, what = adaptive_flow(music), ", SIMULATED heart rate with the adaptive layer (testing only)"
+    elif classic:
+        flow, what = ["--source", "sim"], ", SIMULATED heart rate (testing only)"
+    else:  # default: Josh's live Garmin data (controller.py defaults to --source garmin)
+        flow, what = [], ", LIVE Garmin heart rate: start Broadcast Heart Rate on the watch"
     print(f"\nStarting Resonance ({music} music{what}).")
     print(f"The console opens at {URL}. Keep this window open; close it or press q here to stop.\n")
     threading.Thread(target=open_console_when_ready, daemon=True).start()

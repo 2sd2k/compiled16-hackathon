@@ -131,7 +131,7 @@ code { font-size: 12px; }
           <select id="speed"><option value="1">1× (real time)</option><option value="4" selected>4×</option><option value="10">10×</option></select>
         </label>
         <button id="uploadBtn">Load &amp; replay</button>
-        <button id="simBtn">Back to simulated input</button>
+        <button id="simBtn">Back to live Garmin</button>
       </div>
       <p class="hint">CSV with a header row and columns <code>t,hr</code> (seconds, bpm), or a single <code>hr</code> column at 1 per second. Example files are in <code>resonance/fake_data/</code>. Readings outside 40–200 bpm are dropped; the first 2 min of the file become the baseline.</p>
       <p id="uploadMsg" class="hint" role="status"></p>
@@ -166,7 +166,7 @@ $("uploadBtn").onclick = async () => {
   msg.className = "hint";
   poll();
 };
-$("simBtn").onclick = () => { $("uploadMsg").textContent = ""; send("source:sim"); };
+$("simBtn").onclick = () => { $("uploadMsg").textContent = ""; send("source:live"); };
 $("thrDown").onclick = () => last && send(`threshold:${last.threshold - 1}`);
 $("thrUp").onclick = () => last && send(`threshold:${last.threshold + 1}`);
 

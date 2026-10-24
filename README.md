@@ -13,13 +13,15 @@ After cloning the repo (step 1 below), double-click:
 
 The first run sets up Python packages and asks once for the team's **Spotify Client ID**; press Enter instead to use the offline music. It then starts Resonance and opens the console in your browser. Keep the window open while testing; press `q` in it or close it to stop. Needs Python 3.12 installed (https://www.python.org/downloads/).
 
-**What the launcher runs:** the full flow. Josh's Python heart-rate simulator (`resonance/response_simulator.py`) feeds the controller. When heart rate is elevated, **Josh's adaptive layer** (`adaptive_adapter.py`) picks a song from the approved calm list and learns, per person, how heart rate responded (`ADAPTIVE.md`). The controller plays it and the console shows everything, including the adaptive layer's status. Press `r` (or "Heart rate rises") to start an episode. The adaptive layer waits for heart rate to settle for 30 s and 60 s after the simulated change before choosing, so music starts about 1–1.5 minutes after the rise. Simulated responses are invented for testing, not clinical evidence. `--classic` runs the original rule-based picks without the adaptive layer.
+**What the launcher runs:** **live heart rate from Josh's Garmin watch** (see "Live heart rate" below). Start Broadcast Heart Rate on the watch first.
+
+For testing without a watch only: `--simulated` runs Josh's Python heart-rate simulator (`resonance/response_simulator.py`) with **his adaptive layer** (`adaptive_adapter.py`), which picks songs and learns per person how heart rate responded (`ADAPTIVE.md`); press `r` to start an episode, and music follows about 1–1.5 minutes later. `--classic` runs the simple rise/rest simulator with rule-based picks. Simulated responses are invented for testing, not clinical evidence.
 
 ## Live heart rate from a Garmin watch
 
 1. On the watch (tested design: Forerunner 265): **Health & Wellness → Wrist Heart Rate → Broadcast Heart Rate → START**.
 2. Turn on Bluetooth on the computer. On a Mac, allow the Terminal under **System Settings → Privacy & Security → Bluetooth** when asked.
-3. Start in live mode: `python resonance/launch.py --live`, or `python resonance/controller.py --source garmin`.
+3. Start Resonance: double-click the launcher, or run `python resonance/launch.py` (live Garmin is the default; `--baseline-s 30` shortens the 2-minute resting baseline for quick tests).
 
 The console shows **Garmin: connected to …** and the age of the last reading. The bridge (`resonance/garmin_source.py`) uses Josh's receiver and decoder (`resonance/garmin-bluetooth/garmin_hr.py`). It finds the watch, reconnects after drop-outs, and gives the controller the latest reading once per second. Stale readings (over 3 s old), no skin contact, or out-of-range values count as "no signal": music fades and no decisions are made until a good reading returns. Readings are never repeated or invented. With several heart-rate sensors nearby, run `python resonance/garmin-bluetooth/garmin_hr.py --scan` and start with `--source garmin:DEVICE_ID`.
 
