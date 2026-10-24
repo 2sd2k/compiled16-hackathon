@@ -51,6 +51,66 @@ class Player:
         self.track = None
 
 
+def test_cli_defaults_to_jamendo_with_legacy_spotify_opt_in():
+    assert c.parse_args([]).music == 'jamendo'
+    assert c.parse_args([]).source == 'garmin'
+    args = c.parse_args(['--source', 'sim', '--sim-response', '--adaptive-state', 'state.json', '--demo-approve-calm'])
+    assert args.music == 'jamendo'
+    assert c.parse_args(['--music', 'spotify']).music == 'spotify'
+    assert c.parse_args(['--source', 'sim', '--music', 'jamendo', '--adaptive-state', 'state.json', '--demo-approve-calm']).music == 'jamendo'
+
+
+def test_spotify_controller_preserves_metadata_without_local_mp3(monkeypatch):
+    track = {'song_id': 'spotify:abc', 'track_id': 'abc', 'uri': 'spotify:track:abc',
+             'title': 'Example', 'artist': 'Artist', 'bpm': 60, 'key_name': 'C minor',
+             'detail': 'Spotify energy 0.2', 'calm_reason': 'slow'}
+    monkeypatch.setattr(c, 'load_spotify_calm_list', lambda: [track], raising=False)
+    player = Player()
+    ctrl = c.Controller(c.SimSource(), 10, player=player, quiet=True, music='spotify')
+    player.track = track
+    state = ctrl.snapshot()
+    assert state['music'] == 'spotify' and state['spotify']['configured']
+    assert state['now_playing']['song_id'] == 'spotify:abc'
+    assert state['now_playing']['source'] == 'Spotify'
+    assert state['now_playing']['detail'] == track['detail']
+    assert ctrl._track_available(track)
+    with pytest.raises(ValueError, match='schema'):
+        c.Controller(c.SimSource(), 10, player=Player(), quiet=True,
+                     music='spotify', adapter=AdaptiveAdapter())
+
+
+def test_adapter_rejects_other_catalog_before_consuming_telemetry():
+    from adaptive_adapter import CONTRACT
+    adapter = AdaptiveAdapter(catalog='jamendo')
+    with pytest.raises(ValueError, match='catalog'):
+        adapter.ingest({'contract_version': CONTRACT, 'session_id':'s', 'patient_id':'p',
+                        'gap':False, 'records':[{'seq':1, 'session_id':'s', 'patient_id':'p', 'type':'playback_requested',
+                        'song_id':'spotify:abc', 'exposure_id':'e'}]})
+    assert adapter.cursor('s') == 0
+
+
+def test_checkpoint_cannot_be_reopened_for_another_catalog(tmp_path):
+    path = tmp_path/'checkpoint.json'
+    adapter = AdaptiveAdapter(path, catalog='spotify')
+    adapter._save()
+    with pytest.raises(ValueError, match='catalog'):
+        AdaptiveAdapter(path, catalog='jamendo')
+
+
+def test_local_snapshot_preserves_display_fields_and_adaptive_summary(monkeypatch):
+    track = {'song_id': '1', 'title': 'Local', 'artist': 'Artist', 'bpm': 60,
+             'key': 'C', 'mode': 'minor', 'calm_reason': 'sparse', 'deam_pred_arousal': 2.4}
+    monkeypatch.setattr(c, 'load_calm_list', lambda: [track])
+    player = Player()
+    ctrl = c.Controller(c.SimSource(), 10, player=player, quiet=True)
+    player.track = track
+    state = ctrl.snapshot()
+    assert state['now_playing']['source'] == 'local file'
+    assert 'predicted arousal 2.4/9' in state['now_playing']['detail']
+    assert state['now_playing']['song_id'] == 'jamendo:1'
+    assert 'adaptive' in state
+
+
 def test_spotify_stop_during_startup_never_confirms_or_fades_back_up():
     fake = FakeSpotify()
     player = SpotifyPlayer(Mock())
@@ -100,4 +160,19 @@ def test_spotify_requires_matching_track_confirmation(monkeypatch):
     assert 'playback_interrupted' in events
     assert player.track is None and fake.now is None
     assert 'did not confirm' in player.last_error
+
+
+def test_spotify_library_respects_catalog_preferences_without_fabricated_features(monkeypatch, tmp_path):
+    path = tmp_path/'library.json'
+    path.write_text(json.dumps({'tracks': [
+        {'track_id':'a', 'calm':True, 'tempo':60, 'energy':.2, 'valence':.5, 'key_name':'C minor'},
+        {'track_id':'b', 'calm':True, 'tempo':65, 'energy':.1, 'valence':None, 'key_name':'D minor'},
+    ]}))
+    prefs = tmp_path/'preferences.json'
+    prefs.write_text(json.dumps({'preferences':{'spotify:a':1,'jamendo:1':1}, 'excluded':['spotify:b']}))
+    monkeypatch.setattr(c, 'SPOTIFY_LIBRARY', path)
+    monkeypatch.setattr(c, 'PREFS', prefs)
+    tracks = c.load_spotify_calm_list()
+    assert [track['song_id'] for track in tracks] == ['spotify:a']
+    assert 'brightness_hz' not in tracks[0] and 'loudness_dbfs' not in tracks[0]
 

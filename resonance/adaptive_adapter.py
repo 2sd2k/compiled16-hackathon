@@ -1,4 +1,4 @@
-"""Simulation-only response learner and resumable controller adapter.
+"""Mode-isolated live/simulated response learner and resumable controller adapter.
 
 Run externally: python resonance/adaptive_adapter.py --url http://127.0.0.1:8765
 Or use controller.py --adaptive-state PATH for the connected, screenless loop.
@@ -50,7 +50,10 @@ def vector(track, context):
 
 
 class AdaptiveAdapter:
-    def __init__(self, path=None, epsilon=.1, seed=42, catalog='jamendo'):
+    def __init__(self, path=None, epsilon=.1, seed=42, catalog='jamendo', mode='simulated'):
+        if mode not in ('simulated', 'live'):
+            raise ValueError('Unsupported learning mode')
+        self.mode = mode
         self.path = Path(path) if path else None
         self.lock = threading.RLock()
         self.waiting_reason = 'waiting_for_controller'
@@ -59,7 +62,9 @@ class AdaptiveAdapter:
             self.state = json.loads(self.path.read_text())
             if self.state.get('contract') != CONTRACT or self.state.get('feature_schema') != self.schema:
                 raise ValueError('Incompatible adapter checkpoint (different contract or music catalog)')
-            if self.state.get('simulated') is not True or not 0 <= self.state.get('epsilon', -1) <= 1:
+            if self.state.get('simulated') is not (mode == 'simulated'):
+                raise ValueError('Checkpoint learning mode does not match source mode')
+            if not 0 <= self.state.get('epsilon', -1) <= 1:
                 raise ValueError('Invalid simulation checkpoint parameters')
             for model in self.state['models'].values():
                 a, b = np.asarray(model['A']), np.asarray(model['b'])
@@ -69,7 +74,7 @@ class AdaptiveAdapter:
         else:
             if not 0 <= epsilon <= 1:
                 raise ValueError('epsilon must be [0,1]')
-            self.state = {'contract': CONTRACT, 'feature_schema': self.schema, 'simulated': True,
+            self.state = {'contract': CONTRACT, 'feature_schema': self.schema, 'simulated': mode == 'simulated',
                           'epsilon': epsilon, 'seed': seed, 'models': {}, 'sessions': {},
                           'observations': {}, 'decisions': {}}
 
@@ -82,6 +87,11 @@ class AdaptiveAdapter:
                 f.flush()
                 os.fsync(f.fileno())
             os.replace(temporary, self.path)
+
+    def _check_catalog(self, sid):
+        catalog = str(sid).partition(':')[0]
+        if SCHEMAS.get(catalog) != self.schema:
+            raise ValueError('Music catalog does not match adapter checkpoint schema')
 
     def _transaction(self, function):
         with self.lock:
@@ -117,11 +127,26 @@ class AdaptiveAdapter:
         return self.state['models'][patient]
 
     @staticmethod
+    def _valid_timing(samples):
+        times = [s['sample_time_s'] for s in samples]
+        if any(s.get('source_kind') == 'live' for s in samples):
+            ids = [s.get('measurement_id') for s in samples]
+            received = [s.get('received_time_s') for s in samples]
+            return (all(s.get('source_kind') == 'live' for s in samples)
+                    and None not in ids and len(set(ids)) == len(ids)
+                    and all(isinstance(t, (int, float)) and math.isfinite(t) for t in received)
+                    and all(0 <= t-r <= 3 for t, r in zip(times, received))
+                    and all(.5 <= d <= 1.5 for d in np.diff(times))
+                    and all(0 < d <= 2 for d in np.diff(received))
+                    and abs(times[-1]-times[0]-(len(times)-1)) <= 2)
+        return np.allclose(np.diff(times), 1, atol=1e-6, rtol=0)
+
+    @staticmethod
     def _context(samples, end, baseline):
         pre = [s for s in samples if end-30 <= s['sample_index'] < end]
         if len(pre) != 30 or [s['sample_index'] for s in pre] != list(range(end-30, end)):
             raise ValueError('incomplete_pre_window')
-        if not np.allclose(np.diff([s['sample_time_s'] for s in pre]), 1, atol=1e-6, rtol=0):
+        if not AdaptiveAdapter._valid_timing(pre):
             raise ValueError('non_1hz_pre_window')
         if any(not s['signal_ok'] or s['stopped'] or s['nurse_present'] or s['audio_busy'] for s in pre):
             raise ValueError('contaminated_pre_window')
@@ -132,11 +157,13 @@ class AdaptiveAdapter:
         values = np.array([s['hr_raw_bpm'] for s in pre], dtype=float)
         if baseline is None or not math.isfinite(baseline) or baseline <= 0 or not np.isfinite(values).all():
             raise ValueError('invalid_reference_or_hr')
-        slope = float(np.polyfit(np.arange(30), values, 1)[0])
+        times = np.array([s['sample_time_s'] for s in pre], dtype=float)
+        slope = float(np.polyfit(times-times[0], values, 1)[0])
         if abs(slope) > .05:  # unvalidated demo stability gate, prespecified
             raise ValueError('pre_existing_trend')
         return {'mean': float(values.mean()), 'slope': slope, 'baseline': baseline, 'samples': 30,
-                'source_revision': pre[-1]['source_revision']}
+                'source_revision': pre[-1]['source_revision'],
+                'midpoint_time_s': float(np.mean([s['sample_time_s'] for s in pre]))}
 
     def _finish(self, session, exposure, reason=None):
         p = session['pending'].pop(exposure)
@@ -145,6 +172,8 @@ class AdaptiveAdapter:
             return
         result = {'patient_id': p['patient_id'], 'session_id': p['session_id'], 'exposure_id': exposure,
                   'song_id': p['song_id'], 'context': p.get('context'), 'updated': False,
+                  'source_kind': p.get('source_kind', 'simulated'),
+                  'simulated': p.get('source_kind', 'simulated') == 'simulated',
                   'reason': reason, 'pre_samples': p.get('context', {}).get('samples', 0), 'post_samples': 0}
         if reason is None:
             post = [s for s in session['samples'] if p['start']+30 <= s['sample_index'] < p['start']+60]
@@ -152,16 +181,22 @@ class AdaptiveAdapter:
             expected = list(range(p['start']+30, p['start']+60))
             if len(post) != 30 or [s['sample_index'] for s in post] != expected:
                 result['reason'] = 'incomplete_response_window'
-            elif not np.allclose(np.diff([s['sample_time_s'] for s in post]), 1, atol=1e-6, rtol=0):
+            elif not self._valid_timing(post):
                 result['reason'] = 'non_1hz_response_window'
+            elif p.get('source_kind') == 'live' and (post[0]['sample_time_s'] < p['start_time_s']+29
+                                                    or post[-1]['sample_time_s'] > p['start_time_s']+62):
+                result['reason'] = 'misaligned_live_response_window'
             elif any(not s['signal_ok'] or s['exposure_id'] != exposure for s in post):
                 result['reason'] = 'invalid_response_window'
             else:
                 context = p['context']
                 later = float(np.mean([s['hr_raw_bpm'] for s in post]))
                 # Pre midpoint -15.5 s -> post midpoint 44.5 s: 60 s separation.
-                forecast = context['mean']+60*context['slope']
-                reward = float(np.clip((abs(forecast-context['baseline'])-abs(later-context['baseline']))/10, -1, 1))
+                separation = float(np.mean([s['sample_time_s'] for s in post]))-context['midpoint_time_s']
+                forecast = context['mean']+separation*context['slope']
+                hr_reward = float(np.clip((abs(forecast-context['baseline'])-abs(later-context['baseline']))/10, -1, 1))
+                rating = p.get('comfort_rating')
+                reward = (rating-3)/2 if rating is not None else hr_reward
                 model = self._model(p['patient_id'])
                 x = np.array(p['x'])
                 model['A'] = (np.array(model['A'])+np.outer(x, x)).tolist()
@@ -170,7 +205,9 @@ class AdaptiveAdapter:
                 arm = model.setdefault('arms', {}).setdefault(p['song_id'], {'sum': 0.0, 'count': 0})
                 arm['sum'] += reward
                 arm['count'] += 1
-                result.update(updated=True, reward=reward, later_hr=later, state_only_trend_forecast=forecast)
+                result.update(updated=True, reward=reward, later_hr=later, state_only_trend_forecast=forecast,
+                              reward_source='comfort' if rating is not None else 'hr_proxy',
+                              comfort_rating=rating, hr_proxy_reward=hr_reward)
         self.state['observations'][key] = result
 
     def ingest(self, batch):
@@ -188,6 +225,8 @@ class AdaptiveAdapter:
             for record in batch['records']:
                 if record['session_id'] != sid or record['patient_id'] != patient:
                     raise ValueError('Telemetry identity mismatch')
+                if record.get('song_id') is not None:
+                    self._check_catalog(record['song_id'])
                 seq = record['seq']
                 if seq <= session['cursor']:
                     continue
@@ -213,11 +252,14 @@ class AdaptiveAdapter:
                     if key in self.state['observations'] or exposure in session['pending']:
                         continue
                     pending = {'patient_id': patient, 'session_id': sid, 'song_id': record['song_id'],
+                               'source_kind': record.get('source_kind'),
                                'start': record['sample_index']}
                     session['pending'][exposure] = pending
                     try:
-                        if not record['simulated'] or record['source_kind'] != 'simulated':
-                            raise ValueError('not_interactive_simulation')
+                        if record['source_kind'] != self.mode or record['simulated'] != (self.mode == 'simulated'):
+                            raise ValueError('source_mode_mismatch')
+                        pending['source_kind'] = record['source_kind']
+                        pending['start_time_s'] = record['sample_time_s']
                         if pending['start']-record.get('source_changed_at', 0) < 60:
                             raise ValueError('source_command_settling_period')
                         context = self._context(session['samples'], pending['start'], record['baseline'])
@@ -227,6 +269,11 @@ class AdaptiveAdapter:
                         pending['x'] = vector({**record['track'], 'song_id': record['song_id']}, context).tolist()
                     except (ValueError, KeyError, TypeError) as error:
                         self._finish(session, exposure, str(error))
+                elif kind == 'comfort_feedback':
+                    pending = session['pending'].get(record['exposure_id'])
+                    rating = record.get('rating')
+                    if pending and isinstance(rating, int) and not isinstance(rating, bool) and 1 <= rating <= 5:
+                        pending.setdefault('comfort_rating', rating)
                 elif kind in ('playback_ended', 'playback_interrupted'):
                     if record['exposure_id'] in session['pending']:
                         self._finish(session, record['exposure_id'], record.get('reason', kind))
@@ -245,7 +292,7 @@ class AdaptiveAdapter:
             if snapshot.get('contract_version') != CONTRACT:
                 raise ValueError('Controller does not support the adaptive contract')
             opportunity = snapshot.get('selection_opportunity')
-            if (not opportunity or snapshot.get('source_kind') != 'simulated' or snapshot.get('simulated') is not True
+            if (not opportunity or snapshot.get('source_kind') != self.mode or snapshot.get('simulated') != (self.mode == 'simulated')
                     or snapshot['stopped'] or snapshot['nurse_present'] or snapshot['source_ended']):
                 return None
             sid, patient = snapshot['session_id'], snapshot['patient_id']
@@ -263,6 +310,8 @@ class AdaptiveAdapter:
             candidates = opportunity['candidates']
             if not candidates:
                 return None
+            for track in candidates:
+                self._check_catalog(track['song_id'])
             key = sid+':'+opportunity['decision_id']
             if key in self.state['decisions']:
                 return self.state['decisions'][key]
@@ -340,8 +389,11 @@ if __name__ == '__main__':
     p.add_argument('--url', default='http://127.0.0.1:8765')
     p.add_argument('--state', type=Path, default=Path('data/raw/adaptive-state.json'))
     p.add_argument('--once', action='store_true')
+    p.add_argument('--music', choices=tuple(SCHEMAS), default='jamendo',
+                   help='Feature schema must match the controller music catalog')
+    p.add_argument('--mode', choices=('simulated', 'live'), default='simulated')
     args = p.parse_args()
-    adapter = AdaptiveAdapter(args.state)
+    adapter = AdaptiveAdapter(args.state, catalog=args.music, mode=args.mode)
     while True:
         try:
             print(json.dumps(poll_controller(adapter, args.url)), flush=True)
