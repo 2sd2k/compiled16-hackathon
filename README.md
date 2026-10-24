@@ -11,7 +11,7 @@ After cloning the repo (step 1 below), double-click:
 - **Mac:** `start-mac.command`. If macOS blocks it, right-click it, choose **Open**, then **Open** again.
 - **Windows:** `start-windows.bat`
 
-The first run sets up Python packages and asks once for the team's **Spotify Client ID**; press Enter instead to use the offline music. It then starts Resonance and opens the console in your browser. Keep the window open while testing; press `q` in it or close it to stop. Needs Python 3.12 installed (https://www.python.org/downloads/).
+The first run sets up Python packages and downloads the available Jamendo calm tracks. It then starts Resonance and opens the console in your browser. Keep the window open while testing; press `q` in it or close it to stop. Needs Python 3.12 installed (https://www.python.org/downloads/).
 
 **What the launcher runs:** **live heart rate from Josh's Garmin watch** (see "Live heart rate" below). Start Broadcast Heart Rate on the watch first.
 
@@ -21,11 +21,13 @@ For testing without a watch only: `--simulated` runs Josh's Python heart-rate si
 
 1. On the watch (tested design: Forerunner 265): **Health & Wellness → Wrist Heart Rate → Broadcast Heart Rate → START**.
 2. Turn on Bluetooth on the computer. On a Mac, allow the Terminal under **System Settings → Privacy & Security → Bluetooth** when asked.
-3. Start Resonance: double-click the launcher, or run `python resonance/launch.py` (live Garmin is the default; `--baseline-s 30` shortens the 2-minute resting baseline for quick tests).
+3. Double-click the launcher, or run `python resonance/launch.py`, for live Garmin readings with fixed calm-list ranking. Enable live learning with `python resonance/launch.py --patient-id volunteer-01 --approve-calm`. Use a different ID for each volunteer. `--approve-calm` approves the available calm catalog; use `--approved-tracks FILE` for a narrower list. `--live` remains an optional explicit alias.
 
 The console shows **Garmin: connected to …** and the age of the last reading. The bridge (`resonance/garmin_source.py`) uses Josh's receiver and decoder (`resonance/garmin-bluetooth/garmin_hr.py`). It finds the watch, reconnects after drop-outs, and gives the controller the latest reading once per second. Stale readings (over 3 s old), no skin contact, or out-of-range values count as "no signal": music fades and no decisions are made until a good reading returns. Readings are never repeated or invented. With several heart-rate sensors nearby, run `python resonance/garmin-bluetooth/garmin_hr.py --scan` and start with `--source garmin:DEVICE_ID`.
 
-On live data the adaptive learner stays off (Josh's design: it learns only from simulated sessions), so music uses the evidence-based calm-list ranking. Stop, nurse and all room rules work the same. Recorded receiver CSVs (`garmin_hr.py --csv`) can be replayed through the console's upload box.
+Live sessions now use the per-person learner with Jamendo playback. The learner uses a separate live checkpoint, unique Garmin notifications, actual timing checks, and confirmed playback. Stop, nurse presence and signal gaps reject incomplete response windows. Optional comfort ratings in the console take priority; otherwise the reward is explicitly labeled an HR proxy, not a comfort measure or causal effect. Recorded CSV replay never teaches responses to new songs.
+
+If an old simulator is already running, the launcher now reports the mismatch. Stop that backend with Ctrl+C and rerun. `--live --classic` displays live HR with fixed calm-list ranking. Hardware testing on your watch is still required.
 
 ## Quick start for teammates (test with your own dataset files)
 
@@ -55,24 +57,23 @@ py -3.12 -m venv .venv; .venv\Scripts\Activate.ps1
 pip install -r resonance/requirements.txt
 ```
 
-**3. Set up Spotify (once per computer)**
+**3. Download Jamendo audio (once)**
 
-Music plays **only Spotify songs from the Music-Mouv dataset** (15 calm tracks out of 204, in `app/data/spotify_library.json`), through the Spotify app. You need **Spotify Premium**, the **Spotify desktop app** open and signed in, and internet.
-
-1. Go to https://developer.spotify.com/dashboard → **Create app**. Any name; tick **Web API**; set the **Redirect URI** to exactly `http://127.0.0.1:8765/callback`.
-2. Copy the app's **Client ID**. Copy `resonance/spotify_config.example.json` to `resonance/spotify_config.json` and paste the Client ID in. No client secret is needed. The file is gitignored.
-3. In the Spotify developer dashboard, open **User Management** and add the email of every Spotify account that will sign in (apps start in development mode).
-4. Open the Spotify desktop app and play any song once, so it shows up as a device.
+```bash
+python resonance/fetch_audio.py
+```
 
 **4. Run it**
 
 ```bash
-python resonance/controller.py
+python resonance/launch.py --live --patient-id volunteer-01 --approve-calm
 ```
 
-Open **http://127.0.0.1:8765** (the Developer / Demo Console) and click **Connect Spotify** the first time. Sign in on Spotify's own page; you'll come back to a "Spotify connected" page. The sign-in is remembered in `resonance/.spotify_token.json` (gitignored).
-
-Offline alternative: `python resonance/fetch_audio.py` (once, ~90 MB, about 5 minutes) then `python resonance/controller.py --music jamendo` plays the 67 local Jamendo calm tracks with no Spotify or internet.
+Open **http://127.0.0.1:8765**. Look for **LIVE Garmin heart rate** and connection status.
+The first two minutes of valid readings establish the baseline. Use the optional comfort
+rating during confirmed playback. With no watch, `python resonance/launch.py --simulated` starts the
+labeled simulated adaptive demo instead. Legacy Spotify code remains opt-in, outside the
+live Jamendo workflow.
 
 **5. Test a dataset file**
 
@@ -89,6 +90,22 @@ One row per second, heart rate in bpm. The first 2 minutes are treated as rest (
 
 Keys in the controller's terminal: `r` heart rate rises, `c` rests, `n` nurse in/out, `s` stop/resume, `q` quit. Label anything made-up as fake (name it `fake_...csv`) so the console shows **FAKE**.
 
+## Connected simulated response learning
+
+The adaptive integration and observer are documented in [resonance/ADAPTIVE.md](resonance/ADAPTIVE.md).
+Both Spotify and local Jamendo audio support this mode, using separate feature
+schemas and checkpoints. The example below runs offline Jamendo playback.
+
+```bash
+python resonance/fetch_audio.py
+python resonance/controller.py --source sim --music jamendo --sim-response --demo-approve-calm --patient-id sim-patient-01 --adaptive-state data/raw/adaptive-patient-01.json
+```
+
+Open `http://127.0.0.1:8765` for the response observer. It shows learning updates
+and simulated outcomes, including interruption/rejection reasons. The adaptive
+benchmark has not demonstrated an advantage over the fixed prior; this mode is
+an engineering demonstration, not an HR-lowering claim.
+
 ## How it works
 
 ```
@@ -101,8 +118,8 @@ heart rate (fake data now, Garmin later) → controller → audio in the room
   - Baseline = median heart rate over the first 120 s of rest.
   - **Elevated** = 10 s median heart rate ≥ baseline + 10 bpm for 20 s (the `hr_test.py` rule).
   - Elevated → play the top-ranked song from the **calm list**, approved in advance by the patient (Cochrane 2013, Zhang 2026).
-  - **Spotify (default):** the 204 Music-Mouv songs with Spotify IDs; calm = felt tempo about 55–70 bpm (Bernardi 2006) and Spotify energy ≤ 0.5, which gives 15 songs (`analysis/build_spotify_library.py`). They're ordered with Josh's `rank_music`, patient preference first, then lowest Spotify energy (Spotify's perceived-intensity score standing in for arousal). Josh's DEAM model needs audio, which Spotify doesn't provide, so it isn't used here. Playback goes through the Spotify app (`resonance/spotify.py`).
-  - **Jamendo (`--music jamendo`, offline):** 67 of 590 local tracks are calm (`analysis/classify_calm.py`), ordered by **Josh's DEAM arousal model**; its predictions agree with HKU956 listeners' own arousal ratings (ρ = 0.59). See `BASELINE-INTEGRATION.md`.
+  - **Spotify (legacy, opt-in):** the 204 Music-Mouv songs with Spotify IDs; calm = felt tempo about 55–70 bpm (Bernardi 2006) and Spotify energy ≤ 0.5, which gives 15 songs (`analysis/build_spotify_library.py`). They're ordered with Josh's `rank_music`, patient preference first, then lowest Spotify energy (Spotify's perceived-intensity score standing in for arousal). Josh's DEAM model needs audio, which Spotify doesn't provide, so it isn't used here. Playback goes through the Spotify app (`resonance/spotify.py`).
+  - **Jamendo (default, local playback):** 67 of 590 local tracks are calm (`analysis/classify_calm.py`), ordered by **Josh's DEAM arousal model**; its predictions agree with HKU956 listeners' own arousal ratings (ρ = 0.59). See `BASELINE-INTEGRATION.md`.
   - Still elevated after 3 min of music → 2 min of silence, which lowered heart rate most in Bernardi 2006.
   - Back near baseline for 1 min → music fades to silence. Music sessions are capped at about 30 min (Zhang 2026).
   - **Nurse present** → fade out, resume after they leave. **Stop** → instant silence until the patient resumes.
@@ -131,17 +148,17 @@ The baseline needs 2 minutes of rest, so start the controller at least 2 minutes
 
 | `--source` | Input |
 | --- | --- |
-| `sim` (default) | Labeled simulated heart rate, driven by `r` / `c` |
+| `sim` | Labeled simulated heart rate, driven by `r` / `c` |
 | `csv:resonance/fake_data/fake_stress_episode.csv` | Fake dataset (`t,hr` at 1 Hz, same format as `hr_test.py`). Also `fake_mild_rise.csv` and `fake_resting_only.csv`, each with a `_labels.csv`. Regenerate with `python resonance/make_fake_hr.py`. |
 | `csv:path/to/recording.csv` | Any recorded `t,hr` CSV, such as a Garmin export converted to CSV |
 | `hku:hku1903` | A recorded HKU956 session (`app/data/sessions.json`) |
-| `garmin` | **Not connected yet.** Planned: the watch's "broadcast heart rate" mode (standard BLE Heart Rate Service) |
+| `garmin` (default) | Live watch broadcast over the standard BLE Heart Rate Service. `garmin:DEVICE_ID` selects a specific sensor. |
 
 `--speed 20` replays recorded input faster; `--no-console` runs with no web page at all.
 
 ### Upload a heart-rate file from the console
 
-In the Demo Console, **Load a heart-rate file** → choose a CSV → pick a replay speed (1×, 4×, 10×) → **Load & replay**. The controller resets, learns a fresh baseline from the file's first 2 minutes, and replays it through the same decision loop, so you hear the music respond. **Back to simulated input** returns to the key-driven feed.
+In the Demo Console, **Load a heart-rate file** → choose a CSV → pick a replay speed (1×, 4×, 10×) → **Load & replay**. The controller resets, learns a fresh baseline from the file's first 2 minutes, and replays it through the same decision loop, so you hear the music respond. **Back to live Garmin** reconnects the selected watch and starts a fresh baseline. Use `--simulated` at startup for the key-driven test feed.
 
 - Format: a header row with `t,hr` (seconds, bpm), or a single `hr` / `heart_rate` / `bpm` / `pulse` column at one reading per second. Up to 5 MB, at least 30 s.
 - Cleaning (same as `hr_test.py`): readings outside 40–200 bpm are dropped, data is averaged to 1 Hz, gaps up to 5 s are filled with the last value, and longer gaps are skipped. The console reports what was dropped.
