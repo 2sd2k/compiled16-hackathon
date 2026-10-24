@@ -1,0 +1,63 @@
+{
+  "records_in_ratings": 956,
+  "records_with_signal_files": 956,
+  "signal_files_without_rating": 0,
+  "participants": 30,
+  "records_per_participant": {
+    "min": 16,
+    "median": 30.0,
+    "max": 68
+  },
+  "song_no_gaps_total": 0,
+  "unique_songs_rated": 592,
+  "unique_songs_in_audio_csv": 592,
+  "songs_heard_by_2plus_participants": 155,
+  "max_participants_per_song": 11,
+  "record_duration_s": {
+    "p05": 32.0,
+    "p25": 34.75,
+    "median": 44.0,
+    "p75": 59.0,
+    "p95": 102.5
+  },
+  "records_ge_60s": 235,
+  "records_ge_90s": 79,
+  "signal_length_mismatch_gt2s": 0,
+  "hr_vs_play_duration_diff_s": {
+    "median": 0.0,
+    "abs_gt10s": 0
+  },
+  "ibi_coverage_fraction": {
+    "median": 0.5535967309523808,
+    "p25": 0.3211019214583333,
+    "records_ge_50pct": 539
+  },
+  "ibi_out_of_range_total": 0,
+  "hr_implausible_samples_total": 0,
+  "hr_delta_last10_minus_first10_bpm": {
+    "mean": -0.11158995815899576,
+    "sd": 4.137190035748787,
+    "p05": -5.987749999999991,
+    "p95": 6.173749999999986,
+    "abs_ge_5bpm": 137
+  },
+  "between_record_continuity": {
+    "pairs": 926,
+    "hr_abs_jump_across_boundary_bpm": {
+      "median": 1.0769999999999982,
+      "p90": 4.581000000000003
+    },
+    "hr_abs_change_within_record_10s_bpm": {
+      "median": 0.5460000000000065,
+      "p90": 2.012999999999998
+    },
+    "temp_abs_jump_across_boundary_C": {
+      "median": 0.015999999999998238,
+      "p90": 0.06399999999999295
+    },
+    "temp_abs_change_within_record_10s_C": {
+      "median": 0.008000000000006224,
+      "p90": 0.028000000000002245
+    }
+  }
+}
