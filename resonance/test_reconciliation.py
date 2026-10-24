@@ -1,42 +1,18 @@
 """Catalog, HTTP and playback regressions between the two controller branches."""
-
-
 import json
-
-
 import sys
-
-
 import threading
-
-
 from pathlib import Path
-
-
 from unittest.mock import Mock
-
-
 from urllib.error import HTTPError
-
-
 from urllib.request import HTTPRedirectHandler, build_opener, urlopen
-
 
 import pytest
 
-
 sys.path.insert(0, str(Path(__file__).parent))
-
-
 import controller as c
-
-
 from adaptive_adapter import AdaptiveAdapter
-
-
 from spotify import SpotifyPlayer
-
-
 from test_spotify import FakeSpotify
 
 
@@ -109,6 +85,32 @@ def test_local_snapshot_preserves_display_fields_and_adaptive_summary(monkeypatc
     assert 'predicted arousal 2.4/9' in state['now_playing']['detail']
     assert state['now_playing']['song_id'] == 'jamendo:1'
     assert 'adaptive' in state
+
+
+def test_spotify_and_observer_routes_work_alongside_adaptive_telemetry(monkeypatch):
+    monkeypatch.setattr(c, 'load_calm_list', lambda: [])
+    ctrl = c.Controller(c.SimSource(), 10, player=Player(), quiet=True)
+    ctrl.spotify_auth = ctrl.player.auth
+    server = c.serve(ctrl, 0)
+    url = f'http://127.0.0.1:{server.server_port}'
+    class NoRedirect(HTTPRedirectHandler):
+        def redirect_request(self, *args, **kwargs):
+            return None
+    try:
+        with pytest.raises(HTTPError) as redirect:
+            build_opener(NoRedirect()).open(url+'/spotify/login')
+        assert redirect.value.code == 302
+        assert redirect.value.headers['Location'] == ctrl.spotify_auth.login_url.return_value
+        with urlopen(url+'/callback?code=fake&state=test') as response:
+            assert response.status == 200
+        ctrl.spotify_auth.handle_callback.assert_called_once_with('code=fake&state=test')
+        with urlopen(url+'/observer.js') as response:
+            assert 'ResonanceObserver' in response.read().decode()
+        with urlopen(url+'/telemetry?after_seq=0') as response:
+            assert json.load(response)['session_id'] == ctrl.session_id
+    finally:
+        server.shutdown()
+        server.server_close()
 
 
 def test_spotify_stop_during_startup_never_confirms_or_fades_back_up():
@@ -184,4 +186,3 @@ def test_spotify_library_respects_catalog_preferences_without_fabricated_feature
     tracks = c.load_spotify_calm_list()
     assert [track['song_id'] for track in tracks] == ['spotify:a']
     assert 'brightness_hz' not in tracks[0] and 'loudness_dbfs' not in tracks[0]
-

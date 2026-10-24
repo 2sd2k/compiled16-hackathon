@@ -74,6 +74,12 @@ code { font-size: 12px; }
 .spotify { margin-top: 8px; font-size: 13px; color: var(--ink-2); display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .btnlink { font-size: 13px; color: var(--ink); background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 5px 10px; text-decoration: none; }
 .btnlink:hover { border-color: var(--muted); }
+.observer { grid-column: 1 / -1; }
+.observer dl { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 12px 0; }
+.observer dl div { min-width: 0; padding: 8px; background: var(--bg); border-radius: 6px; }
+.observer dt { color: var(--muted); font-size: 12px; }
+.observer dd { margin: 4px 0 0; font-size: 14px; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+@media (max-width: 650px) { .observer dl { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 </style>
 </head>
 <body>
@@ -138,13 +144,69 @@ code { font-size: 12px; }
       <h2 style="margin-top:16px">Event log</h2>
       <ul id="log" class="log"></ul>
     </section>
+    <section class="card observer" aria-labelledby="observerHeading">
+      <h2 id="observerHeading">Response learning observer</h2>
+      <p id="obs-status" role="status" aria-live="polite">Waiting for controller</p>
+      <dl>
+        <div><dt>Current input</dt><dd id="obs-mode">—</dd></div>
+        <div><dt>Patient</dt><dd id="obs-patient">—</dd></div>
+        <div><dt>Session</dt><dd id="obs-session">—</dd></div>
+        <div><dt>Confirmed exposure</dt><dd id="obs-exposure">—</dd></div>
+        <div><dt>Learning updates for this patient</dt><dd id="obs-updates">—</dd></div>
+        <div><dt>Last observation source</dt><dd id="obs-provenance">—</dd></div>
+        <div><dt>Observation session</dt><dd id="obs-scope">—</dd></div>
+        <div><dt>Observed song</dt><dd id="obs-song">—</dd></div>
+        <div><dt>Before playback</dt><dd id="obs-pre">—</dd></div>
+        <div><dt>After playback</dt><dd id="obs-post">—</dd></div>
+        <div><dt>Observed HR change</dt><dd id="obs-delta">—</dd></div>
+        <div><dt>HR trend forecast (comparison)</dt><dd id="obs-forecast">—</dd></div>
+        <div><dt>Learned response reward, −1 to 1</dt><dd id="obs-reward">—</dd></div>
+        <div><dt>Reward source</dt><dd id="obs-rewardSource">—</dd></div>
+        <div><dt>Reported comfort</dt><dd id="obs-comfort">—</dd></div>
+      </dl>
+      <p class="hint">HR change compares the 30 s pre-playback mean with seconds 30–60 after confirmed playback. The trend forecast extends the pre-playback HR slope. Comfort feedback takes priority when supplied during the response window; otherwise learning uses an HR proxy, which cannot establish comfort or causation.</p>
+      <label for="comfortRating">Optional volunteer comfort during this song</label>
+      <select id="comfortRating">
+        <option value="">Choose a rating</option>
+        <option value="1">1 — Very uncomfortable</option><option value="2">2 — Uncomfortable</option>
+        <option value="3">3 — Neutral</option><option value="4">4 — Comfortable</option>
+        <option value="5">5 — Very comfortable</option>
+      </select>
+      <button id="comfortSubmit" disabled>Record comfort</button>
+      <p id="comfortMessage" class="hint" role="status" aria-live="polite"></p>
+      <p class="hint">Waiting / rejection reason: <span id="obs-reason">—</span></p>
+    </section>
   </div>
 </div>
+<script src="/observer.js"></script>
 <script>
 const $ = (id) => document.getElementById(id);
 const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
 const COLORS = { Resting: "--rest", Elevated: "--elev", "Nurse present": "--nurse", Stopped: "--stop", "Learning baseline": "--muted" };
 let last = null;
+let feedbackExposure = null;
+
+$("comfortSubmit").onclick = async () => {
+  if (!last?.feedback_open) return;
+  const rating = Number($("comfortRating").value);
+  if (!Number.isInteger(rating) || rating < 1 || rating > 5) {
+    $("comfortMessage").textContent = "Choose a comfort rating first.";
+    return;
+  }
+  const snapshot = last;
+  $("comfortSubmit").disabled = true;
+  try {
+    const response = await fetch('/feedback', {method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({session_id:snapshot.session_id, exposure_id:snapshot.active_exposure_id, rating})});
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error || 'Feedback was not accepted');
+    feedbackExposure = snapshot.active_exposure_id;
+    $("comfortMessage").textContent = "Comfort recorded. Learning still requires a complete, uninterrupted response window.";
+  } catch (error) {
+    $("comfortMessage").textContent = error.message;
+  }
+  poll();
+};
 
 async function send(action) {
   await fetch("/input", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action }) });
@@ -174,7 +236,12 @@ const fmt = (s) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
 function esc(s) { return String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]); }
 
 function render(s) {
+  if (last?.active_exposure_id !== s.active_exposure_id) {
+    $("comfortRating").value = '';
+    $("comfortMessage").textContent = '';
+  }
   last = s;
+  $("comfortSubmit").disabled = !s.feedback_open || feedbackExposure === s.active_exposure_id;
   const rp = s.replay;
   $("input").textContent = rp
     ? `${s.input} · ${rp.done ? "replay ended" : `${fmt(rp.t)} / ${fmt(rp.n)} at ${rp.speed}×`}`
@@ -216,7 +283,7 @@ function render(s) {
     const last = ad.last_observation;
     const reward = last && last.updated ? ` · last response score ${last.reward >= 0 ? "+" : ""}${last.reward.toFixed(2)}` : "";
     adBox.textContent = ad.error ? `Adaptive layer paused: ${ad.error}` : ad.updating ? "Adaptive layer: updating…"
-      : `Adaptive layer (Josh, simulation): ${ad.updates ?? 0} response${ad.updates === 1 ? "" : "s"} learned${reward} · ${WAIT[ad.waiting_reason] || ad.waiting_reason || ""}`;
+      : `Adaptive layer (${s.source_kind === 'live' ? 'live Garmin' : s.source_kind === 'recorded' ? 'replay' : 'simulation'}): ${ad.updates ?? 0} response${ad.updates === 1 ? "" : "s"} learned${reward} · ${WAIT[ad.waiting_reason] || ad.waiting_reason || ""}`;
   }
   const sp = s.spotify, box = $("spotify");
   box.hidden = !sp;
@@ -232,6 +299,7 @@ function render(s) {
   $("stopBtn").textContent = s.room === "Stopped" ? "Patient resumes" : "Patient says “stop”";
   $("stopBtn").classList.toggle("on", s.room === "Stopped");
   $("log").innerHTML = s.events.map((e) => `<li><time>${e.time}</time>${esc(e.msg)}</li>`).join("");
+  ResonanceObserver.render(s);
   draw(s);
 }
 
@@ -240,8 +308,9 @@ function draw(s) {
   c.width = w * dpr; c.height = h * dpr;
   const ctx = c.getContext("2d"); ctx.scale(dpr, dpr); ctx.clearRect(0, 0, w, h);
   const v = s.history; if (!v.length) return;
-  const base = s.baseline ?? v[0], thr = base + s.threshold;
-  const lo = Math.min(base - 8, ...v), hi = Math.max(thr + 8, ...v);
+  const valid = v.filter(Number.isFinite); if (!valid.length) return;
+  const base = s.baseline ?? valid[0], thr = base + s.threshold;
+  const lo = Math.min(base - 8, ...valid), hi = Math.max(thr + 8, ...valid);
   const pad = { l: 30, r: 6, t: 6, b: 6 }, n = 300;
   const x = (i) => pad.l + (i + (n - v.length)) / (n - 1) * (w - pad.l - pad.r);
   const y = (val) => pad.t + (1 - (val - lo) / (hi - lo)) * (h - pad.t - pad.b);
@@ -255,7 +324,12 @@ function draw(s) {
     ctx.beginPath(); ctx.moveTo(pad.l, y(thr)); ctx.lineTo(w - pad.r, y(thr)); ctx.stroke(); ctx.setLineDash([]);
   }
   ctx.strokeStyle = css("--series"); ctx.lineWidth = 2; ctx.lineJoin = "round"; ctx.beginPath();
-  v.forEach((val, i) => i ? ctx.lineTo(x(i), y(val)) : ctx.moveTo(x(i), y(val))); ctx.stroke();
+  let connected = false;
+  v.forEach((val, i) => {
+    if (!Number.isFinite(val)) { connected = false; return; }
+    if (connected) ctx.lineTo(x(i), y(val)); else ctx.moveTo(x(i), y(val));
+    connected = true;
+  }); ctx.stroke();
 }
 
 async function poll() {
