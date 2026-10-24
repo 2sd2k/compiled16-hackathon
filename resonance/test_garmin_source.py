@@ -1,10 +1,11 @@
-"""Offline tests for the live Garmin bridge: simulated Bluetooth packets, no watch or Bluetooth needed.
+"""Offline tests for the live Garmin bridge: simulated packets and a fake receiver, no watch needed.
 
 Run: python -m pytest -q resonance/test_garmin_source.py
 """
 import json
 import math
 import sys
+import textwrap
 import time
 from pathlib import Path
 
@@ -33,6 +34,29 @@ class FakePlayer:
         return False
 
 
+def fake_receiver(tmp_path, scan_stderr, stream_stdout="", stream_stderr=""):
+    """A stand-in for garmin_hr.py that prints what the real one prints, without Bluetooth."""
+    script = tmp_path / "fake_garmin_hr.py"
+    script.write_text(textwrap.dedent(f"""
+        import sys, time
+        if '--scan' in sys.argv:
+            sys.stderr.write({scan_stderr!r})
+        else:
+            sys.stderr.write({stream_stderr!r})
+            for line in {stream_stdout!r}.splitlines():
+                print(line, flush=True)
+                time.sleep(0.05)
+    """))
+    return script
+
+
+def wait_for(cond, limit=10):
+    end = time.time() + limit
+    while time.time() < end and not cond():
+        time.sleep(0.05)
+    return cond()
+
+
 def test_fresh_valid_reading_is_returned():
     src = GarminSource(connect=False)
     assert math.isnan(src.next())  # nothing received yet
@@ -48,10 +72,12 @@ def test_bad_readings_become_nan_never_none():
         assert value is not None and math.isnan(value)
 
 
-def test_malformed_packets_are_ignored():
+def test_malformed_input_is_ignored():
     src = GarminSource(connect=False)
     src.on_packet(packet(70))
     src.on_packet(b"\x01\x48")  # truncated 16-bit value
+    src.on_record("not json")
+    src.on_record('{"no_hr": 1}')
     assert src.next() == 70.0 and src.readings == 1
 
 
@@ -64,8 +90,35 @@ def test_stale_reading_is_not_repeated():
     assert src.status()["last_reading_age_s"] > FRESH_S
 
 
+def test_receiver_process_readings_flow_into_source(tmp_path):
+    readings = "\n".join(json.dumps({"hr": 70 + i, "sensor_contact": True, "sample_index": i}) for i in range(5))
+    script = fake_receiver(tmp_path, "Scanning...\nAA-11\tForerunner 265\n", readings + "\n")
+    messages = []
+    src = GarminSource(receiver=script, on_status=messages.append)
+    try:
+        assert wait_for(lambda: src.readings == 5)
+        assert src.device_name == "Forerunner 265" and "Forerunner 265" in src.label
+        assert any("connected to Forerunner 265" in m for m in messages)
+    finally:
+        src.close()
+
+
+def test_receiver_error_is_reported_once(tmp_path):
+    script = fake_receiver(tmp_path, "Scanning...\nError: Bluetooth is unsupported\nOn Mac: System Settings\n")
+    messages = []
+    src = GarminSource(receiver=script, on_status=messages.append)
+    try:
+        assert wait_for(lambda: src.state == "error")
+        assert "Bluetooth is unsupported" in src.error
+        time.sleep(0.3)
+        assert sum("unsupported" in m for m in messages) == 1
+        assert math.isnan(src.next())
+    finally:
+        src.close()
+
+
 def test_make_source_builds_live_garmin_source(monkeypatch):
-    monkeypatch.setattr(GarminSource, "_run", lambda self: None)  # don't touch Bluetooth
+    monkeypatch.setattr(GarminSource, "_run", lambda self: None)  # don't start the receiver
     src = c.make_source("garmin:AA-BB")
     assert isinstance(src, GarminSource) and src.device_id == "AA-BB"
     assert not getattr(src, "interactive_simulation", False)  # adaptive learner stays off on live data
