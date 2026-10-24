@@ -5,3 +5,5 @@ __pycache__/
 .claude/
 analysis/out/deam_model/
 .pytest_cache/
+resonance/spotify_config.json
+resonance/.spotify_token.json

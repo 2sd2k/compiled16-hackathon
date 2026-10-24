@@ -18,33 +18,40 @@ git checkout chc166/dev
 
 Already cloned? Run `git fetch origin` and then `git checkout chc166/dev && git pull`.
 
-**2. Install and download the calm music (once, ~90 MB, about 5 minutes)**
+**2. Install (once)**
 
 macOS / Linux:
 ```bash
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r resonance/requirements.txt
-python resonance/fetch_audio.py
 ```
 
 Windows (PowerShell):
 ```powershell
 py -3.12 -m venv .venv; .venv\Scripts\Activate.ps1
 pip install -r resonance/requirements.txt
-python resonance/fetch_audio.py
 ```
 
-The music isn't in Git; `fetch_audio.py` downloads the 67 calm-list tracks from Jamendo into `data/raw/audio/` (gitignored). After this, the controller runs offline.
+**3. Set up Spotify (once per computer)**
 
-**3. Run it**
+Music plays **only Spotify songs from the Music-Mouv dataset** (15 calm tracks out of 204, in `app/data/spotify_library.json`), through the Spotify app. You need **Spotify Premium**, the **Spotify desktop app** open and signed in, and internet.
+
+1. Go to https://developer.spotify.com/dashboard → **Create app**. Any name; tick **Web API**; set the **Redirect URI** to exactly `http://127.0.0.1:8765/callback`.
+2. Copy the app's **Client ID**. Copy `resonance/spotify_config.example.json` to `resonance/spotify_config.json` and paste the Client ID in. No client secret is needed. The file is gitignored.
+3. In the Spotify developer dashboard, open **User Management** and add the email of every Spotify account that will sign in (apps start in development mode).
+4. Open the Spotify desktop app and play any song once, so it shows up as a device.
+
+**4. Run it**
 
 ```bash
 python resonance/controller.py
 ```
 
-Open **http://127.0.0.1:8765** (the Developer / Demo Console). Turn your sound on.
+Open **http://127.0.0.1:8765** (the Developer / Demo Console) and click **Connect Spotify** the first time. Sign in on Spotify's own page; you'll come back to a "Spotify connected" page. The sign-in is remembered in `resonance/.spotify_token.json` (gitignored).
 
-**4. Test a dataset file**
+Offline alternative: `python resonance/fetch_audio.py` (once, ~90 MB, about 5 minutes) then `python resonance/controller.py --music jamendo` plays the 67 local Jamendo calm tracks with no Spotify or internet.
+
+**5. Test a dataset file**
 
 In the console, go to **Load a heart-rate file**, choose a CSV, pick a speed (4× is good), then click **Load & replay**. Watch the room state and event log, and listen. Try the three examples in `resonance/fake_data/`, or make your own:
 
@@ -67,11 +74,12 @@ heart rate (fake data now, Garmin later) → controller → audio in the room
                         stop button / voice, nurse badge
 ```
 
-- **Controller** (`resonance/controller.py`) runs the whole loop by itself, offline, at 1 Hz:
+- **Controller** (`resonance/controller.py`) runs the whole loop by itself at 1 Hz:
   - Baseline = median heart rate over the first 120 s of rest.
   - **Elevated** = 10 s median heart rate ≥ baseline + 10 bpm for 20 s (the `hr_test.py` rule).
-  - Elevated → play the top-ranked track from the **calm list**: slow (about 55–70 bpm felt tempo, Bernardi 2006) and sparse or ambient tracks, approved in advance by the patient (Cochrane 2013, Zhang 2026). 67 of 590 tracks qualify (`analysis/classify_calm.py`).
-  - Within the calm list, tracks are ordered by **Josh's DEAM arousal model** through his `rank_music` (patient preference first, then lowest predicted arousal). The predictions agree with HKU956 listeners' own arousal ratings (ρ = 0.59). See `BASELINE-INTEGRATION.md`.
+  - Elevated → play the top-ranked song from the **calm list**, approved in advance by the patient (Cochrane 2013, Zhang 2026).
+  - **Spotify (default):** the 204 Music-Mouv songs with Spotify IDs; calm = felt tempo about 55–70 bpm (Bernardi 2006) and Spotify energy ≤ 0.5, which gives 15 songs (`analysis/build_spotify_library.py`). They're ordered with Josh's `rank_music`, patient preference first, then lowest Spotify energy (Spotify's perceived-intensity score standing in for arousal). Josh's DEAM model needs audio, which Spotify doesn't provide, so it isn't used here. Playback goes through the Spotify app (`resonance/spotify.py`).
+  - **Jamendo (`--music jamendo`, offline):** 67 of 590 local tracks are calm (`analysis/classify_calm.py`), ordered by **Josh's DEAM arousal model**; its predictions agree with HKU956 listeners' own arousal ratings (ρ = 0.59). See `BASELINE-INTEGRATION.md`.
   - Still elevated after 3 min of music → 2 min of silence, which lowered heart rate most in Bernardi 2006.
   - Back near baseline for 1 min → music fades to silence. Music sessions are capped at about 30 min (Zhang 2026).
   - **Nurse present** → fade out, resume after they leave. **Stop** → instant silence until the patient resumes.

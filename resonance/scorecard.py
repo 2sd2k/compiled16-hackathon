@@ -16,7 +16,8 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 import controller as c  # noqa: E402
 
-CLIP_S = 90
+CLIP_S = 90  # Jamendo clips; Spotify tracks use their own duration_ms
+MUSIC = "jamendo" if "--jamendo" in sys.argv else "spotify"
 
 
 class NullPlayer:
@@ -32,12 +33,14 @@ class NullPlayer:
         self.track = None
 
     def ended(self):
-        return self.track is not None and self.ctrl.t - self.started >= CLIP_S
+        length = ((self.track or {}).get("duration_ms") or CLIP_S * 1000) / 1000
+        return self.track is not None and self.ctrl.t - self.started >= length
 
 
 def run(csv_path, labels_path, threshold=10):
     player = NullPlayer()
-    ctrl = c.Controller(c.make_source(f"csv:{csv_path}"), threshold=threshold, player=player, quiet=True)
+    ctrl = c.Controller(c.make_source(f"csv:{csv_path}"), threshold=threshold, player=player, quiet=True,
+                        music=MUSIC)
     player.ctrl = ctrl
     timeline = []  # (t, room, song_id or None)
     while not ctrl.done:

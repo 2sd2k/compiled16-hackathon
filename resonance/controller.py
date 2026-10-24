@@ -11,6 +11,8 @@ Usage:
     python resonance/controller.py                      simulated heart rate (labeled)
     python resonance/controller.py --source csv:FILE    replay a t,hr CSV at 1 Hz (hr_test.py format)
     python resonance/controller.py --source hku:hku1903 replay a recorded HKU956 session
+    --music spotify (default) plays calm Music-Mouv songs through the Spotify app (see spotify.py);
+    --music jamendo plays the offline local Jamendo files instead.
 """
 import argparse
 import collections
@@ -31,6 +33,7 @@ import pygame  # noqa: E402
 
 REPO = Path(__file__).resolve().parent.parent
 LIBRARY = REPO / "app" / "data" / "music_library.json"
+SPOTIFY_LIBRARY = REPO / "app" / "data" / "spotify_library.json"
 SESSIONS = REPO / "app" / "data" / "sessions.json"
 AUDIO_DIR = REPO / "data" / "raw" / "audio"
 CONSOLE = Path(__file__).resolve().parent / "console.html"
@@ -175,7 +178,35 @@ def make_source(spec):
 
 
 # ---------- music ----------
-def load_calm_list():
+def _prefs():
+    prefs = json.loads(PREFS.read_text()) if PREFS.exists() else {}
+    return prefs.get("preferences", {}), [str(s) for s in prefs.get("excluded", [])]
+
+
+def load_calm_list(music="jamendo"):
+    return load_spotify_calm_list() if music == "spotify" else load_jamendo_calm_list()
+
+
+def load_spotify_calm_list():
+    """Calm Spotify tracks from Music-Mouv (analysis/build_spotify_library.py), played via the Spotify app.
+
+    Ranked with Josh's rank_music: patient preference first, then lowest Spotify energy (its
+    perceptual intensity, standing in for arousal; mapped to the 1-9 scale). Valence is off.
+    """
+    if not SPOTIFY_LIBRARY.exists():
+        return []
+    tracks = json.loads(SPOTIFY_LIBRARY.read_text(encoding="utf-8"))["tracks"]
+    prefs, excluded = _prefs()
+    cands = [{**t, "song_id": t["track_id"], "bpm": t["tempo"], "license": "Spotify",
+              "predicted_arousal_mean": 1 + 8 * t["energy"],
+              "predicted_valence_mean": 1 + 8 * (t["valence"] if t["valence"] is not None else 0.5),
+              "detail": f"{t['key_name']}, Spotify energy {t['energy']:.2f}"}
+             for t in tracks if t.get("calm")]
+    return rank_music(cands, {str(k): float(v) for k, v in prefs.items()}, set(excluded),
+                      target_arousal=1.0, valence_weight=0)
+
+
+def load_jamendo_calm_list():
     """Calm list (see analysis/classify_calm.py) with a local file, so the demo works offline."""
     if not LIBRARY.exists():
         return []
@@ -183,18 +214,21 @@ def load_calm_list():
     calm = [t for t in tracks if t.get("calm") and (AUDIO_DIR / f"{t['song_id']}.mp3").exists()]
     if not calm:
         return []
+    for t in calm:
+        arousal = f", predicted arousal {t['deam_pred_arousal']:.1f}/9" if t.get("deam_pred_arousal") else ""
+        t["detail"] = f"{t['key']} {t['mode']}{arousal}"
     if any(t.get("deam_pred_arousal") is None for t in calm):
         return sorted(calm, key=lambda t: t.get("felt_bpm", t["bpm"]))  # slower first (Bernardi 2006)
 
     # Order within the calm list with Josh's preference-first ranking (baseline/ranking.py), using
     # his DEAM model's predicted arousal. Valence is off: predicted valence did not track listener
     # valence on this library (analysis/out/deam_on_hku_validation.json).
-    prefs = json.loads(PREFS.read_text()) if PREFS.exists() else {}
-    preferences = {int(k): float(v) for k, v in prefs.get("preferences", {}).items()}
-    excluded = {int(s) for s in prefs.get("excluded", [])}
+    prefs, excluded = _prefs()
     cands = [{**t, "song_id": int(t["song_id"]), "predicted_arousal_mean": t["deam_pred_arousal"],
               "predicted_valence_mean": t["deam_pred_valence"]} for t in calm]
-    ranked = rank_music(cands, preferences, excluded, target_arousal=TARGET_AROUSAL, valence_weight=0)
+    ranked = rank_music(cands, {int(k): float(v) for k, v in prefs.items() if str(k).isdigit()},
+                        {int(s) for s in excluded if s.isdigit()}, target_arousal=TARGET_AROUSAL,
+                        valence_weight=0)
     return [{**t, "song_id": str(t["song_id"])} for t in ranked]
 
 
@@ -248,17 +282,22 @@ class Player:
 
 # ---------- controller ----------
 class Controller:
-    def __init__(self, source, threshold, baseline_s=BASELINE_S, player=None, quiet=False):
+    def __init__(self, source, threshold, baseline_s=BASELINE_S, player=None, quiet=False, music="jamendo"):
         self.source, self.thr, self.baseline_s = source, threshold, baseline_s
-        self.quiet = quiet
+        self.quiet, self.music = quiet, music
         self.player = player or Player()
-        self.calm = load_calm_list()
+        self.calm = load_calm_list(music)
         self.lock = threading.Lock()
         self.events = collections.deque(maxlen=60)
         self.speed = 1.0
         self._reset()
-        self.log(f"Started. Input: {source.label}. Calm list: {len(self.calm)} local tracks, slow "
-                 f"(~{CALM_BPM[0]}-{CALM_BPM[1]} bpm felt tempo) and sparse [Bernardi 2006].")
+        if music == "spotify":
+            self.rank_note = "ranked by lowest Spotify energy via Josh's rank_music"
+            what = f"{len(self.calm)} Spotify tracks from Music-Mouv, slow (~{CALM_BPM[0]}-{CALM_BPM[1]} bpm felt) and low energy"
+        else:
+            self.rank_note = "ranked by Josh's arousal model, checked against HKU956 listener ratings"
+            what = f"{len(self.calm)} local Jamendo tracks, slow (~{CALM_BPM[0]}-{CALM_BPM[1]} bpm felt tempo) and sparse"
+        self.log(f"Started. Input: {source.label}. Calm list: {what} [Bernardi 2006].")
         if not self.calm:
             self.log("No calm tracks available: the room will stay silent. Build the music library first.")
 
@@ -407,11 +446,9 @@ class Controller:
         t = choices[0]
         self.recent.append(t["song_id"])
         self.player.play(t)
-        arousal = f", predicted arousal {t['deam_pred_arousal']:.1f}/9" if t.get("deam_pred_arousal") else ""
         self.log(f"{why} → playing “{t.get('title') or t['song_id']}” by {t.get('artist') or 'unknown'} "
-                 f"({t.get('calm_reason', 'calm list')}; {t['key']} {t['mode']}{arousal}) from the "
-                 f"approved calm list [slow, sparse music: Bernardi 2006; patient-approved: Cochrane 2013; "
-                 f"ranked by Josh's arousal model, checked against HKU956 listener ratings].")
+                 f"({t.get('calm_reason', 'calm list')}; {t.get('detail', '')}) from the approved calm list "
+                 f"[slow, calm music: Bernardi 2006; patient-approved: Cochrane 2013; {self.rank_note}].")
 
     def snapshot(self):
         with self.lock:
@@ -431,8 +468,10 @@ class Controller:
                 "baseline_needed": self.baseline_s,
                 "now_playing": None if not tr else {
                     "title": tr.get("title") or tr["song_id"], "artist": tr.get("artist", ""),
-                    "bpm": tr["bpm"], "key": f"{tr['key']} {tr['mode']}", "license": tr.get("license", ""),
-                    "why": tr.get("calm_reason", ""), "arousal": tr.get("deam_pred_arousal")},
+                    "why": tr.get("calm_reason", ""), "detail": tr.get("detail", ""),
+                    "source": "Spotify" if self.music == "spotify" else "local file"},
+                "music": self.music,
+                "spotify": self.player.status() if hasattr(self.player, "status") else None,
                 "silent_pause_s": max(0, self.pause_until - self.t),
                 "events": list(self.events),
             }
@@ -451,11 +490,36 @@ def serve(ctrl, port):
             self.end_headers()
             self.wfile.write(body)
 
+        def _page(self, code, title, body):
+            html = (f"<!doctype html><meta charset=utf-8><title>{title}</title>"
+                    f"<body style='font:16px system-ui;padding:32px;max-width:640px'><h2>{title}</h2>{body}"
+                    f"<p><a href='/'>Back to the Demo Console</a></p></body>")
+            self._send(code, html.encode(), "text/html; charset=utf-8")
+
         def do_GET(self):
-            if self.path == "/state":
+            path, _, query = self.path.partition("?")
+            auth = getattr(ctrl, "spotify_auth", None)
+            if path == "/state":
                 self._send(200, json.dumps(ctrl.snapshot()).encode(), "application/json")
-            elif self.path in ("/", "/index.html"):
+            elif path in ("/", "/index.html"):
                 self._send(200, CONSOLE.read_bytes(), "text/html; charset=utf-8")
+            elif path == "/spotify/login":
+                if not auth or not auth.configured:
+                    return self._page(400, "Spotify is not set up yet",
+                                      "<p>Add your Spotify app's Client ID to <code>resonance/spotify_config.json</code> "
+                                      "(see README), then restart the controller.</p>")
+                self.send_response(302)
+                self.send_header("Location", auth.login_url())
+                self.end_headers()
+            elif path == "/callback" and auth:
+                try:
+                    auth.handle_callback(query)
+                except Exception as e:  # SpotifyError or network failure
+                    ctrl.log(f"Spotify sign-in failed: {e}")
+                    return self._page(400, "Spotify sign-in failed", f"<p>{e}</p>")
+                ctrl.log("Spotify connected. Keep the Spotify app open on this computer.")
+                self._page(200, "Spotify connected", "<p>Keep the Spotify app open on this computer. "
+                                                     "You can close this tab.</p>")
             else:
                 self._send(404, b"not found", "text/plain")
 
@@ -532,12 +596,28 @@ def main():
     ap.add_argument("--threshold", type=int, default=10)
     ap.add_argument("--port", type=int, default=8765)
     ap.add_argument("--no-console", action="store_true")
+    ap.add_argument("--music", choices=("spotify", "jamendo"), default="spotify",
+                    help="spotify: Music-Mouv songs via the Spotify app (default); jamendo: offline local files")
     ap.add_argument("--speed", type=float, default=1.0, help="replay speed for recorded input")
     ap.add_argument("--baseline-s", type=int, default=BASELINE_S,
                     help="seconds of rest used for the baseline (120 normally; shorter only for demos)")
     args = ap.parse_args()
 
-    ctrl = Controller(make_source(args.source), args.threshold, args.baseline_s)
+    auth = player = None
+    if args.music == "spotify":
+        from spotify import SpotifyAuth, SpotifyPlayer
+        auth = SpotifyAuth(args.port)
+        player = SpotifyPlayer(auth)
+    ctrl = Controller(make_source(args.source), args.threshold, args.baseline_s, player=player, music=args.music)
+    if auth:
+        ctrl.spotify_auth, player.on_error = auth, ctrl.log
+        if not auth.configured:
+            ctrl.log("Spotify not set up: add a Client ID to resonance/spotify_config.json (see README). "
+                     "Until then the room stays silent.")
+        elif not auth.connected:
+            ctrl.log(f"Spotify not connected yet: open http://127.0.0.1:{args.port} and click Connect Spotify.")
+        else:
+            ctrl.log("Spotify connected. Keep the Spotify app open on this computer.")
     if not args.no_console:
         serve(ctrl, args.port)
     stop_event = threading.Event()

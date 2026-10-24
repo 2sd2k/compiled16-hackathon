@@ -70,7 +70,10 @@ button.on { background: var(--sim); border-color: var(--sim-border); }
 .spd { font-size: 13px; color: var(--ink-2); display: inline-flex; gap: 6px; align-items: center; }
 select { font: inherit; font-size: 13px; color: var(--ink); background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 4px 6px; }
 code { font-size: 12px; }
-.err { color: var(--elev); }
+.err { color: var(--elev); font-size: 13px; }
+.spotify { margin-top: 8px; font-size: 13px; color: var(--ink-2); display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.btnlink { font-size: 13px; color: var(--ink); background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 5px 10px; text-decoration: none; }
+.btnlink:hover { border-color: var(--muted); }
 </style>
 </head>
 <body>
@@ -98,6 +101,11 @@ code { font-size: 12px; }
         <div><span class="k">Elevated at</span><span id="thr" class="v">–</span></div>
       </div>
       <div class="playing" id="playing">Room is silent.</div>
+      <div id="spotify" class="spotify" hidden>
+        <span id="spState"></span>
+        <a id="spConnect" class="btnlink" href="/spotify/login" hidden>Connect Spotify</a>
+        <div id="spError" class="err"></div>
+      </div>
       <canvas id="chart" aria-label="Heart rate, last 5 minutes"></canvas>
       <div class="legend"><span><i class="sw l"></i>heart rate (10 s median)</span><span><i class="sw b"></i>baseline</span><span><i class="sw t"></i>threshold</span><span><i class="sw e"></i>above threshold</span></div>
     </section>
@@ -182,8 +190,17 @@ function render(s) {
   $("thr").textContent = s.baseline == null ? `+${s.threshold}` : `${Math.round(s.baseline + s.threshold)}`;
   const p = s.now_playing;
   $("playing").innerHTML = p
-    ? `♪ <b>${esc(p.title)}</b> · ${esc(p.artist)}<br><span style="color:var(--muted)">${esc(p.why || `${p.bpm.toFixed(0)} bpm`)} · ${esc(p.key)}${p.arousal != null ? ` · predicted arousal ${p.arousal.toFixed(1)}/9` : ""} · approved calm list</span>`
+    ? `♪ <b>${esc(p.title)}</b> · ${esc(p.artist)}<br><span style="color:var(--muted)">${esc(p.why)} · ${esc(p.detail)} · approved calm list · via ${esc(p.source)}</span>`
     : "Room is silent.";
+  const sp = s.spotify, box = $("spotify");
+  box.hidden = !sp;
+  if (sp) {
+    const state = !sp.configured ? "not set up: add a Client ID to resonance/spotify_config.json (see README)"
+      : !sp.connected ? "not connected" : `connected${sp.device ? ` · playing on ${sp.device}` : " · keep the Spotify app open"}`;
+    $("spState").textContent = `Spotify: ${state}`;
+    $("spConnect").hidden = !sp.configured || sp.connected;
+    $("spError").textContent = sp.error || "";
+  }
   $("nurseBtn").textContent = s.room === "Nurse present" ? "Nurse leaves" : "Nurse enters";
   $("nurseBtn").classList.toggle("on", s.room === "Nurse present");
   $("stopBtn").textContent = s.room === "Stopped" ? "Patient resumes" : "Patient says “stop”";
