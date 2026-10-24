@@ -32,6 +32,9 @@ class FakePlayer:
     def ended(self):
         return False
 
+    def status(self):
+        return {'configured': False, 'connected': False}
+
 
 def test_fresh_valid_reading_is_returned():
     src = GarminSource(connect=False)

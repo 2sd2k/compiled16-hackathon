@@ -8,8 +8,8 @@ zero or out of range). next() never returns None (that would end the session) an
 an old reading as new.
 
 On the watch: Health & Wellness > Wrist Heart Rate > Broadcast Heart Rate > START.
-Live data is not interactive simulation, so the adaptive learner stays off by design; the
-controller uses its regular evidence-based ranking.
+Live data is distinct from interactive simulation. An explicitly configured live adapter
+learns from unique notifications; classic mode keeps fixed calm-list ranking.
 """
 import asyncio
 import math
@@ -28,6 +28,8 @@ HR_RANGE = (30, 220)
 
 
 class GarminSource:
+    live = True
+
     def __init__(self, device_id=None, connect=True, on_status=None):
         self.device_id = device_id
         self.on_status = on_status or (lambda msg: None)
@@ -35,6 +37,8 @@ class GarminSource:
         self.state, self.device_name, self.error = "starting", "", ""
         self._last_problem = None
         self.readings = 0
+        self._consumed = 0
+        self.sample_metadata = {}
         self._latest = None  # (bpm, sensor_contact, monotonic time)
         self._lock = threading.Lock()
         self._closed = threading.Event()
@@ -48,6 +52,12 @@ class GarminSource:
     def next(self):
         with self._lock:
             latest = self._latest
+            self.sample_metadata = {}
+            if self.readings == self._consumed:
+                return math.nan
+            self._consumed = self.readings
+            if latest is not None:
+                self.sample_metadata = {'measurement_id': self.readings, 'received_at': latest[2]}
         if latest is None:
             return math.nan
         bpm, contact, at = latest
@@ -57,12 +67,15 @@ class GarminSource:
 
     def close(self):
         self._closed.set()
+        with self._lock:
+            self._latest = None
 
     def status(self):
         with self._lock:
             latest = self._latest
         age = None if latest is None else round(time.monotonic() - latest[2], 1)
         return {"state": self.state, "device": self.device_name, "error": self.error,
+                "device_id": self.device_id,
                 "readings": self.readings, "last_reading_age_s": age,
                 "sensor_contact": None if latest is None else latest[1]}
 
@@ -102,6 +115,8 @@ class GarminSource:
             return
         while not self._closed.is_set():
             try:
+                with self._lock:
+                    self._latest = None
                 self._set_state("scanning", "Garmin: looking for the watch's heart-rate broadcast...")
                 found = await BleakScanner.discover(timeout=8, return_adv=True, service_uuids=[SERVICE])
                 devices = [(d, a) for d, a in found.values()
@@ -118,22 +133,28 @@ class GarminSource:
                     await asyncio.sleep(RECONNECT_S)
                     continue
                 device, advert = devices[0]
+                self.device_id = device.address  # Keep this volunteer bound to the same sensor on reconnect.
                 self.device_name = advert.local_name or device.name or device.address
                 self.label = f"LIVE Garmin heart rate ({self.device_name})"
                 dropped = asyncio.Event()
                 async with BleakClient(device, disconnected_callback=lambda _: dropped.set()) as client:
+                    connected_at = time.monotonic()
                     await client.start_notify(MEASUREMENT, lambda _c, data: self.on_packet(data))
                     self._set_state("connected", f"Garmin: connected to {self.device_name}; live heart rate flowing.")
                     while not dropped.is_set() and not self._closed.is_set():
                         await asyncio.sleep(0.5)
                         with self._lock:
                             last = self._latest[2] if self._latest else None
-                        if last is not None and time.monotonic() - last > STALE_DISCONNECT_S:
+                        if time.monotonic() - (last if last is not None else connected_at) > STALE_DISCONNECT_S:
                             break
+                with self._lock:
+                    self._latest = None
                 if not self._closed.is_set():
                     self._set_state("reconnecting", "Garmin: watch connection lost; reconnecting (no readings "
                                     "are repeated meanwhile).", "connection lost")
             except Exception as e:  # Bluetooth off, permissions, adapter errors
+                with self._lock:
+                    self._latest = None
                 reason = e.args[0] if e.args and isinstance(e.args[0], str) else str(e)
                 self._set_state("error", f"Garmin: Bluetooth error: {reason} (Mac: allow the terminal under "
                                 "Privacy & Security > Bluetooth). Retrying every 5 s.", reason[:160])
