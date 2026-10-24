@@ -109,11 +109,6 @@ code { font-size: 12px; }
       <div class="playing" id="playing">Room is silent.</div>
       <div id="live" class="spotify" hidden></div>
       <div id="adaptive" class="spotify" hidden></div>
-      <div id="spotify" class="spotify" hidden>
-        <span id="spState"></span>
-        <a id="spConnect" class="btnlink" href="/spotify/login" hidden>Connect Spotify</a>
-        <div id="spError" class="err"></div>
-      </div>
       <canvas id="chart" aria-label="Heart rate, last 5 minutes"></canvas>
       <div class="legend"><span><i class="sw l"></i>heart rate (10 s median)</span><span><i class="sw b"></i>baseline</span><span><i class="sw t"></i>threshold</span><span><i class="sw e"></i>above threshold</span></div>
     </section>
@@ -284,15 +279,6 @@ function render(s) {
     const reward = last && last.updated ? ` · last response score ${last.reward >= 0 ? "+" : ""}${last.reward.toFixed(2)}` : "";
     adBox.textContent = ad.error ? `Adaptive layer paused: ${ad.error}` : ad.updating ? "Adaptive layer: updating…"
       : `Adaptive layer (${s.source_kind === 'live' ? 'live Garmin' : s.source_kind === 'recorded' ? 'replay' : 'simulation'}): ${ad.updates ?? 0} response${ad.updates === 1 ? "" : "s"} learned${reward} · ${WAIT[ad.waiting_reason] || ad.waiting_reason || ""}`;
-  }
-  const sp = s.spotify, box = $("spotify");
-  box.hidden = !sp;
-  if (sp) {
-    const state = !sp.configured ? "not set up: add a Client ID to resonance/spotify_config.json (see README)"
-      : !sp.connected ? "not connected" : `connected${sp.device ? ` · playing on ${sp.device}` : " · keep the Spotify app open"}`;
-    $("spState").textContent = `Spotify: ${state}`;
-    $("spConnect").hidden = !sp.configured || sp.connected;
-    $("spError").textContent = sp.error || "";
   }
   $("nurseBtn").textContent = s.room === "Nurse present" ? "Nurse leaves" : "Nurse enters";
   $("nurseBtn").classList.toggle("on", s.room === "Nurse present");
