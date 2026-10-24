@@ -84,7 +84,10 @@ def evaluate(frame, group_column):
     tr, va, te = (splits[k] for k in ['train', 'validation', 'test'])
     y = frame.hr_change.to_numpy()
     baseline = DummyRegressor(strategy='mean').fit(np.zeros((len(tr), 1)), y[tr])
-    results = {'train_mean': score(y[te], baseline.predict(np.zeros((len(te), 1))))}
+    results = {
+        'no_change': score(y[te], np.zeros(len(te))),
+        'train_mean': score(y[te], baseline.predict(np.zeros((len(te), 1)))),
+    }
     validation, fitted, chosen = {}, {}, {}
     for kind, columns in [('state_only', STATE), ('audio_only', AUDIO), ('state_plus_audio', STATE+AUDIO)]:
         validation[kind] = {}
