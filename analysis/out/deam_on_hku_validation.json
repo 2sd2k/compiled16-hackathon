@@ -1,0 +1,279 @@
+{
+  "training_reproduction": {
+    "extra_trees": {
+      "arousal_mean": {
+        "mae": 0.6974386122519137,
+        "r2": 0.5211659108243052
+      },
+      "valence_mean": {
+        "mae": 0.7034880289811545,
+        "r2": 0.4523262176604036
+      }
+    },
+    "train_mean": {
+      "arousal_mean": {
+        "mae": 1.0382758377425043,
+        "r2": -0.0008785866061342684
+      },
+      "valence_mean": {
+        "mae": 0.978005291005291,
+        "r2": -0.0006395527848050975
+      }
+    }
+  },
+  "domain_shift": {
+    "median_fraction_of_tracks_outside_deam_1_99pct_per_feature": 0.056,
+    "features_with_over_half_tracks_outside": 6,
+    "worst_features": {
+      "pcm_fftMag_mfcc_sma_de[6]_amean__std_over_time": 0.62,
+      "pcm_fftMag_mfcc_sma_de[9]_amean__std_over_time": 0.57,
+      "pcm_fftMag_mfcc_sma_de[8]_amean__std_over_time": 0.57,
+      "pcm_fftMag_mfcc_sma_de[5]_amean__std_over_time": 0.56,
+      "pcm_fftMag_mfcc_sma_de[4]_amean__std_over_time": 0.52,
+      "pcm_fftMag_mfcc_sma_de[7]_amean__std_over_time": 0.52,
+      "pcm_fftMag_mfcc_sma_de[3]_amean__std_over_time": 0.44,
+      "pcm_fftMag_mfcc_sma_de[11]_amean__std_over_time": 0.42
+    }
+  },
+  "correlations": {
+    "all_rated_songs": {
+      "hku_arousal": {
+        "josh_pred_arousal": {
+          "rho": 0.587,
+          "p": 5.445730641357615e-56,
+          "ci95": [
+            0.532,
+            0.643
+          ],
+          "n": 590
+        },
+        "josh_pred_valence": {
+          "rho": 0.596,
+          "p": 5.155526527640399e-58,
+          "ci95": [
+            0.542,
+            0.646
+          ],
+          "n": 590
+        },
+        "onsets_per_s": {
+          "rho": 0.333,
+          "p": 1.0067747350124366e-16,
+          "ci95": [
+            0.26,
+            0.403
+          ],
+          "n": 590
+        },
+        "loudness_dbfs": {
+          "rho": 0.461,
+          "p": 1.9130297031899473e-32,
+          "ci95": [
+            0.396,
+            0.526
+          ],
+          "n": 590
+        },
+        "brightness_hz": {
+          "rho": 0.498,
+          "p": 3.2098210693278795e-38,
+          "ci95": [
+            0.436,
+            0.557
+          ],
+          "n": 590
+        },
+        "calm_label": {
+          "rho": -0.192,
+          "p": 2.5167609834223812e-06,
+          "ci95": [
+            -0.269,
+            -0.113
+          ],
+          "n": 590
+        }
+      },
+      "hku_valence": {
+        "josh_pred_arousal": {
+          "rho": 0.046,
+          "p": 0.2663554268389778,
+          "ci95": [
+            -0.033,
+            0.123
+          ],
+          "n": 590
+        },
+        "josh_pred_valence": {
+          "rho": 0.049,
+          "p": 0.23714124844519852,
+          "ci95": [
+            -0.032,
+            0.124
+          ],
+          "n": 590
+        },
+        "onsets_per_s": {
+          "rho": 0.03,
+          "p": 0.461104769987084,
+          "ci95": [
+            -0.047,
+            0.108
+          ],
+          "n": 590
+        },
+        "loudness_dbfs": {
+          "rho": 0.005,
+          "p": 0.9051702018235996,
+          "ci95": [
+            -0.075,
+            0.085
+          ],
+          "n": 590
+        },
+        "brightness_hz": {
+          "rho": 0.017,
+          "p": 0.6827366495399817,
+          "ci95": [
+            -0.064,
+            0.096
+          ],
+          "n": 590
+        },
+        "calm_label": {
+          "rho": -0.042,
+          "p": 0.3041436333256074,
+          "ci95": [
+            -0.127,
+            0.039
+          ],
+          "n": 590
+        }
+      }
+    },
+    "songs_with_2plus_raters": {
+      "hku_arousal": {
+        "josh_pred_arousal": {
+          "rho": 0.684,
+          "p": 1.5042417430933958e-22,
+          "ci95": [
+            0.573,
+            0.769
+          ],
+          "n": 154
+        },
+        "josh_pred_valence": {
+          "rho": 0.713,
+          "p": 3.044352797840431e-25,
+          "ci95": [
+            0.615,
+            0.786
+          ],
+          "n": 154
+        },
+        "onsets_per_s": {
+          "rho": 0.457,
+          "p": 2.458115808037247e-09,
+          "ci95": [
+            0.316,
+            0.579
+          ],
+          "n": 154
+        },
+        "loudness_dbfs": {
+          "rho": 0.575,
+          "p": 6.562091230962741e-15,
+          "ci95": [
+            0.457,
+            0.673
+          ],
+          "n": 154
+        },
+        "brightness_hz": {
+          "rho": 0.664,
+          "p": 6.498019382303841e-21,
+          "ci95": [
+            0.556,
+            0.744
+          ],
+          "n": 154
+        },
+        "calm_label": {
+          "rho": -0.271,
+          "p": 0.00066574859159474,
+          "ci95": [
+            -0.402,
+            -0.119
+          ],
+          "n": 154
+        }
+      },
+      "hku_valence": {
+        "josh_pred_arousal": {
+          "rho": 0.01,
+          "p": 0.9005279029370608,
+          "ci95": [
+            -0.141,
+            0.166
+          ],
+          "n": 154
+        },
+        "josh_pred_valence": {
+          "rho": 0.011,
+          "p": 0.8970706034106839,
+          "ci95": [
+            -0.142,
+            0.163
+          ],
+          "n": 154
+        },
+        "onsets_per_s": {
+          "rho": -0.086,
+          "p": 0.29068089498561767,
+          "ci95": [
+            -0.233,
+            0.067
+          ],
+          "n": 154
+        },
+        "loudness_dbfs": {
+          "rho": -0.066,
+          "p": 0.4189731663684764,
+          "ci95": [
+            -0.211,
+            0.09
+          ],
+          "n": 154
+        },
+        "brightness_hz": {
+          "rho": -0.014,
+          "p": 0.8647688824926936,
+          "ci95": [
+            -0.175,
+            0.146
+          ],
+          "n": 154
+        },
+        "calm_label": {
+          "rho": -0.037,
+          "p": 0.6515508880545706,
+          "ci95": [
+            -0.189,
+            0.114
+          ],
+          "n": 154
+        }
+      }
+    }
+  },
+  "cv_r2_hku_arousal": {
+    "simple_features": 0.296,
+    "simple_plus_josh_pred_arousal": 0.337,
+    "josh_pred_arousal_only": 0.332
+  },
+  "calm_vs_not_mean_hku_arousal": {
+    "calm": -1.1,
+    "not_calm": 1.37,
+    "pred_arousal_calm": 3.87,
+    "pred_arousal_not_calm": 4.7
+  }
+}

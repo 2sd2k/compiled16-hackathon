@@ -31,7 +31,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1947&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.375,
+   "deam_pred_valence": 4.331
   },
   {
    "song_id": "2084",
@@ -63,7 +65,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=2084&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.051,
+   "deam_pred_valence": 5.251
   },
   {
    "song_id": "2636",
@@ -95,7 +99,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=2636&format=mp31",
    "felt_bpm": 56.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.342,
+   "deam_pred_valence": 4.112
   },
   {
    "song_id": "2643",
@@ -127,7 +133,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=2643&format=mp31",
    "felt_bpm": 56.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.182,
+   "deam_pred_valence": 4.415
   },
   {
    "song_id": "3446",
@@ -159,7 +167,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=3446&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.338,
+   "deam_pred_valence": 5.558
   },
   {
    "song_id": "3595",
@@ -191,7 +201,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=3595&format=mp31",
    "felt_bpm": 99.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.151,
+   "deam_pred_valence": 5.339
   },
   {
    "song_id": "3935",
@@ -223,7 +235,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=3935&format=mp31",
    "felt_bpm": 68.0,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 3.999,
+   "deam_pred_valence": 4.094
   },
   {
    "song_id": "5089",
@@ -255,7 +269,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=5089&format=mp31",
    "felt_bpm": 92.3,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.099,
+   "deam_pred_valence": 4.45
   },
   {
    "song_id": "5760",
@@ -287,7 +303,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=5760&format=mp31",
    "felt_bpm": 92.3,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.156,
+   "deam_pred_valence": 5.362
   },
   {
    "song_id": "6719",
@@ -319,7 +337,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=6719&format=mp31",
    "felt_bpm": 61.5,
    "calm": true,
-   "calm_reason": "slow pulse ~62 bpm (half-time reading), sparse notes"
+   "calm_reason": "slow pulse ~62 bpm (half-time reading), sparse notes",
+   "deam_pred_arousal": 3.758,
+   "deam_pred_valence": 4.011
   },
   {
    "song_id": "6720",
@@ -351,7 +371,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=6720&format=mp31",
    "felt_bpm": 103.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.447,
+   "deam_pred_valence": 3.892
   },
   {
    "song_id": "8565",
@@ -383,7 +405,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=8565&format=mp31",
    "felt_bpm": 68.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.571,
+   "deam_pred_valence": 4.756
   },
   {
    "song_id": "11745",
@@ -415,7 +439,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=11745&format=mp31",
    "felt_bpm": 68.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.585,
+   "deam_pred_valence": 4.708
   },
   {
    "song_id": "12303",
@@ -447,7 +473,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=12303&format=mp31",
    "felt_bpm": 95.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 6.045,
+   "deam_pred_valence": 6.259
   },
   {
    "song_id": "12305",
@@ -479,7 +507,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=12305&format=mp31",
    "felt_bpm": 103.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.793,
+   "deam_pred_valence": 5.958
   },
   {
    "song_id": "12306",
@@ -511,7 +541,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=12306&format=mp31",
    "felt_bpm": 56.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.574,
+   "deam_pred_valence": 5.586
   },
   {
    "song_id": "14464",
@@ -543,7 +575,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=14464&format=mp31",
    "felt_bpm": 107.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.219,
+   "deam_pred_valence": 4.423
   },
   {
    "song_id": "17617",
@@ -575,7 +609,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=17617&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.598,
+   "deam_pred_valence": 3.623
   },
   {
    "song_id": "18229",
@@ -607,7 +643,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=18229&format=mp31",
    "felt_bpm": 61.5,
    "calm": true,
-   "calm_reason": "slow pulse ~62 bpm (half-time reading), sparse notes"
+   "calm_reason": "slow pulse ~62 bpm (half-time reading), sparse notes",
+   "deam_pred_arousal": 3.476,
+   "deam_pred_valence": 4.064
   },
   {
    "song_id": "18231",
@@ -639,7 +677,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=18231&format=mp31",
    "felt_bpm": 61.5,
    "calm": true,
-   "calm_reason": "ambient: 0.31 note onsets/s, no meaningful beat"
+   "calm_reason": "ambient: 0.31 note onsets/s, no meaningful beat",
+   "deam_pred_arousal": 3.081,
+   "deam_pred_valence": 3.74
   },
   {
    "song_id": "18232",
@@ -671,7 +711,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=18232&format=mp31",
    "felt_bpm": 61.5,
    "calm": true,
-   "calm_reason": "ambient: 1.13 note onsets/s, no meaningful beat"
+   "calm_reason": "ambient: 1.13 note onsets/s, no meaningful beat",
+   "deam_pred_arousal": 3.099,
+   "deam_pred_valence": 3.96
   },
   {
    "song_id": "18233",
@@ -703,7 +745,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=18233&format=mp31",
    "felt_bpm": 61.5,
    "calm": true,
-   "calm_reason": "ambient: 0.09 note onsets/s, no meaningful beat"
+   "calm_reason": "ambient: 0.09 note onsets/s, no meaningful beat",
+   "deam_pred_arousal": 2.966,
+   "deam_pred_valence": 3.742
   },
   {
    "song_id": "18236",
@@ -735,7 +779,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=18236&format=mp31",
    "felt_bpm": 61.5,
    "calm": true,
-   "calm_reason": "slow pulse ~62 bpm (half-time reading), sparse notes"
+   "calm_reason": "slow pulse ~62 bpm (half-time reading), sparse notes",
+   "deam_pred_arousal": 3.091,
+   "deam_pred_valence": 3.963
   },
   {
    "song_id": "18243",
@@ -767,7 +813,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=18243&format=mp31",
    "felt_bpm": 80.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.449,
+   "deam_pred_valence": 4.458
   },
   {
    "song_id": "20354",
@@ -799,7 +847,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=20354&format=mp31",
    "felt_bpm": 89.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.881,
+   "deam_pred_valence": 4.83
   },
   {
    "song_id": "20947",
@@ -831,7 +881,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=20947&format=mp31",
    "felt_bpm": 107.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.129,
+   "deam_pred_valence": 5.113
   },
   {
    "song_id": "23105",
@@ -863,7 +915,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=23105&format=mp31",
    "felt_bpm": 80.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.724,
+   "deam_pred_valence": 5.608
   },
   {
    "song_id": "25217",
@@ -895,7 +949,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=25217&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 2.87,
+   "deam_pred_valence": 3.904
   },
   {
    "song_id": "25227",
@@ -927,7 +983,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=25227&format=mp31",
    "felt_bpm": 58.8,
    "calm": true,
-   "calm_reason": "slow pulse ~59 bpm (half-time reading), sparse notes"
+   "calm_reason": "slow pulse ~59 bpm (half-time reading), sparse notes",
+   "deam_pred_arousal": 3.54,
+   "deam_pred_valence": 3.953
   },
   {
    "song_id": "25383",
@@ -959,7 +1017,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=25383&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.266,
+   "deam_pred_valence": 3.96
   },
   {
    "song_id": "25385",
@@ -991,7 +1051,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=25385&format=mp31",
    "felt_bpm": 80.8,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 3.247,
+   "deam_pred_valence": 3.769
   },
   {
    "song_id": "26403",
@@ -1023,7 +1085,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=26403&format=mp31",
    "felt_bpm": 107.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.856,
+   "deam_pred_valence": 3.988
   },
   {
    "song_id": "26404",
@@ -1055,7 +1119,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=26404&format=mp31",
    "felt_bpm": 107.7,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 3.041,
+   "deam_pred_valence": 3.766
   },
   {
    "song_id": "26427",
@@ -1087,7 +1153,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=26427&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.312,
+   "deam_pred_valence": 3.878
   },
   {
    "song_id": "26430",
@@ -1119,7 +1187,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=26430&format=mp31",
    "felt_bpm": 68.0,
    "calm": true,
-   "calm_reason": "ambient: 1.33 note onsets/s, no meaningful beat"
+   "calm_reason": "ambient: 1.33 note onsets/s, no meaningful beat",
+   "deam_pred_arousal": 2.939,
+   "deam_pred_valence": 3.854
   },
   {
    "song_id": "26434",
@@ -1151,7 +1221,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=26434&format=mp31",
    "felt_bpm": 107.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.612,
+   "deam_pred_valence": 3.946
   },
   {
    "song_id": "26436",
@@ -1183,7 +1255,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=26436&format=mp31",
    "felt_bpm": 58.8,
    "calm": true,
-   "calm_reason": "slow pulse ~59 bpm (half-time reading), sparse notes"
+   "calm_reason": "slow pulse ~59 bpm (half-time reading), sparse notes",
+   "deam_pred_arousal": 2.812,
+   "deam_pred_valence": 3.996
   },
   {
    "song_id": "26438",
@@ -1215,7 +1289,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=26438&format=mp31",
    "felt_bpm": 58.8,
    "calm": true,
-   "calm_reason": "ambient: 1.4 note onsets/s, no meaningful beat"
+   "calm_reason": "ambient: 1.4 note onsets/s, no meaningful beat",
+   "deam_pred_arousal": 3.231,
+   "deam_pred_valence": 3.608
   },
   {
    "song_id": "28197",
@@ -1247,7 +1323,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=28197&format=mp31",
    "felt_bpm": 68.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.698,
+   "deam_pred_valence": 4.114
   },
   {
    "song_id": "29862",
@@ -1279,7 +1357,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=29862&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.386,
+   "deam_pred_valence": 4.853
   },
   {
    "song_id": "29863",
@@ -1311,7 +1391,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=29863&format=mp31",
    "felt_bpm": 86.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.15,
+   "deam_pred_valence": 5.15
   },
   {
    "song_id": "31431",
@@ -1343,7 +1425,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=31431&format=mp31",
    "felt_bpm": 61.5,
    "calm": true,
-   "calm_reason": "slow pulse ~62 bpm (half-time reading), sparse notes"
+   "calm_reason": "slow pulse ~62 bpm (half-time reading), sparse notes",
+   "deam_pred_arousal": 5.748,
+   "deam_pred_valence": 5.917
   },
   {
    "song_id": "33177",
@@ -1375,7 +1459,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=33177&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.243,
+   "deam_pred_valence": 4.559
   },
   {
    "song_id": "33824",
@@ -1407,7 +1493,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=33824&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.818,
+   "deam_pred_valence": 5.096
   },
   {
    "song_id": "33826",
@@ -1439,7 +1527,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=33826&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.589,
+   "deam_pred_valence": 5.546
   },
   {
    "song_id": "34548",
@@ -1471,7 +1561,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=34548&format=mp31",
    "felt_bpm": 99.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.666,
+   "deam_pred_valence": 4.577
   },
   {
    "song_id": "34549",
@@ -1503,7 +1595,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=34549&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.474,
+   "deam_pred_valence": 5.641
   },
   {
    "song_id": "34851",
@@ -1535,7 +1629,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=34851&format=mp31",
    "felt_bpm": 56.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.779,
+   "deam_pred_valence": 4.907
   },
   {
    "song_id": "34856",
@@ -1567,7 +1663,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=34856&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.866,
+   "deam_pred_valence": 4.296
   },
   {
    "song_id": "36706",
@@ -1599,7 +1697,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=36706&format=mp31",
    "felt_bpm": 76.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.491,
+   "deam_pred_valence": 5.424
   },
   {
    "song_id": "40634",
@@ -1631,7 +1731,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=40634&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 2.993,
+   "deam_pred_valence": 3.841
   },
   {
    "song_id": "40637",
@@ -1663,7 +1765,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=40637&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.072,
+   "deam_pred_valence": 4.491
   },
   {
    "song_id": "40638",
@@ -1695,7 +1799,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=40638&format=mp31",
    "felt_bpm": 107.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.284,
+   "deam_pred_valence": 3.926
   },
   {
    "song_id": "42202",
@@ -1727,7 +1833,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=42202&format=mp31",
    "felt_bpm": 89.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.932,
+   "deam_pred_valence": 5.002
   },
   {
    "song_id": "42205",
@@ -1759,7 +1867,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=42205&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 3.532,
+   "deam_pred_valence": 3.937
   },
   {
    "song_id": "42263",
@@ -1791,7 +1901,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=42263&format=mp31",
    "felt_bpm": 80.8,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 5.906,
+   "deam_pred_valence": 5.875
   },
   {
    "song_id": "46536",
@@ -1823,7 +1935,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=46536&format=mp31",
    "felt_bpm": 107.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 2.881,
+   "deam_pred_valence": 4.102
   },
   {
    "song_id": "47397",
@@ -1855,7 +1969,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=47397&format=mp31",
    "felt_bpm": 68.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.245,
+   "deam_pred_valence": 5.063
   },
   {
    "song_id": "47402",
@@ -1887,7 +2003,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=47402&format=mp31",
    "felt_bpm": 107.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.385,
+   "deam_pred_valence": 5.449
   },
   {
    "song_id": "47558",
@@ -1919,7 +2037,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=47558&format=mp31",
    "felt_bpm": 80.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.196,
+   "deam_pred_valence": 5.373
   },
   {
    "song_id": "48978",
@@ -1951,7 +2071,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=48978&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.927,
+   "deam_pred_valence": 4.018
   },
   {
    "song_id": "48979",
@@ -1983,7 +2105,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=48979&format=mp31",
    "felt_bpm": 61.5,
    "calm": true,
-   "calm_reason": "slow pulse ~62 bpm (half-time reading), sparse notes"
+   "calm_reason": "slow pulse ~62 bpm (half-time reading), sparse notes",
+   "deam_pred_arousal": 3.011,
+   "deam_pred_valence": 4.007
   },
   {
    "song_id": "49019",
@@ -2015,7 +2139,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=49019&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.375,
+   "deam_pred_valence": 4.032
   },
   {
    "song_id": "49224",
@@ -2047,7 +2173,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=49224&format=mp31",
    "felt_bpm": 76.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.219,
+   "deam_pred_valence": 5.373
   },
   {
    "song_id": "57863",
@@ -2079,7 +2207,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=57863&format=mp31",
    "felt_bpm": 86.2,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.556,
+   "deam_pred_valence": 4.068
   },
   {
    "song_id": "64507",
@@ -2111,7 +2241,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=64507&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.166,
+   "deam_pred_valence": 5.325
   },
   {
    "song_id": "73122",
@@ -2143,7 +2275,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=73122&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.125,
+   "deam_pred_valence": 5.053
   },
   {
    "song_id": "73985",
@@ -2175,7 +2309,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=73985&format=mp31",
    "felt_bpm": 103.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.177,
+   "deam_pred_valence": 5.281
   },
   {
    "song_id": "73987",
@@ -2207,7 +2343,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=73987&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.703,
+   "deam_pred_valence": 5.599
   },
   {
    "song_id": "73993",
@@ -2239,7 +2377,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=73993&format=mp31",
    "felt_bpm": 86.2,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.764,
+   "deam_pred_valence": 5.584
   },
   {
    "song_id": "74468",
@@ -2271,7 +2411,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=74468&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.016,
+   "deam_pred_valence": 4.051
   },
   {
    "song_id": "75190",
@@ -2303,7 +2445,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=75190&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.386,
+   "deam_pred_valence": 4.551
   },
   {
    "song_id": "76947",
@@ -2335,7 +2479,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=76947&format=mp31",
    "felt_bpm": 86.2,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.964,
+   "deam_pred_valence": 4.642
   },
   {
    "song_id": "76972",
@@ -2367,7 +2513,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=76972&format=mp31",
    "felt_bpm": 103.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.018,
+   "deam_pred_valence": 3.971
   },
   {
    "song_id": "76981",
@@ -2399,7 +2547,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=76981&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.201,
+   "deam_pred_valence": 3.723
   },
   {
    "song_id": "77933",
@@ -2431,7 +2581,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=77933&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.392,
+   "deam_pred_valence": 5.413
   },
   {
    "song_id": "77934",
@@ -2463,7 +2615,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=77934&format=mp31",
    "felt_bpm": 76.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.036,
+   "deam_pred_valence": 4.971
   },
   {
    "song_id": "79684",
@@ -2495,7 +2649,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=79684&format=mp31",
    "felt_bpm": 86.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.035,
+   "deam_pred_valence": 5.188
   },
   {
    "song_id": "80408",
@@ -2527,7 +2683,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=80408&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.245,
+   "deam_pred_valence": 5.661
   },
   {
    "song_id": "80616",
@@ -2559,7 +2717,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=80616&format=mp31",
    "felt_bpm": 89.1,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 5.241,
+   "deam_pred_valence": 5.116
   },
   {
    "song_id": "80617",
@@ -2591,7 +2751,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=80617&format=mp31",
    "felt_bpm": 76.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.684,
+   "deam_pred_valence": 6.448
   },
   {
    "song_id": "81740",
@@ -2623,7 +2785,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=81740&format=mp31",
    "felt_bpm": 95.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.184,
+   "deam_pred_valence": 5.199
   },
   {
    "song_id": "83853",
@@ -2655,7 +2819,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=83853&format=mp31",
    "felt_bpm": 89.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.365,
+   "deam_pred_valence": 5.322
   },
   {
    "song_id": "84030",
@@ -2687,7 +2853,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=84030&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.745,
+   "deam_pred_valence": 5.685
   },
   {
    "song_id": "84728",
@@ -2719,7 +2887,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=84728&format=mp31",
    "felt_bpm": 103.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.164,
+   "deam_pred_valence": 5.089
   },
   {
    "song_id": "88554",
@@ -2751,7 +2921,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=88554&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.198,
+   "deam_pred_valence": 4.242
   },
   {
    "song_id": "89730",
@@ -2783,7 +2955,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=89730&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.89,
+   "deam_pred_valence": 5.787
   },
   {
    "song_id": "90954",
@@ -2815,7 +2989,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=90954&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.819,
+   "deam_pred_valence": 4.894
   },
   {
    "song_id": "92051",
@@ -2847,7 +3023,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=92051&format=mp31",
    "felt_bpm": 89.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.794,
+   "deam_pred_valence": 5.699
   },
   {
    "song_id": "103301",
@@ -2879,7 +3057,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=103301&format=mp31",
    "felt_bpm": 83.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.696,
+   "deam_pred_valence": 5.543
   },
   {
    "song_id": "106595",
@@ -2911,7 +3091,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=106595&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 4.331,
+   "deam_pred_valence": 4.42
   },
   {
    "song_id": "108750",
@@ -2943,7 +3125,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=108750&format=mp31",
    "felt_bpm": 68.0,
    "calm": true,
-   "calm_reason": "slow pulse ~68 bpm (half-time reading), sparse notes"
+   "calm_reason": "slow pulse ~68 bpm (half-time reading), sparse notes",
+   "deam_pred_arousal": 3.028,
+   "deam_pred_valence": 3.554
   },
   {
    "song_id": "112533",
@@ -2975,7 +3159,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=112533&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.43,
+   "deam_pred_valence": 5.41
   },
   {
    "song_id": "114196",
@@ -3007,7 +3193,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=114196&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.366,
+   "deam_pred_valence": 3.882
   },
   {
    "song_id": "114772",
@@ -3039,7 +3227,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=114772&format=mp31",
    "felt_bpm": 103.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.844,
+   "deam_pred_valence": 4.821
   },
   {
    "song_id": "114773",
@@ -3071,7 +3261,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=114773&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.532,
+   "deam_pred_valence": 3.84
   },
   {
    "song_id": "114780",
@@ -3103,7 +3295,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=114780&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.48,
+   "deam_pred_valence": 4.54
   },
   {
    "song_id": "114781",
@@ -3135,7 +3329,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=114781&format=mp31",
    "felt_bpm": 107.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.498,
+   "deam_pred_valence": 4.561
   },
   {
    "song_id": "114794",
@@ -3167,7 +3363,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=114794&format=mp31",
    "felt_bpm": 103.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.097,
+   "deam_pred_valence": 4.502
   },
   {
    "song_id": "116900",
@@ -3199,7 +3397,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=116900&format=mp31",
    "felt_bpm": 80.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.851,
+   "deam_pred_valence": 4.791
   },
   {
    "song_id": "117470",
@@ -3231,7 +3431,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=117470&format=mp31",
    "felt_bpm": 76.0,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 4.248,
+   "deam_pred_valence": 4.271
   },
   {
    "song_id": "117495",
@@ -3263,7 +3465,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=117495&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.484,
+   "deam_pred_valence": 4.85
   },
   {
    "song_id": "117499",
@@ -3295,7 +3499,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=117499&format=mp31",
    "felt_bpm": 80.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.204,
+   "deam_pred_valence": 4.106
   },
   {
    "song_id": "117500",
@@ -3327,7 +3533,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=117500&format=mp31",
    "felt_bpm": 71.8,
    "calm": true,
-   "calm_reason": "ambient: 1.12 note onsets/s, no meaningful beat"
+   "calm_reason": "ambient: 1.12 note onsets/s, no meaningful beat",
+   "deam_pred_arousal": 3.421,
+   "deam_pred_valence": 3.89
   },
   {
    "song_id": "117598",
@@ -3359,7 +3567,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=117598&format=mp31",
    "felt_bpm": 56.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.996,
+   "deam_pred_valence": 5.263
   },
   {
    "song_id": "117985",
@@ -3391,7 +3601,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=117985&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.282,
+   "deam_pred_valence": 5.439
   },
   {
    "song_id": "124155",
@@ -3423,7 +3635,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=124155&format=mp31",
    "felt_bpm": 95.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.502,
+   "deam_pred_valence": 5.563
   },
   {
    "song_id": "125146",
@@ -3455,7 +3669,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=125146&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.42,
+   "deam_pred_valence": 3.495
   },
   {
    "song_id": "125152",
@@ -3487,7 +3703,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=125152&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.238,
+   "deam_pred_valence": 4.584
   },
   {
    "song_id": "125296",
@@ -3519,7 +3737,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=125296&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.899,
+   "deam_pred_valence": 5.306
   },
   {
    "song_id": "127546",
@@ -3551,7 +3771,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=127546&format=mp31",
    "felt_bpm": 99.4,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 4.54,
+   "deam_pred_valence": 4.77
   },
   {
    "song_id": "127609",
@@ -3583,7 +3805,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=127609&format=mp31",
    "felt_bpm": 107.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.365,
+   "deam_pred_valence": 3.795
   },
   {
    "song_id": "133719",
@@ -3615,7 +3839,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=133719&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.48,
+   "deam_pred_valence": 4.823
   },
   {
    "song_id": "133759",
@@ -3647,7 +3873,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=133759&format=mp31",
    "felt_bpm": 107.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.948,
+   "deam_pred_valence": 4.126
   },
   {
    "song_id": "134851",
@@ -3679,7 +3907,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=134851&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.833,
+   "deam_pred_valence": 4.782
   },
   {
    "song_id": "140531",
@@ -3711,7 +3941,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=140531&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.558,
+   "deam_pred_valence": 5.903
   },
   {
    "song_id": "149750",
@@ -3743,7 +3975,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=149750&format=mp31",
    "felt_bpm": 61.5,
    "calm": true,
-   "calm_reason": "slow pulse ~62 bpm (half-time reading), sparse notes"
+   "calm_reason": "slow pulse ~62 bpm (half-time reading), sparse notes",
+   "deam_pred_arousal": 4.714,
+   "deam_pred_valence": 5.002
   },
   {
    "song_id": "150308",
@@ -3775,7 +4009,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=150308&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.228,
+   "deam_pred_valence": 4.455
   },
   {
    "song_id": "150394",
@@ -3807,7 +4043,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=150394&format=mp31",
    "felt_bpm": 99.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.486,
+   "deam_pred_valence": 4.635
   },
   {
    "song_id": "154270",
@@ -3839,7 +4077,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=154270&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.666,
+   "deam_pred_valence": 4.777
   },
   {
    "song_id": "157634",
@@ -3871,7 +4111,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=157634&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.169,
+   "deam_pred_valence": 5.262
   },
   {
    "song_id": "159061",
@@ -3903,7 +4145,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=159061&format=mp31",
    "felt_bpm": 92.3,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 5.321,
+   "deam_pred_valence": 5.316
   },
   {
    "song_id": "162619",
@@ -3935,7 +4179,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=162619&format=mp31",
    "felt_bpm": 107.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.121,
+   "deam_pred_valence": 5.223
   },
   {
    "song_id": "167271",
@@ -3967,7 +4213,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=167271&format=mp31",
    "felt_bpm": 107.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.026,
+   "deam_pred_valence": 3.916
   },
   {
    "song_id": "167335",
@@ -3999,7 +4247,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=167335&format=mp31",
    "felt_bpm": 58.8,
    "calm": true,
-   "calm_reason": "slow pulse ~59 bpm (half-time reading), sparse notes"
+   "calm_reason": "slow pulse ~59 bpm (half-time reading), sparse notes",
+   "deam_pred_arousal": 3.841,
+   "deam_pred_valence": 4.145
   },
   {
    "song_id": "169046",
@@ -4031,7 +4281,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=169046&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.583,
+   "deam_pred_valence": 5.679
   },
   {
    "song_id": "169047",
@@ -4063,7 +4315,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=169047&format=mp31",
    "felt_bpm": 99.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.451,
+   "deam_pred_valence": 5.365
   },
   {
    "song_id": "170001",
@@ -4095,7 +4349,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=170001&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.806,
+   "deam_pred_valence": 4.935
   },
   {
    "song_id": "170946",
@@ -4127,7 +4383,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=170946&format=mp31",
    "felt_bpm": 89.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.506,
+   "deam_pred_valence": 4.627
   },
   {
    "song_id": "175331",
@@ -4159,7 +4417,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=175331&format=mp31",
    "felt_bpm": 99.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.957,
+   "deam_pred_valence": 6.202
   },
   {
    "song_id": "176449",
@@ -4191,7 +4451,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=176449&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.706,
+   "deam_pred_valence": 6.179
   },
   {
    "song_id": "183795",
@@ -4223,7 +4485,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=183795&format=mp31",
    "felt_bpm": 80.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.221,
+   "deam_pred_valence": 5.354
   },
   {
    "song_id": "184592",
@@ -4255,7 +4519,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=184592&format=mp31",
    "felt_bpm": 99.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.656,
+   "deam_pred_valence": 4.2
   },
   {
    "song_id": "185986",
@@ -4287,7 +4553,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=185986&format=mp31",
    "felt_bpm": 76.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.781,
+   "deam_pred_valence": 6.002
   },
   {
    "song_id": "186597",
@@ -4319,7 +4587,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=186597&format=mp31",
    "felt_bpm": 68.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.066,
+   "deam_pred_valence": 4.051
   },
   {
    "song_id": "187045",
@@ -4351,7 +4621,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=187045&format=mp31",
    "felt_bpm": 103.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.534,
+   "deam_pred_valence": 4.63
   },
   {
    "song_id": "188105",
@@ -4383,7 +4655,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=188105&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.891,
+   "deam_pred_valence": 4.919
   },
   {
    "song_id": "188258",
@@ -4415,7 +4689,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=188258&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.305,
+   "deam_pred_valence": 4.17
   },
   {
    "song_id": "188266",
@@ -4447,7 +4723,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=188266&format=mp31",
    "felt_bpm": 76.0,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 3.027,
+   "deam_pred_valence": 3.819
   },
   {
    "song_id": "189623",
@@ -4479,7 +4757,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=189623&format=mp31",
    "felt_bpm": 99.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.994,
+   "deam_pred_valence": 5.009
   },
   {
    "song_id": "189707",
@@ -4511,7 +4791,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=189707&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.78,
+   "deam_pred_valence": 4.891
   },
   {
    "song_id": "190781",
@@ -4543,7 +4825,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=190781&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.727,
+   "deam_pred_valence": 4.836
   },
   {
    "song_id": "194485",
@@ -4575,7 +4859,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=194485&format=mp31",
    "felt_bpm": 68.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.613,
+   "deam_pred_valence": 4.05
   },
   {
    "song_id": "197855",
@@ -4607,7 +4893,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=197855&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 3.452,
+   "deam_pred_valence": 4.055
   },
   {
    "song_id": "202039",
@@ -4639,7 +4927,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=202039&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.312,
+   "deam_pred_valence": 3.794
   },
   {
    "song_id": "207817",
@@ -4671,7 +4961,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=207817&format=mp31",
    "felt_bpm": 89.1,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 4.748,
+   "deam_pred_valence": 4.754
   },
   {
    "song_id": "207996",
@@ -4703,7 +4995,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=207996&format=mp31",
    "felt_bpm": 86.2,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.744,
+   "deam_pred_valence": 5.187
   },
   {
    "song_id": "213500",
@@ -4735,7 +5029,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=213500&format=mp31",
    "felt_bpm": 89.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.472,
+   "deam_pred_valence": 5.746
   },
   {
    "song_id": "213945",
@@ -4767,7 +5063,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=213945&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.842,
+   "deam_pred_valence": 5.754
   },
   {
    "song_id": "214013",
@@ -4799,7 +5097,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=214013&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.8,
+   "deam_pred_valence": 4.684
   },
   {
    "song_id": "217652",
@@ -4831,7 +5131,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=217652&format=mp31",
    "felt_bpm": 103.4,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 4.181,
+   "deam_pred_valence": 4.14
   },
   {
    "song_id": "218029",
@@ -4863,7 +5165,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=218029&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.958,
+   "deam_pred_valence": 4.04
   },
   {
    "song_id": "225620",
@@ -4895,7 +5199,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=225620&format=mp31",
    "felt_bpm": 56.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.818,
+   "deam_pred_valence": 3.823
   },
   {
    "song_id": "226576",
@@ -4927,7 +5233,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=226576&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.096,
+   "deam_pred_valence": 5.204
   },
   {
    "song_id": "226749",
@@ -4959,7 +5267,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=226749&format=mp31",
    "felt_bpm": 68.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.455,
+   "deam_pred_valence": 5.382
   },
   {
    "song_id": "232137",
@@ -4991,7 +5301,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=232137&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.182,
+   "deam_pred_valence": 5.157
   },
   {
    "song_id": "233257",
@@ -5023,7 +5335,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=233257&format=mp31",
    "felt_bpm": 99.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.263,
+   "deam_pred_valence": 5.22
   },
   {
    "song_id": "233262",
@@ -5055,7 +5369,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=233262&format=mp31",
    "felt_bpm": 76.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.924,
+   "deam_pred_valence": 3.967
   },
   {
    "song_id": "233269",
@@ -5087,7 +5403,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=233269&format=mp31",
    "felt_bpm": 68.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.49,
+   "deam_pred_valence": 5.352
   },
   {
    "song_id": "233316",
@@ -5119,7 +5437,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=233316&format=mp31",
    "felt_bpm": 103.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.329,
+   "deam_pred_valence": 5.288
   },
   {
    "song_id": "233340",
@@ -5151,7 +5471,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=233340&format=mp31",
    "felt_bpm": 56.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.789,
+   "deam_pred_valence": 3.903
   },
   {
    "song_id": "236911",
@@ -5183,7 +5505,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=236911&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.362,
+   "deam_pred_valence": 4.596
   },
   {
    "song_id": "238585",
@@ -5215,7 +5539,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=238585&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.436,
+   "deam_pred_valence": 4.712
   },
   {
    "song_id": "240147",
@@ -5247,7 +5573,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=240147&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.591,
+   "deam_pred_valence": 5.497
   },
   {
    "song_id": "243418",
@@ -5279,7 +5607,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=243418&format=mp31",
    "felt_bpm": 61.5,
    "calm": true,
-   "calm_reason": "ambient: 1.24 note onsets/s, no meaningful beat"
+   "calm_reason": "ambient: 1.24 note onsets/s, no meaningful beat",
+   "deam_pred_arousal": 3.065,
+   "deam_pred_valence": 3.71
   },
   {
    "song_id": "243432",
@@ -5311,7 +5641,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=243432&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.425,
+   "deam_pred_valence": 4.239
   },
   {
    "song_id": "247083",
@@ -5343,7 +5675,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=247083&format=mp31",
    "felt_bpm": 80.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.965,
+   "deam_pred_valence": 5.067
   },
   {
    "song_id": "247818",
@@ -5375,7 +5709,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=247818&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.457,
+   "deam_pred_valence": 3.942
   },
   {
    "song_id": "255557",
@@ -5407,7 +5743,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=255557&format=mp31",
    "felt_bpm": 107.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.751,
+   "deam_pred_valence": 4.134
   },
   {
    "song_id": "257179",
@@ -5439,7 +5777,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=257179&format=mp31",
    "felt_bpm": 76.0,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 3.279,
+   "deam_pred_valence": 3.774
   },
   {
    "song_id": "259829",
@@ -5471,7 +5811,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=259829&format=mp31",
    "felt_bpm": 76.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.471,
+   "deam_pred_valence": 4.211
   },
   {
    "song_id": "261634",
@@ -5503,7 +5845,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=261634&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.378,
+   "deam_pred_valence": 5.491
   },
   {
    "song_id": "262059",
@@ -5535,7 +5879,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=262059&format=mp31",
    "felt_bpm": 92.3,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.178,
+   "deam_pred_valence": 5.195
   },
   {
    "song_id": "262957",
@@ -5567,7 +5913,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=262957&format=mp31",
    "felt_bpm": 76.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.262,
+   "deam_pred_valence": 5.317
   },
   {
    "song_id": "265968",
@@ -5599,7 +5947,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=265968&format=mp31",
    "felt_bpm": 89.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.742,
+   "deam_pred_valence": 4.036
   },
   {
    "song_id": "270069",
@@ -5631,7 +5981,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=270069&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.202,
+   "deam_pred_valence": 4.088
   },
   {
    "song_id": "272364",
@@ -5663,7 +6015,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=272364&format=mp31",
    "felt_bpm": 89.1,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 2.975,
+   "deam_pred_valence": 3.873
   },
   {
    "song_id": "275229",
@@ -5695,7 +6049,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=275229&format=mp31",
    "felt_bpm": 58.8,
    "calm": true,
-   "calm_reason": "ambient: 1.32 note onsets/s, no meaningful beat"
+   "calm_reason": "ambient: 1.32 note onsets/s, no meaningful beat",
+   "deam_pred_arousal": 2.709,
+   "deam_pred_valence": 3.846
   },
   {
    "song_id": "276972",
@@ -5727,7 +6083,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=276972&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.037,
+   "deam_pred_valence": 5.095
   },
   {
    "song_id": "277414",
@@ -5759,7 +6117,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=277414&format=mp31",
    "felt_bpm": 89.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.095,
+   "deam_pred_valence": 5.206
   },
   {
    "song_id": "283094",
@@ -5791,7 +6151,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=283094&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 2.948,
+   "deam_pred_valence": 3.998
   },
   {
    "song_id": "283343",
@@ -5823,7 +6185,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=283343&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.824,
+   "deam_pred_valence": 5.699
   },
   {
    "song_id": "284239",
@@ -5855,7 +6219,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=284239&format=mp31",
    "felt_bpm": 76.0,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 2.9,
+   "deam_pred_valence": 3.899
   },
   {
    "song_id": "285621",
@@ -5887,7 +6253,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=285621&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.411,
+   "deam_pred_valence": 3.929
   },
   {
    "song_id": "288129",
@@ -5919,7 +6287,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=288129&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.772,
+   "deam_pred_valence": 5.123
   },
   {
    "song_id": "288370",
@@ -5951,7 +6321,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=288370&format=mp31",
    "felt_bpm": 76.0,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 3.081,
+   "deam_pred_valence": 3.677
   },
   {
    "song_id": "295099",
@@ -5983,7 +6355,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=295099&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.049,
+   "deam_pred_valence": 3.876
   },
   {
    "song_id": "301358",
@@ -6015,7 +6389,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=301358&format=mp31",
    "felt_bpm": 103.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.232,
+   "deam_pred_valence": 5.318
   },
   {
    "song_id": "302594",
@@ -6047,7 +6423,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=302594&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.822,
+   "deam_pred_valence": 4.064
   },
   {
    "song_id": "306759",
@@ -6079,7 +6457,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=306759&format=mp31",
    "felt_bpm": 107.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.41,
+   "deam_pred_valence": 5.222
   },
   {
    "song_id": "307389",
@@ -6111,7 +6491,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=307389&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.116,
+   "deam_pred_valence": 5.271
   },
   {
    "song_id": "312686",
@@ -6143,7 +6525,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=312686&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.998,
+   "deam_pred_valence": 5.158
   },
   {
    "song_id": "312916",
@@ -6175,7 +6559,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=312916&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.832,
+   "deam_pred_valence": 5.794
   },
   {
    "song_id": "312987",
@@ -6207,7 +6593,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=312987&format=mp31",
    "felt_bpm": 80.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.203,
+   "deam_pred_valence": 3.917
   },
   {
    "song_id": "313621",
@@ -6239,7 +6627,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=313621&format=mp31",
    "felt_bpm": 68.0,
    "calm": true,
-   "calm_reason": "slow pulse ~68 bpm (half-time reading), sparse notes"
+   "calm_reason": "slow pulse ~68 bpm (half-time reading), sparse notes",
+   "deam_pred_arousal": 4.006,
+   "deam_pred_valence": 4.098
   },
   {
    "song_id": "317136",
@@ -6271,7 +6661,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=317136&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.217,
+   "deam_pred_valence": 4.304
   },
   {
    "song_id": "318075",
@@ -6303,7 +6695,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=318075&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.564,
+   "deam_pred_valence": 5.49
   },
   {
    "song_id": "319444",
@@ -6335,7 +6729,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=319444&format=mp31",
    "felt_bpm": 56.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.597,
+   "deam_pred_valence": 5.606
   },
   {
    "song_id": "324614",
@@ -6367,7 +6763,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=324614&format=mp31",
    "felt_bpm": 76.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.809,
+   "deam_pred_valence": 4.177
   },
   {
    "song_id": "324616",
@@ -6399,7 +6797,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=324616&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.908,
+   "deam_pred_valence": 4.145
   },
   {
    "song_id": "324617",
@@ -6431,7 +6831,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=324617&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.656,
+   "deam_pred_valence": 4.135
   },
   {
    "song_id": "327722",
@@ -6463,7 +6865,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=327722&format=mp31",
    "felt_bpm": 92.3,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.605,
+   "deam_pred_valence": 4.765
   },
   {
    "song_id": "330650",
@@ -6495,7 +6899,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=330650&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.054,
+   "deam_pred_valence": 5.281
   },
   {
    "song_id": "331226",
@@ -6527,7 +6933,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=331226&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.613,
+   "deam_pred_valence": 5.07
   },
   {
    "song_id": "333451",
@@ -6559,7 +6967,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=333451&format=mp31",
    "felt_bpm": 95.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.558,
+   "deam_pred_valence": 5.498
   },
   {
    "song_id": "334659",
@@ -6591,7 +7001,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=334659&format=mp31",
    "felt_bpm": 95.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.481,
+   "deam_pred_valence": 4.03
   },
   {
    "song_id": "334661",
@@ -6623,7 +7035,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=334661&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.56,
+   "deam_pred_valence": 3.85
   },
   {
    "song_id": "339337",
@@ -6655,7 +7069,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=339337&format=mp31",
    "felt_bpm": 76.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.279,
+   "deam_pred_valence": 5.327
   },
   {
    "song_id": "342261",
@@ -6687,7 +7103,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=342261&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.19,
+   "deam_pred_valence": 4.019
   },
   {
    "song_id": "345913",
@@ -6719,7 +7137,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=345913&format=mp31",
    "felt_bpm": 68.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.76,
+   "deam_pred_valence": 4.055
   },
   {
    "song_id": "358897",
@@ -6751,7 +7171,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=358897&format=mp31",
    "felt_bpm": 92.3,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 2.759,
+   "deam_pred_valence": 3.849
   },
   {
    "song_id": "359159",
@@ -6783,7 +7205,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=359159&format=mp31",
    "felt_bpm": 80.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.026,
+   "deam_pred_valence": 3.652
   },
   {
    "song_id": "359169",
@@ -6815,7 +7239,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=359169&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.601,
+   "deam_pred_valence": 3.903
   },
   {
    "song_id": "359580",
@@ -6847,7 +7273,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=359580&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.145,
+   "deam_pred_valence": 4.022
   },
   {
    "song_id": "363154",
@@ -6879,7 +7307,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=363154&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.199,
+   "deam_pred_valence": 5.066
   },
   {
    "song_id": "368188",
@@ -6911,7 +7341,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=368188&format=mp31",
    "felt_bpm": 103.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.208,
+   "deam_pred_valence": 3.898
   },
   {
    "song_id": "369461",
@@ -6943,7 +7375,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=369461&format=mp31",
    "felt_bpm": 107.7,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 2.777,
+   "deam_pred_valence": 3.976
   },
   {
    "song_id": "370177",
@@ -6975,7 +7409,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=370177&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.613,
+   "deam_pred_valence": 4.676
   },
   {
    "song_id": "370260",
@@ -7007,7 +7443,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=370260&format=mp31",
    "felt_bpm": 56.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.537,
+   "deam_pred_valence": 4.003
   },
   {
    "song_id": "370416",
@@ -7039,7 +7477,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=370416&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.706,
+   "deam_pred_valence": 3.935
   },
   {
    "song_id": "372163",
@@ -7071,7 +7511,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=372163&format=mp31",
    "felt_bpm": 76.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.359,
+   "deam_pred_valence": 5.287
   },
   {
    "song_id": "372170",
@@ -7103,7 +7545,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=372170&format=mp31",
    "felt_bpm": 95.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.409,
+   "deam_pred_valence": 5.27
   },
   {
    "song_id": "374974",
@@ -7135,7 +7579,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=374974&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.95,
+   "deam_pred_valence": 5.206
   },
   {
    "song_id": "374975",
@@ -7167,7 +7613,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=374975&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.875,
+   "deam_pred_valence": 5.072
   },
   {
    "song_id": "376418",
@@ -7199,7 +7647,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=376418&format=mp31",
    "felt_bpm": 107.7,
    "calm": true,
-   "calm_reason": "ambient: 1.4 note onsets/s, no meaningful beat"
+   "calm_reason": "ambient: 1.4 note onsets/s, no meaningful beat",
+   "deam_pred_arousal": 3.318,
+   "deam_pred_valence": 3.498
   },
   {
    "song_id": "377456",
@@ -7231,7 +7681,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=377456&format=mp31",
    "felt_bpm": 56.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.137,
+   "deam_pred_valence": 4.202
   },
   {
    "song_id": "378871",
@@ -7263,7 +7715,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=378871&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.598,
+   "deam_pred_valence": 5.692
   },
   {
    "song_id": "379380",
@@ -7295,7 +7749,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=379380&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.88,
+   "deam_pred_valence": 5.667
   },
   {
    "song_id": "379762",
@@ -7327,7 +7783,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=379762&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.306,
+   "deam_pred_valence": 4.506
   },
   {
    "song_id": "380614",
@@ -7359,7 +7817,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=380614&format=mp31",
    "felt_bpm": 76.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.179,
+   "deam_pred_valence": 5.102
   },
   {
    "song_id": "380615",
@@ -7391,7 +7851,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=380615&format=mp31",
    "felt_bpm": 92.3,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.743,
+   "deam_pred_valence": 5.026
   },
   {
    "song_id": "387400",
@@ -7423,7 +7885,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=387400&format=mp31",
    "felt_bpm": 99.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.454,
+   "deam_pred_valence": 4.389
   },
   {
    "song_id": "387501",
@@ -7455,7 +7919,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=387501&format=mp31",
    "felt_bpm": 68.0,
    "calm": true,
-   "calm_reason": "slow pulse ~68 bpm (half-time reading), sparse notes"
+   "calm_reason": "slow pulse ~68 bpm (half-time reading), sparse notes",
+   "deam_pred_arousal": 3.09,
+   "deam_pred_valence": 3.834
   },
   {
    "song_id": "387511",
@@ -7487,7 +7953,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=387511&format=mp31",
    "felt_bpm": 95.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.11,
+   "deam_pred_valence": 5.049
   },
   {
    "song_id": "388281",
@@ -7519,7 +7987,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=388281&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.051,
+   "deam_pred_valence": 5.065
   },
   {
    "song_id": "395289",
@@ -7551,7 +8021,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=395289&format=mp31",
    "felt_bpm": 103.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.489,
+   "deam_pred_valence": 4.171
   },
   {
    "song_id": "399196",
@@ -7583,7 +8055,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=399196&format=mp31",
    "felt_bpm": 99.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.511,
+   "deam_pred_valence": 4.915
   },
   {
    "song_id": "399197",
@@ -7615,7 +8089,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=399197&format=mp31",
    "felt_bpm": 56.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.645,
+   "deam_pred_valence": 4.962
   },
   {
    "song_id": "399201",
@@ -7647,7 +8123,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=399201&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.544,
+   "deam_pred_valence": 4.26
   },
   {
    "song_id": "402053",
@@ -7679,7 +8157,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=402053&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.69,
+   "deam_pred_valence": 4.262
   },
   {
    "song_id": "404269",
@@ -7711,7 +8191,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=404269&format=mp31",
    "felt_bpm": 107.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.115,
+   "deam_pred_valence": 5.129
   },
   {
    "song_id": "405924",
@@ -7743,7 +8225,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=405924&format=mp31",
    "felt_bpm": 80.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.875,
+   "deam_pred_valence": 4.289
   },
   {
    "song_id": "405930",
@@ -7775,7 +8259,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=405930&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.847,
+   "deam_pred_valence": 4.467
   },
   {
    "song_id": "412140",
@@ -7807,7 +8293,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=412140&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.7,
+   "deam_pred_valence": 5.508
   },
   {
    "song_id": "414342",
@@ -7839,7 +8327,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=414342&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.695,
+   "deam_pred_valence": 4.171
   },
   {
    "song_id": "415050",
@@ -7871,7 +8361,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=415050&format=mp31",
    "felt_bpm": 99.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.801,
+   "deam_pred_valence": 4.746
   },
   {
    "song_id": "415083",
@@ -7903,7 +8395,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=415083&format=mp31",
    "felt_bpm": 92.3,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.819,
+   "deam_pred_valence": 5.886
   },
   {
    "song_id": "415106",
@@ -7935,7 +8429,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=415106&format=mp31",
    "felt_bpm": 99.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.627,
+   "deam_pred_valence": 5.538
   },
   {
    "song_id": "415827",
@@ -7967,7 +8463,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=415827&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.769,
+   "deam_pred_valence": 4.036
   },
   {
    "song_id": "415829",
@@ -7999,7 +8497,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=415829&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 2.848,
+   "deam_pred_valence": 4.027
   },
   {
    "song_id": "416007",
@@ -8031,7 +8531,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=416007&format=mp31",
    "felt_bpm": 89.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.869,
+   "deam_pred_valence": 5.218
   },
   {
    "song_id": "417581",
@@ -8063,7 +8565,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=417581&format=mp31",
    "felt_bpm": 107.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.345,
+   "deam_pred_valence": 4.482
   },
   {
    "song_id": "417626",
@@ -8095,7 +8599,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=417626&format=mp31",
    "felt_bpm": 89.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.033,
+   "deam_pred_valence": 3.993
   },
   {
    "song_id": "423114",
@@ -8127,7 +8633,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=423114&format=mp31",
    "felt_bpm": 89.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.089,
+   "deam_pred_valence": 4.072
   },
   {
    "song_id": "423119",
@@ -8159,7 +8667,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=423119&format=mp31",
    "felt_bpm": 103.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.041,
+   "deam_pred_valence": 4.024
   },
   {
    "song_id": "423152",
@@ -8191,7 +8701,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=423152&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 3.138,
+   "deam_pred_valence": 3.92
   },
   {
    "song_id": "425531",
@@ -8223,7 +8735,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=425531&format=mp31",
    "felt_bpm": 92.3,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.626,
+   "deam_pred_valence": 3.976
   },
   {
    "song_id": "425532",
@@ -8255,7 +8769,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=425532&format=mp31",
    "felt_bpm": 56.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.676,
+   "deam_pred_valence": 4.175
   },
   {
    "song_id": "428098",
@@ -8287,7 +8803,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=428098&format=mp31",
    "felt_bpm": 95.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.08,
+   "deam_pred_valence": 4.984
   },
   {
    "song_id": "429383",
@@ -8319,7 +8837,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=429383&format=mp31",
    "felt_bpm": 103.4,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 5.63,
+   "deam_pred_valence": 6.038
   },
   {
    "song_id": "430265",
@@ -8351,7 +8871,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=430265&format=mp31",
    "felt_bpm": 68.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.17,
+   "deam_pred_valence": 4.09
   },
   {
    "song_id": "437791",
@@ -8383,7 +8905,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=437791&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.923,
+   "deam_pred_valence": 6.262
   },
   {
    "song_id": "440863",
@@ -8415,7 +8939,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=440863&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.088,
+   "deam_pred_valence": 5.181
   },
   {
    "song_id": "457516",
@@ -8447,7 +8973,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=457516&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.576,
+   "deam_pred_valence": 5.609
   },
   {
    "song_id": "458245",
@@ -8479,7 +9007,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=458245&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.673,
+   "deam_pred_valence": 3.977
   },
   {
    "song_id": "461013",
@@ -8511,7 +9041,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=461013&format=mp31",
    "felt_bpm": 92.3,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.09,
+   "deam_pred_valence": 3.943
   },
   {
    "song_id": "461015",
@@ -8543,7 +9075,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=461015&format=mp31",
    "felt_bpm": 86.2,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.416,
+   "deam_pred_valence": 4.572
   },
   {
    "song_id": "461018",
@@ -8575,7 +9109,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=461018&format=mp31",
    "felt_bpm": 68.0,
    "calm": true,
-   "calm_reason": "slow pulse ~68 bpm (half-time reading), sparse notes"
+   "calm_reason": "slow pulse ~68 bpm (half-time reading), sparse notes",
+   "deam_pred_arousal": 3.066,
+   "deam_pred_valence": 3.831
   },
   {
    "song_id": "464045",
@@ -8607,7 +9143,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=464045&format=mp31",
    "felt_bpm": 68.0,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 3.683,
+   "deam_pred_valence": 3.973
   },
   {
    "song_id": "467927",
@@ -8639,7 +9177,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=467927&format=mp31",
    "felt_bpm": 68.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.633,
+   "deam_pred_valence": 5.621
   },
   {
    "song_id": "476810",
@@ -8671,7 +9211,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=476810&format=mp31",
    "felt_bpm": 103.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.63,
+   "deam_pred_valence": 5.631
   },
   {
    "song_id": "476948",
@@ -8703,7 +9245,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=476948&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.835,
+   "deam_pred_valence": 5.672
   },
   {
    "song_id": "477306",
@@ -8735,7 +9279,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=477306&format=mp31",
    "felt_bpm": 61.5,
    "calm": true,
-   "calm_reason": "slow pulse ~62 bpm (half-time reading), sparse notes"
+   "calm_reason": "slow pulse ~62 bpm (half-time reading), sparse notes",
+   "deam_pred_arousal": 3.407,
+   "deam_pred_valence": 4.068
   },
   {
    "song_id": "477311",
@@ -8767,7 +9313,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=477311&format=mp31",
    "felt_bpm": 58.8,
    "calm": true,
-   "calm_reason": "slow pulse ~59 bpm (half-time reading), sparse notes"
+   "calm_reason": "slow pulse ~59 bpm (half-time reading), sparse notes",
+   "deam_pred_arousal": 3.471,
+   "deam_pred_valence": 4.19
   },
   {
    "song_id": "489231",
@@ -8799,7 +9347,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=489231&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.355,
+   "deam_pred_valence": 3.987
   },
   {
    "song_id": "491916",
@@ -8831,7 +9381,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=491916&format=mp31",
    "felt_bpm": 107.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.829,
+   "deam_pred_valence": 5.02
   },
   {
    "song_id": "503972",
@@ -8863,7 +9415,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=503972&format=mp31",
    "felt_bpm": 68.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.548,
+   "deam_pred_valence": 4.677
   },
   {
    "song_id": "519070",
@@ -8895,7 +9449,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=519070&format=mp31",
    "felt_bpm": 107.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.629,
+   "deam_pred_valence": 5.7
   },
   {
    "song_id": "519565",
@@ -8927,7 +9483,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=519565&format=mp31",
    "felt_bpm": 99.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.391,
+   "deam_pred_valence": 5.282
   },
   {
    "song_id": "520341",
@@ -8959,7 +9517,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=520341&format=mp31",
    "felt_bpm": 68.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.967,
+   "deam_pred_valence": 4.911
   },
   {
    "song_id": "520835",
@@ -8991,7 +9551,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=520835&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.402,
+   "deam_pred_valence": 5.455
   },
   {
    "song_id": "520850",
@@ -9023,7 +9585,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=520850&format=mp31",
    "felt_bpm": 95.7,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 2.904,
+   "deam_pred_valence": 3.905
   },
   {
    "song_id": "523360",
@@ -9055,7 +9619,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=523360&format=mp31",
    "felt_bpm": 99.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.327,
+   "deam_pred_valence": 5.54
   },
   {
    "song_id": "524653",
@@ -9087,7 +9653,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=524653&format=mp31",
    "felt_bpm": 68.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.976,
+   "deam_pred_valence": 6.015
   },
   {
    "song_id": "537852",
@@ -9119,7 +9687,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=537852&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.729,
+   "deam_pred_valence": 4.869
   },
   {
    "song_id": "540707",
@@ -9151,7 +9721,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=540707&format=mp31",
    "felt_bpm": 95.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.4,
+   "deam_pred_valence": 4.554
   },
   {
    "song_id": "543701",
@@ -9183,7 +9755,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=543701&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.386,
+   "deam_pred_valence": 5.565
   },
   {
    "song_id": "543888",
@@ -9215,7 +9789,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=543888&format=mp31",
    "felt_bpm": 68.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.346,
+   "deam_pred_valence": 5.488
   },
   {
    "song_id": "543974",
@@ -9247,7 +9823,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=543974&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.912,
+   "deam_pred_valence": 6.288
   },
   {
    "song_id": "546115",
@@ -9279,7 +9857,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=546115&format=mp31",
    "felt_bpm": 89.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.406,
+   "deam_pred_valence": 5.444
   },
   {
    "song_id": "549522",
@@ -9311,7 +9891,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=549522&format=mp31",
    "felt_bpm": 95.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.514,
+   "deam_pred_valence": 4.665
   },
   {
    "song_id": "552655",
@@ -9343,7 +9925,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=552655&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 4.166,
+   "deam_pred_valence": 4.143
   },
   {
    "song_id": "559980",
@@ -9375,7 +9959,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=559980&format=mp31",
    "felt_bpm": 86.2,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.244,
+   "deam_pred_valence": 4.266
   },
   {
    "song_id": "559983",
@@ -9407,7 +9993,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=559983&format=mp31",
    "felt_bpm": 89.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.481,
+   "deam_pred_valence": 4.533
   },
   {
    "song_id": "565788",
@@ -9439,7 +10027,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=565788&format=mp31",
    "felt_bpm": 76.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.697,
+   "deam_pred_valence": 5.72
   },
   {
    "song_id": "575857",
@@ -9471,7 +10061,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=575857&format=mp31",
    "felt_bpm": 61.5,
    "calm": true,
-   "calm_reason": "slow pulse ~62 bpm (half-time reading), sparse notes"
+   "calm_reason": "slow pulse ~62 bpm (half-time reading), sparse notes",
+   "deam_pred_arousal": 3.811,
+   "deam_pred_valence": 4.078
   },
   {
    "song_id": "585838",
@@ -9503,7 +10095,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=585838&format=mp31",
    "felt_bpm": 80.8,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 4.028,
+   "deam_pred_valence": 4.311
   },
   {
    "song_id": "586041",
@@ -9535,7 +10129,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=586041&format=mp31",
    "felt_bpm": 95.7,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 3.817,
+   "deam_pred_valence": 4.247
   },
   {
    "song_id": "587288",
@@ -9567,7 +10163,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=587288&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.861,
+   "deam_pred_valence": 5.266
   },
   {
    "song_id": "601036",
@@ -9599,7 +10197,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=601036&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.895,
+   "deam_pred_valence": 4.356
   },
   {
    "song_id": "605777",
@@ -9631,7 +10231,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=605777&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.332,
+   "deam_pred_valence": 5.428
   },
   {
    "song_id": "618565",
@@ -9663,7 +10265,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=618565&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.87,
+   "deam_pred_valence": 5.874
   },
   {
    "song_id": "628530",
@@ -9695,7 +10299,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=628530&format=mp31",
    "felt_bpm": 103.4,
    "calm": true,
-   "calm_reason": "ambient: 1.22 note onsets/s, no meaningful beat"
+   "calm_reason": "ambient: 1.22 note onsets/s, no meaningful beat",
+   "deam_pred_arousal": 4.476,
+   "deam_pred_valence": 4.664
   },
   {
    "song_id": "644073",
@@ -9727,7 +10333,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=644073&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.189,
+   "deam_pred_valence": 5.415
   },
   {
    "song_id": "645874",
@@ -9759,7 +10367,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=645874&format=mp31",
    "felt_bpm": 89.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.427,
+   "deam_pred_valence": 5.439
   },
   {
    "song_id": "653892",
@@ -9791,7 +10401,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=653892&format=mp31",
    "felt_bpm": 76.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.082,
+   "deam_pred_valence": 5.249
   },
   {
    "song_id": "661603",
@@ -9823,7 +10435,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=661603&format=mp31",
    "felt_bpm": 80.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.463,
+   "deam_pred_valence": 5.57
   },
   {
    "song_id": "662050",
@@ -9855,7 +10469,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=662050&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.463,
+   "deam_pred_valence": 4.343
   },
   {
    "song_id": "662183",
@@ -9887,7 +10503,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=662183&format=mp31",
    "felt_bpm": 95.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.598,
+   "deam_pred_valence": 5.48
   },
   {
    "song_id": "662186",
@@ -9919,7 +10537,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=662186&format=mp31",
    "felt_bpm": 99.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.423,
+   "deam_pred_valence": 4.57
   },
   {
    "song_id": "662470",
@@ -9951,7 +10571,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=662470&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.235,
+   "deam_pred_valence": 5.218
   },
   {
    "song_id": "662471",
@@ -9983,7 +10605,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=662471&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.435,
+   "deam_pred_valence": 4.805
   },
   {
    "song_id": "664410",
@@ -10015,7 +10639,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=664410&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.019,
+   "deam_pred_valence": 5.029
   },
   {
    "song_id": "667741",
@@ -10047,7 +10673,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=667741&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.795,
+   "deam_pred_valence": 5.67
   },
   {
    "song_id": "672202",
@@ -10079,7 +10707,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=672202&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.743,
+   "deam_pred_valence": 4.957
   },
   {
    "song_id": "679889",
@@ -10111,7 +10741,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=679889&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.949,
+   "deam_pred_valence": 5.025
   },
   {
    "song_id": "692030",
@@ -10143,7 +10775,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=692030&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.373,
+   "deam_pred_valence": 5.456
   },
   {
    "song_id": "698137",
@@ -10175,7 +10809,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=698137&format=mp31",
    "felt_bpm": 99.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.819,
+   "deam_pred_valence": 5.797
   },
   {
    "song_id": "703361",
@@ -10207,7 +10843,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=703361&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 6.121,
+   "deam_pred_valence": 6.397
   },
   {
    "song_id": "703521",
@@ -10239,7 +10877,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=703521&format=mp31",
    "felt_bpm": 80.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.362,
+   "deam_pred_valence": 5.321
   },
   {
    "song_id": "703613",
@@ -10271,7 +10911,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=703613&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.707,
+   "deam_pred_valence": 5.713
   },
   {
    "song_id": "707297",
@@ -10303,7 +10945,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=707297&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.845,
+   "deam_pred_valence": 4.36
   },
   {
    "song_id": "707473",
@@ -10335,7 +10979,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=707473&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.026,
+   "deam_pred_valence": 4.898
   },
   {
    "song_id": "707475",
@@ -10367,7 +11013,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=707475&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.626,
+   "deam_pred_valence": 3.613
   },
   {
    "song_id": "709613",
@@ -10399,7 +11047,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=709613&format=mp31",
    "felt_bpm": 99.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.481,
+   "deam_pred_valence": 5.748
   },
   {
    "song_id": "719759",
@@ -10431,7 +11081,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=719759&format=mp31",
    "felt_bpm": 68.0,
    "calm": true,
-   "calm_reason": "slow pulse ~68 bpm (half-time reading), sparse notes"
+   "calm_reason": "slow pulse ~68 bpm (half-time reading), sparse notes",
+   "deam_pred_arousal": 3.507,
+   "deam_pred_valence": 3.976
   },
   {
    "song_id": "737755",
@@ -10463,7 +11115,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=737755&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.54,
+   "deam_pred_valence": 5.717
   },
   {
    "song_id": "738522",
@@ -10495,7 +11149,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=738522&format=mp31",
    "felt_bpm": 95.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.76,
+   "deam_pred_valence": 4.24
   },
   {
    "song_id": "744852",
@@ -10527,7 +11183,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=744852&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.306,
+   "deam_pred_valence": 4.209
   },
   {
    "song_id": "763912",
@@ -10559,7 +11217,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=763912&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.167,
+   "deam_pred_valence": 5.201
   },
   {
    "song_id": "765494",
@@ -10591,7 +11251,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=765494&format=mp31",
    "felt_bpm": 107.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.986,
+   "deam_pred_valence": 4.028
   },
   {
    "song_id": "768220",
@@ -10623,7 +11285,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=768220&format=mp31",
    "felt_bpm": 68.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.931,
+   "deam_pred_valence": 6.703
   },
   {
    "song_id": "768231",
@@ -10655,7 +11319,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=768231&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.257,
+   "deam_pred_valence": 5.402
   },
   {
    "song_id": "768237",
@@ -10687,7 +11353,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=768237&format=mp31",
    "felt_bpm": 95.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.702,
+   "deam_pred_valence": 5.834
   },
   {
    "song_id": "769143",
@@ -10719,7 +11387,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=769143&format=mp31",
    "felt_bpm": 68.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.015,
+   "deam_pred_valence": 5.173
   },
   {
    "song_id": "769146",
@@ -10751,7 +11421,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=769146&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.984,
+   "deam_pred_valence": 5.063
   },
   {
    "song_id": "769147",
@@ -10783,7 +11455,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=769147&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.413,
+   "deam_pred_valence": 5.223
   },
   {
    "song_id": "777820",
@@ -10815,7 +11489,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=777820&format=mp31",
    "felt_bpm": 64.6,
    "calm": true,
-   "calm_reason": "ambient: 1.36 note onsets/s, no meaningful beat"
+   "calm_reason": "ambient: 1.36 note onsets/s, no meaningful beat",
+   "deam_pred_arousal": 3.39,
+   "deam_pred_valence": 4.08
   },
   {
    "song_id": "777853",
@@ -10847,7 +11523,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=777853&format=mp31",
    "felt_bpm": 58.8,
    "calm": true,
-   "calm_reason": "ambient: 0.09 note onsets/s, no meaningful beat"
+   "calm_reason": "ambient: 0.09 note onsets/s, no meaningful beat",
+   "deam_pred_arousal": 3.58,
+   "deam_pred_valence": 4.097
   },
   {
    "song_id": "777858",
@@ -10879,7 +11557,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=777858&format=mp31",
    "felt_bpm": 99.4,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 3.901,
+   "deam_pred_valence": 4.093
   },
   {
    "song_id": "781662",
@@ -10911,7 +11591,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=781662&format=mp31",
    "felt_bpm": 89.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.599,
+   "deam_pred_valence": 5.829
   },
   {
    "song_id": "782084",
@@ -10943,7 +11625,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=782084&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.746,
+   "deam_pred_valence": 4.867
   },
   {
    "song_id": "784832",
@@ -10975,7 +11659,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=784832&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.443,
+   "deam_pred_valence": 5.011
   },
   {
    "song_id": "789282",
@@ -11007,7 +11693,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=789282&format=mp31",
    "felt_bpm": 56.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.331,
+   "deam_pred_valence": 4.641
   },
   {
    "song_id": "797181",
@@ -11039,7 +11727,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=797181&format=mp31",
    "felt_bpm": 68.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.855,
+   "deam_pred_valence": 4.165
   },
   {
    "song_id": "810089",
@@ -11071,7 +11761,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=810089&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.25,
+   "deam_pred_valence": 4.019
   },
   {
    "song_id": "816200",
@@ -11103,7 +11795,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=816200&format=mp31",
    "felt_bpm": 107.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.097,
+   "deam_pred_valence": 3.924
   },
   {
    "song_id": "818605",
@@ -11135,7 +11829,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=818605&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 4.248,
+   "deam_pred_valence": 4.531
   },
   {
    "song_id": "843705",
@@ -11167,7 +11863,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=843705&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.46,
+   "deam_pred_valence": 5.339
   },
   {
    "song_id": "843896",
@@ -11199,7 +11897,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=843896&format=mp31",
    "felt_bpm": 56.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.25,
+   "deam_pred_valence": 4.381
   },
   {
    "song_id": "858373",
@@ -11231,7 +11931,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=858373&format=mp31",
    "felt_bpm": 89.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.089,
+   "deam_pred_valence": 4.157
   },
   {
    "song_id": "871720",
@@ -11263,7 +11965,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=871720&format=mp31",
    "felt_bpm": 68.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.44,
+   "deam_pred_valence": 4.546
   },
   {
    "song_id": "873131",
@@ -11295,7 +11999,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=873131&format=mp31",
    "felt_bpm": 99.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.246,
+   "deam_pred_valence": 4.077
   },
   {
    "song_id": "880876",
@@ -11327,7 +12033,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=880876&format=mp31",
    "felt_bpm": 80.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.035,
+   "deam_pred_valence": 4.208
   },
   {
    "song_id": "894466",
@@ -11359,7 +12067,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=894466&format=mp31",
    "felt_bpm": 95.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.799,
+   "deam_pred_valence": 4.044
   },
   {
    "song_id": "894470",
@@ -11391,7 +12101,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=894470&format=mp31",
    "felt_bpm": 95.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.119,
+   "deam_pred_valence": 4.068
   },
   {
    "song_id": "895271",
@@ -11423,7 +12135,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=895271&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.881,
+   "deam_pred_valence": 5.748
   },
   {
    "song_id": "897503",
@@ -11455,7 +12169,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=897503&format=mp31",
    "felt_bpm": 58.8,
    "calm": true,
-   "calm_reason": "slow pulse ~59 bpm (half-time reading), sparse notes"
+   "calm_reason": "slow pulse ~59 bpm (half-time reading), sparse notes",
+   "deam_pred_arousal": 3.229,
+   "deam_pred_valence": 3.923
   },
   {
    "song_id": "898736",
@@ -11487,7 +12203,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=898736&format=mp31",
    "felt_bpm": 80.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.247,
+   "deam_pred_valence": 4.532
   },
   {
    "song_id": "905173",
@@ -11519,7 +12237,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=905173&format=mp31",
    "felt_bpm": 99.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.561,
+   "deam_pred_valence": 5.243
   },
   {
    "song_id": "905175",
@@ -11551,7 +12271,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=905175&format=mp31",
    "felt_bpm": 99.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.134,
+   "deam_pred_valence": 5.443
   },
   {
    "song_id": "911753",
@@ -11583,7 +12305,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=911753&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.889,
+   "deam_pred_valence": 5.764
   },
   {
    "song_id": "917538",
@@ -11615,7 +12339,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=917538&format=mp31",
    "felt_bpm": 103.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.217,
+   "deam_pred_valence": 4.016
   },
   {
    "song_id": "921035",
@@ -11647,7 +12373,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=921035&format=mp31",
    "felt_bpm": 107.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.242,
+   "deam_pred_valence": 4.437
   },
   {
    "song_id": "925790",
@@ -11679,7 +12407,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=925790&format=mp31",
    "felt_bpm": 56.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.964,
+   "deam_pred_valence": 6.411
   },
   {
    "song_id": "935785",
@@ -11711,7 +12441,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=935785&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.355,
+   "deam_pred_valence": 5.469
   },
   {
    "song_id": "936002",
@@ -11743,7 +12475,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=936002&format=mp31",
    "felt_bpm": 95.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.767,
+   "deam_pred_valence": 4.633
   },
   {
    "song_id": "944721",
@@ -11775,7 +12509,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=944721&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.257,
+   "deam_pred_valence": 5.188
   },
   {
    "song_id": "945192",
@@ -11807,7 +12543,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=945192&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.944,
+   "deam_pred_valence": 5.764
   },
   {
    "song_id": "945194",
@@ -11839,7 +12577,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=945194&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.074,
+   "deam_pred_valence": 5.337
   },
   {
    "song_id": "945196",
@@ -11871,7 +12611,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=945196&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.38,
+   "deam_pred_valence": 5.444
   },
   {
    "song_id": "945198",
@@ -11903,7 +12645,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=945198&format=mp31",
    "felt_bpm": 68.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.954,
+   "deam_pred_valence": 5.76
   },
   {
    "song_id": "946417",
@@ -11935,7 +12679,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=946417&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.764,
+   "deam_pred_valence": 5.624
   },
   {
    "song_id": "950929",
@@ -11967,7 +12713,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=950929&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.986,
+   "deam_pred_valence": 3.79
   },
   {
    "song_id": "950931",
@@ -11999,7 +12747,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=950931&format=mp31",
    "felt_bpm": 103.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.81,
+   "deam_pred_valence": 3.722
   },
   {
    "song_id": "950932",
@@ -12031,7 +12781,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=950932&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 3.792,
+   "deam_pred_valence": 3.65
   },
   {
    "song_id": "950933",
@@ -12063,7 +12815,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=950933&format=mp31",
    "felt_bpm": 64.6,
    "calm": true,
-   "calm_reason": "slow pulse ~65 bpm (half-time reading), sparse notes"
+   "calm_reason": "slow pulse ~65 bpm (half-time reading), sparse notes",
+   "deam_pred_arousal": 4.003,
+   "deam_pred_valence": 4.04
   },
   {
    "song_id": "951690",
@@ -12095,7 +12849,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=951690&format=mp31",
    "felt_bpm": 56.1,
    "calm": true,
-   "calm_reason": "slow pulse ~56 bpm (half-time reading), sparse notes"
+   "calm_reason": "slow pulse ~56 bpm (half-time reading), sparse notes",
+   "deam_pred_arousal": 5.789,
+   "deam_pred_valence": 6.348
   },
   {
    "song_id": "958343",
@@ -12127,7 +12883,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=958343&format=mp31",
    "felt_bpm": 80.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.738,
+   "deam_pred_valence": 4.759
   },
   {
    "song_id": "959968",
@@ -12159,7 +12917,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=959968&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.46,
+   "deam_pred_valence": 4.539
   },
   {
    "song_id": "966190",
@@ -12191,7 +12951,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=966190&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 3.268,
+   "deam_pred_valence": 4.045
   },
   {
    "song_id": "967756",
@@ -12223,7 +12985,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=967756&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.642,
+   "deam_pred_valence": 5.845
   },
   {
    "song_id": "972233",
@@ -12255,7 +13019,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=972233&format=mp31",
    "felt_bpm": 56.1,
    "calm": true,
-   "calm_reason": "ambient: 1.14 note onsets/s, no meaningful beat"
+   "calm_reason": "ambient: 1.14 note onsets/s, no meaningful beat",
+   "deam_pred_arousal": 5.405,
+   "deam_pred_valence": 5.356
   },
   {
    "song_id": "972905",
@@ -12287,7 +13053,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=972905&format=mp31",
    "felt_bpm": 80.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.986,
+   "deam_pred_valence": 4.374
   },
   {
    "song_id": "975624",
@@ -12319,7 +13087,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=975624&format=mp31",
    "felt_bpm": 76.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.546,
+   "deam_pred_valence": 5.448
   },
   {
    "song_id": "983414",
@@ -12351,7 +13121,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=983414&format=mp31",
    "felt_bpm": 76.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.814,
+   "deam_pred_valence": 4.509
   },
   {
    "song_id": "983415",
@@ -12383,7 +13155,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=983415&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.366,
+   "deam_pred_valence": 4.921
   },
   {
    "song_id": "983936",
@@ -12415,7 +13189,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=983936&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.328,
+   "deam_pred_valence": 5.243
   },
   {
    "song_id": "989414",
@@ -12447,7 +13223,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=989414&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.415,
+   "deam_pred_valence": 3.924
   },
   {
    "song_id": "989827",
@@ -12479,7 +13257,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=989827&format=mp31",
    "felt_bpm": 99.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.908,
+   "deam_pred_valence": 5.181
   },
   {
    "song_id": "992661",
@@ -12511,7 +13291,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=992661&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.926,
+   "deam_pred_valence": 4.772
   },
   {
    "song_id": "1000086",
@@ -12543,7 +13325,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1000086&format=mp31",
    "felt_bpm": 64.6,
    "calm": true,
-   "calm_reason": "ambient: 1.49 note onsets/s, no meaningful beat"
+   "calm_reason": "ambient: 1.49 note onsets/s, no meaningful beat",
+   "deam_pred_arousal": 4.19,
+   "deam_pred_valence": 4.063
   },
   {
    "song_id": "1000113",
@@ -12575,7 +13359,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1000113&format=mp31",
    "felt_bpm": 64.6,
    "calm": true,
-   "calm_reason": "slow pulse ~65 bpm (half-time reading), sparse notes"
+   "calm_reason": "slow pulse ~65 bpm (half-time reading), sparse notes",
+   "deam_pred_arousal": 4.458,
+   "deam_pred_valence": 4.641
   },
   {
    "song_id": "1003620",
@@ -12607,7 +13393,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1003620&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.533,
+   "deam_pred_valence": 5.456
   },
   {
    "song_id": "1007842",
@@ -12639,7 +13427,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1007842&format=mp31",
    "felt_bpm": 80.7,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 5.532,
+   "deam_pred_valence": 5.337
   },
   {
    "song_id": "1007928",
@@ -12671,7 +13461,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1007928&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.555,
+   "deam_pred_valence": 5.718
   },
   {
    "song_id": "1020556",
@@ -12703,7 +13495,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1020556&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.336,
+   "deam_pred_valence": 5.345
   },
   {
    "song_id": "1022622",
@@ -12735,7 +13529,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1022622&format=mp31",
    "felt_bpm": 68.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.115,
+   "deam_pred_valence": 4.953
   },
   {
    "song_id": "1023744",
@@ -12767,7 +13563,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1023744&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.716,
+   "deam_pred_valence": 4.822
   },
   {
    "song_id": "1025722",
@@ -12799,7 +13597,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1025722&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.771,
+   "deam_pred_valence": 5.572
   },
   {
    "song_id": "1027165",
@@ -12831,7 +13631,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1027165&format=mp31",
    "felt_bpm": 64.6,
    "calm": true,
-   "calm_reason": "ambient: 0.19 note onsets/s, no meaningful beat"
+   "calm_reason": "ambient: 0.19 note onsets/s, no meaningful beat",
+   "deam_pred_arousal": 3.82,
+   "deam_pred_valence": 4.033
   },
   {
    "song_id": "1028450",
@@ -12863,7 +13665,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1028450&format=mp31",
    "felt_bpm": 68.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.63,
+   "deam_pred_valence": 4.712
   },
   {
    "song_id": "1032378",
@@ -12895,7 +13699,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1032378&format=mp31",
    "felt_bpm": 99.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.551,
+   "deam_pred_valence": 5.388
   },
   {
    "song_id": "1032796",
@@ -12927,7 +13733,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1032796&format=mp31",
    "felt_bpm": 107.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.925,
+   "deam_pred_valence": 5.665
   },
   {
    "song_id": "1038567",
@@ -12959,7 +13767,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1038567&format=mp31",
    "felt_bpm": 86.2,
    "calm": true,
-   "calm_reason": "ambient: 0.67 note onsets/s, no meaningful beat"
+   "calm_reason": "ambient: 0.67 note onsets/s, no meaningful beat",
+   "deam_pred_arousal": 5.132,
+   "deam_pred_valence": 4.95
   },
   {
    "song_id": "1039406",
@@ -12991,7 +13801,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1039406&format=mp31",
    "felt_bpm": 107.7,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 3.036,
+   "deam_pred_valence": 3.881
   },
   {
    "song_id": "1052629",
@@ -13023,7 +13835,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1052629&format=mp31",
    "felt_bpm": 103.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 2.832,
+   "deam_pred_valence": 3.749
   },
   {
    "song_id": "1056172",
@@ -13055,7 +13869,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1056172&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.885,
+   "deam_pred_valence": 4.787
   },
   {
    "song_id": "1056280",
@@ -13087,7 +13903,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1056280&format=mp31",
    "felt_bpm": 83.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.763,
+   "deam_pred_valence": 5.23
   },
   {
    "song_id": "1057689",
@@ -13119,7 +13937,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1057689&format=mp31",
    "felt_bpm": 92.3,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.827,
+   "deam_pred_valence": 5.641
   },
   {
    "song_id": "1060726",
@@ -13151,7 +13971,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1060726&format=mp31",
    "felt_bpm": 68.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.158,
+   "deam_pred_valence": 4.274
   },
   {
    "song_id": "1063450",
@@ -13183,7 +14005,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1063450&format=mp31",
    "felt_bpm": 61.5,
    "calm": true,
-   "calm_reason": "slow pulse ~62 bpm (half-time reading), sparse notes"
+   "calm_reason": "slow pulse ~62 bpm (half-time reading), sparse notes",
+   "deam_pred_arousal": 4.109,
+   "deam_pred_valence": 4.291
   },
   {
    "song_id": "1066203",
@@ -13215,7 +14039,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1066203&format=mp31",
    "felt_bpm": 68.0,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 3.949,
+   "deam_pred_valence": 4.182
   },
   {
    "song_id": "1066966",
@@ -13247,7 +14073,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1066966&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.463,
+   "deam_pred_valence": 4.638
   },
   {
    "song_id": "1067290",
@@ -13279,7 +14107,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1067290&format=mp31",
    "felt_bpm": 76.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.297,
+   "deam_pred_valence": 4.94
   },
   {
    "song_id": "1067335",
@@ -13311,7 +14141,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1067335&format=mp31",
    "felt_bpm": 61.5,
    "calm": true,
-   "calm_reason": "slow pulse ~62 bpm (half-time reading), sparse notes"
+   "calm_reason": "slow pulse ~62 bpm (half-time reading), sparse notes",
+   "deam_pred_arousal": 4.563,
+   "deam_pred_valence": 4.36
   },
   {
    "song_id": "1067700",
@@ -13343,7 +14175,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1067700&format=mp31",
    "felt_bpm": 89.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.864,
+   "deam_pred_valence": 4.626
   },
   {
    "song_id": "1069380",
@@ -13375,7 +14209,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1069380&format=mp31",
    "felt_bpm": 99.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.604,
+   "deam_pred_valence": 5.31
   },
   {
    "song_id": "1069411",
@@ -13407,7 +14243,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1069411&format=mp31",
    "felt_bpm": 86.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.651,
+   "deam_pred_valence": 5.912
   },
   {
    "song_id": "1070102",
@@ -13439,7 +14277,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1070102&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.646,
+   "deam_pred_valence": 5.683
   },
   {
    "song_id": "1070214",
@@ -13471,7 +14311,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1070214&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.224,
+   "deam_pred_valence": 3.492
   },
   {
    "song_id": "1071844",
@@ -13503,7 +14345,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1071844&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.223,
+   "deam_pred_valence": 5.163
   },
   {
    "song_id": "1071845",
@@ -13535,7 +14379,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1071845&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.266,
+   "deam_pred_valence": 4.332
   },
   {
    "song_id": "1073524",
@@ -13567,7 +14413,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1073524&format=mp31",
    "felt_bpm": 68.0,
    "calm": true,
-   "calm_reason": "slow pulse ~68 bpm (half-time reading), sparse notes"
+   "calm_reason": "slow pulse ~68 bpm (half-time reading), sparse notes",
+   "deam_pred_arousal": 4.374,
+   "deam_pred_valence": 4.348
   },
   {
    "song_id": "1075892",
@@ -13599,7 +14447,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1075892&format=mp31",
    "felt_bpm": 56.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.701,
+   "deam_pred_valence": 5.694
   },
   {
    "song_id": "1077690",
@@ -13631,7 +14481,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1077690&format=mp31",
    "felt_bpm": 86.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.813,
+   "deam_pred_valence": 4.92
   },
   {
    "song_id": "1078218",
@@ -13663,7 +14515,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1078218&format=mp31",
    "felt_bpm": 103.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.96,
+   "deam_pred_valence": 5.962
   },
   {
    "song_id": "1078430",
@@ -13695,7 +14549,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1078430&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.638,
+   "deam_pred_valence": 4.686
   },
   {
    "song_id": "1078438",
@@ -13727,7 +14583,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1078438&format=mp31",
    "felt_bpm": 56.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.671,
+   "deam_pred_valence": 4.534
   },
   {
    "song_id": "1078703",
@@ -13759,7 +14617,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1078703&format=mp31",
    "felt_bpm": 61.5,
    "calm": true,
-   "calm_reason": "ambient: 0.66 note onsets/s, no meaningful beat"
+   "calm_reason": "ambient: 0.66 note onsets/s, no meaningful beat",
+   "deam_pred_arousal": 4.288,
+   "deam_pred_valence": 4.25
   },
   {
    "song_id": "1080287",
@@ -13791,7 +14651,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1080287&format=mp31",
    "felt_bpm": 68.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.344,
+   "deam_pred_valence": 5.122
   },
   {
    "song_id": "1081103",
@@ -13823,7 +14685,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1081103&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.933,
+   "deam_pred_valence": 4.859
   },
   {
    "song_id": "1082356",
@@ -13855,7 +14719,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1082356&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.749,
+   "deam_pred_valence": 4.915
   },
   {
    "song_id": "1083659",
@@ -13887,7 +14753,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1083659&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.01,
+   "deam_pred_valence": 4.563
   },
   {
    "song_id": "1084434",
@@ -13919,7 +14787,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1084434&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 6.044,
+   "deam_pred_valence": 6.226
   },
   {
    "song_id": "1084435",
@@ -13951,7 +14821,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1084435&format=mp31",
    "felt_bpm": 103.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.891,
+   "deam_pred_valence": 6.127
   },
   {
    "song_id": "1084528",
@@ -13983,7 +14855,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1084528&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.342,
+   "deam_pred_valence": 3.967
   },
   {
    "song_id": "1084910",
@@ -14015,7 +14889,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1084910&format=mp31",
    "felt_bpm": 58.8,
    "calm": true,
-   "calm_reason": "ambient: 0.39 note onsets/s, no meaningful beat"
+   "calm_reason": "ambient: 0.39 note onsets/s, no meaningful beat",
+   "deam_pred_arousal": 3.691,
+   "deam_pred_valence": 3.817
   },
   {
    "song_id": "1085412",
@@ -14047,7 +14923,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1085412&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.945,
+   "deam_pred_valence": 5.763
   },
   {
    "song_id": "1086405",
@@ -14079,7 +14957,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1086405&format=mp31",
    "felt_bpm": 68.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.646,
+   "deam_pred_valence": 4.56
   },
   {
    "song_id": "1087437",
@@ -14111,7 +14991,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1087437&format=mp31",
    "felt_bpm": 64.6,
    "calm": true,
-   "calm_reason": "slow pulse ~65 bpm (half-time reading), sparse notes"
+   "calm_reason": "slow pulse ~65 bpm (half-time reading), sparse notes",
+   "deam_pred_arousal": 5.368,
+   "deam_pred_valence": 5.197
   },
   {
    "song_id": "1088645",
@@ -14143,7 +15025,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1088645&format=mp31",
    "felt_bpm": 61.5,
    "calm": true,
-   "calm_reason": "ambient: 0.96 note onsets/s, no meaningful beat"
+   "calm_reason": "ambient: 0.96 note onsets/s, no meaningful beat",
+   "deam_pred_arousal": 4.029,
+   "deam_pred_valence": 4.289
   },
   {
    "song_id": "1089086",
@@ -14175,7 +15059,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1089086&format=mp31",
    "felt_bpm": 56.1,
    "calm": true,
-   "calm_reason": "slow pulse ~56 bpm (half-time reading), sparse notes"
+   "calm_reason": "slow pulse ~56 bpm (half-time reading), sparse notes",
+   "deam_pred_arousal": 3.574,
+   "deam_pred_valence": 3.631
   },
   {
    "song_id": "1092623",
@@ -14207,7 +15093,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1092623&format=mp31",
    "felt_bpm": 86.2,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.782,
+   "deam_pred_valence": 5.288
   },
   {
    "song_id": "1094515",
@@ -14239,7 +15127,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1094515&format=mp31",
    "felt_bpm": 99.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.062,
+   "deam_pred_valence": 5.224
   },
   {
    "song_id": "1096882",
@@ -14271,7 +15161,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1096882&format=mp31",
    "felt_bpm": 80.8,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 4.154,
+   "deam_pred_valence": 4.498
   },
   {
    "song_id": "1097089",
@@ -14303,7 +15195,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1097089&format=mp31",
    "felt_bpm": 69.8,
    "calm": true,
-   "calm_reason": "ambient: 1.17 note onsets/s, no meaningful beat"
+   "calm_reason": "ambient: 1.17 note onsets/s, no meaningful beat",
+   "deam_pred_arousal": 3.05,
+   "deam_pred_valence": 4.052
   },
   {
    "song_id": "1099501",
@@ -14335,7 +15229,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1099501&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.667,
+   "deam_pred_valence": 5.588
   },
   {
    "song_id": "1099620",
@@ -14367,7 +15263,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1099620&format=mp31",
    "felt_bpm": 58.8,
    "calm": true,
-   "calm_reason": "slow pulse ~59 bpm (half-time reading), sparse notes"
+   "calm_reason": "slow pulse ~59 bpm (half-time reading), sparse notes",
+   "deam_pred_arousal": 3.494,
+   "deam_pred_valence": 3.979
   },
   {
    "song_id": "1100909",
@@ -14399,7 +15297,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1100909&format=mp31",
    "felt_bpm": 76.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.782,
+   "deam_pred_valence": 4.76
   },
   {
    "song_id": "1101043",
@@ -14431,7 +15331,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1101043&format=mp31",
    "felt_bpm": 92.3,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.234,
+   "deam_pred_valence": 5.376
   },
   {
    "song_id": "1101045",
@@ -14463,7 +15365,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1101045&format=mp31",
    "felt_bpm": 56.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.328,
+   "deam_pred_valence": 5.382
   },
   {
    "song_id": "1101049",
@@ -14495,7 +15399,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1101049&format=mp31",
    "felt_bpm": 99.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.144,
+   "deam_pred_valence": 5.135
   },
   {
    "song_id": "1102306",
@@ -14527,7 +15433,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1102306&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.327,
+   "deam_pred_valence": 4.259
   },
   {
    "song_id": "1106477",
@@ -14559,7 +15467,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1106477&format=mp31",
    "felt_bpm": 86.2,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.497,
+   "deam_pred_valence": 4.547
   },
   {
    "song_id": "1107251",
@@ -14591,7 +15501,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1107251&format=mp31",
    "felt_bpm": 83.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.464,
+   "deam_pred_valence": 5.476
   },
   {
    "song_id": "1107409",
@@ -14623,7 +15535,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1107409&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.535,
+   "deam_pred_valence": 5.261
   },
   {
    "song_id": "1107843",
@@ -14655,7 +15569,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1107843&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.755,
+   "deam_pred_valence": 5.757
   },
   {
    "song_id": "1108620",
@@ -14687,7 +15603,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1108620&format=mp31",
    "felt_bpm": 68.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.378,
+   "deam_pred_valence": 5.238
   },
   {
    "song_id": "1108983",
@@ -14719,7 +15637,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1108983&format=mp31",
    "felt_bpm": 61.5,
    "calm": true,
-   "calm_reason": "ambient: 0.23 note onsets/s, no meaningful beat"
+   "calm_reason": "ambient: 0.23 note onsets/s, no meaningful beat",
+   "deam_pred_arousal": 4.183,
+   "deam_pred_valence": 4.227
   },
   {
    "song_id": "1109636",
@@ -14751,7 +15671,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1109636&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.572,
+   "deam_pred_valence": 5.466
   },
   {
    "song_id": "1109774",
@@ -14783,7 +15705,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1109774&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.621,
+   "deam_pred_valence": 5.889
   },
   {
    "song_id": "1110094",
@@ -14815,7 +15739,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1110094&format=mp31",
    "felt_bpm": 64.6,
    "calm": true,
-   "calm_reason": "slow pulse ~65 bpm (half-time reading), sparse notes"
+   "calm_reason": "slow pulse ~65 bpm (half-time reading), sparse notes",
+   "deam_pred_arousal": 5.622,
+   "deam_pred_valence": 5.553
   },
   {
    "song_id": "1110481",
@@ -14847,7 +15773,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1110481&format=mp31",
    "felt_bpm": 95.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.149,
+   "deam_pred_valence": 5.025
   },
   {
    "song_id": "1111236",
@@ -14879,7 +15807,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1111236&format=mp31",
    "felt_bpm": 80.8,
    "calm": true,
-   "calm_reason": "ambient: 0.88 note onsets/s, no meaningful beat"
+   "calm_reason": "ambient: 0.88 note onsets/s, no meaningful beat",
+   "deam_pred_arousal": 5.852,
+   "deam_pred_valence": 5.575
   },
   {
    "song_id": "1112095",
@@ -14911,7 +15841,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1112095&format=mp31",
    "felt_bpm": 61.5,
    "calm": true,
-   "calm_reason": "slow pulse ~62 bpm (half-time reading), sparse notes"
+   "calm_reason": "slow pulse ~62 bpm (half-time reading), sparse notes",
+   "deam_pred_arousal": 3.577,
+   "deam_pred_valence": 3.809
   },
   {
    "song_id": "1112359",
@@ -14943,7 +15875,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1112359&format=mp31",
    "felt_bpm": 68.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.757,
+   "deam_pred_valence": 5.458
   },
   {
    "song_id": "1116249",
@@ -14975,7 +15909,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1116249&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.029,
+   "deam_pred_valence": 4.907
   },
   {
    "song_id": "1116406",
@@ -15007,7 +15943,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1116406&format=mp31",
    "felt_bpm": 103.4,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 3.665,
+   "deam_pred_valence": 4.0
   },
   {
    "song_id": "1116425",
@@ -15039,7 +15977,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1116425&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.622,
+   "deam_pred_valence": 4.575
   },
   {
    "song_id": "1116766",
@@ -15071,7 +16011,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1116766&format=mp31",
    "felt_bpm": 68.0,
    "calm": true,
-   "calm_reason": "ambient: 1.03 note onsets/s, no meaningful beat"
+   "calm_reason": "ambient: 1.03 note onsets/s, no meaningful beat",
+   "deam_pred_arousal": 3.773,
+   "deam_pred_valence": 4.102
   },
   {
    "song_id": "1117254",
@@ -15103,7 +16045,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1117254&format=mp31",
    "felt_bpm": 92.3,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.386,
+   "deam_pred_valence": 5.438
   },
   {
    "song_id": "1117813",
@@ -15135,7 +16079,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1117813&format=mp31",
    "felt_bpm": 56.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.707,
+   "deam_pred_valence": 6.115
   },
   {
    "song_id": "1118585",
@@ -15167,7 +16113,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1118585&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.743,
+   "deam_pred_valence": 3.857
   },
   {
    "song_id": "1118590",
@@ -15199,7 +16147,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1118590&format=mp31",
    "felt_bpm": 80.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.232,
+   "deam_pred_valence": 4.365
   },
   {
    "song_id": "1119016",
@@ -15231,7 +16181,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1119016&format=mp31",
    "felt_bpm": 76.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.174,
+   "deam_pred_valence": 5.293
   },
   {
    "song_id": "1119018",
@@ -15263,7 +16215,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1119018&format=mp31",
    "felt_bpm": 68.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.779,
+   "deam_pred_valence": 4.592
   },
   {
    "song_id": "1119020",
@@ -15295,7 +16249,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1119020&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.698,
+   "deam_pred_valence": 5.686
   },
   {
    "song_id": "1119021",
@@ -15327,7 +16283,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1119021&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.853,
+   "deam_pred_valence": 4.601
   },
   {
    "song_id": "1119022",
@@ -15359,7 +16317,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1119022&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.712,
+   "deam_pred_valence": 5.76
   },
   {
    "song_id": "1119024",
@@ -15391,7 +16351,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1119024&format=mp31",
    "felt_bpm": 56.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 6.049,
+   "deam_pred_valence": 6.332
   },
   {
    "song_id": "1119655",
@@ -15423,7 +16385,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1119655&format=mp31",
    "felt_bpm": 56.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.649,
+   "deam_pred_valence": 5.539
   },
   {
    "song_id": "1119658",
@@ -15455,7 +16419,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1119658&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.296,
+   "deam_pred_valence": 5.21
   },
   {
    "song_id": "1119686",
@@ -15487,7 +16453,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1119686&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.731,
+   "deam_pred_valence": 4.662
   },
   {
    "song_id": "1119687",
@@ -15519,7 +16487,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1119687&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.471,
+   "deam_pred_valence": 4.568
   },
   {
    "song_id": "1119811",
@@ -15551,7 +16521,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1119811&format=mp31",
    "felt_bpm": 89.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.27,
+   "deam_pred_valence": 4.985
   },
   {
    "song_id": "1121242",
@@ -15583,7 +16555,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1121242&format=mp31",
    "felt_bpm": 64.6,
    "calm": true,
-   "calm_reason": "slow pulse ~65 bpm (half-time reading), sparse notes"
+   "calm_reason": "slow pulse ~65 bpm (half-time reading), sparse notes",
+   "deam_pred_arousal": 5.047,
+   "deam_pred_valence": 4.879
   },
   {
    "song_id": "1122086",
@@ -15615,7 +16589,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1122086&format=mp31",
    "felt_bpm": 86.2,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.373,
+   "deam_pred_valence": 5.348
   },
   {
    "song_id": "1122162",
@@ -15647,7 +16623,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1122162&format=mp31",
    "felt_bpm": 92.3,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.471,
+   "deam_pred_valence": 4.441
   },
   {
    "song_id": "1124800",
@@ -15679,7 +16657,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1124800&format=mp31",
    "felt_bpm": 107.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.839,
+   "deam_pred_valence": 5.627
   },
   {
    "song_id": "1125420",
@@ -15711,7 +16691,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1125420&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.678,
+   "deam_pred_valence": 4.611
   },
   {
    "song_id": "1126452",
@@ -15743,7 +16725,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1126452&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.127,
+   "deam_pred_valence": 4.357
   },
   {
    "song_id": "1128524",
@@ -15775,7 +16759,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1128524&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.442,
+   "deam_pred_valence": 5.347
   },
   {
    "song_id": "1130631",
@@ -15807,7 +16793,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1130631&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.925,
+   "deam_pred_valence": 6.332
   },
   {
    "song_id": "1130764",
@@ -15839,7 +16827,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1130764&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.527,
+   "deam_pred_valence": 5.33
   },
   {
    "song_id": "1132659",
@@ -15871,7 +16861,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1132659&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.601,
+   "deam_pred_valence": 5.486
   },
   {
    "song_id": "1133532",
@@ -15903,7 +16895,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1133532&format=mp31",
    "felt_bpm": 76.0,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 3.918,
+   "deam_pred_valence": 4.162
   },
   {
    "song_id": "1135431",
@@ -15935,7 +16929,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1135431&format=mp31",
    "felt_bpm": 95.7,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 3.443,
+   "deam_pred_valence": 4.013
   },
   {
    "song_id": "1135698",
@@ -15967,7 +16963,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1135698&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.943,
+   "deam_pred_valence": 5.877
   },
   {
    "song_id": "1135751",
@@ -15999,7 +16997,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1135751&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.135,
+   "deam_pred_valence": 5.1
   },
   {
    "song_id": "1136662",
@@ -16031,7 +17031,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1136662&format=mp31",
    "felt_bpm": 99.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.72,
+   "deam_pred_valence": 4.689
   },
   {
    "song_id": "1136663",
@@ -16063,7 +17065,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1136663&format=mp31",
    "felt_bpm": 95.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.843,
+   "deam_pred_valence": 4.845
   },
   {
    "song_id": "1136677",
@@ -16095,7 +17099,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1136677&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.491,
+   "deam_pred_valence": 4.435
   },
   {
    "song_id": "1143656",
@@ -16127,7 +17133,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1143656&format=mp31",
    "felt_bpm": 68.0,
    "calm": true,
-   "calm_reason": "slow pulse ~68 bpm (half-time reading), sparse notes"
+   "calm_reason": "slow pulse ~68 bpm (half-time reading), sparse notes",
+   "deam_pred_arousal": 3.602,
+   "deam_pred_valence": 3.704
   },
   {
    "song_id": "1143663",
@@ -16159,7 +17167,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1143663&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.27,
+   "deam_pred_valence": 3.032
   },
   {
    "song_id": "1150787",
@@ -16191,7 +17201,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1150787&format=mp31",
    "felt_bpm": 61.5,
    "calm": true,
-   "calm_reason": "ambient: 0.23 note onsets/s, no meaningful beat"
+   "calm_reason": "ambient: 0.23 note onsets/s, no meaningful beat",
+   "deam_pred_arousal": 3.641,
+   "deam_pred_valence": 3.947
   },
   {
    "song_id": "1153685",
@@ -16223,7 +17235,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1153685&format=mp31",
    "felt_bpm": 76.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.532,
+   "deam_pred_valence": 5.491
   },
   {
    "song_id": "1155003",
@@ -16255,7 +17269,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1155003&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.298,
+   "deam_pred_valence": 5.221
   },
   {
    "song_id": "1155216",
@@ -16287,7 +17303,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1155216&format=mp31",
    "felt_bpm": 86.2,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.733,
+   "deam_pred_valence": 4.175
   },
   {
    "song_id": "1155243",
@@ -16319,7 +17337,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1155243&format=mp31",
    "felt_bpm": 64.6,
    "calm": true,
-   "calm_reason": "ambient: 1.02 note onsets/s, no meaningful beat"
+   "calm_reason": "ambient: 1.02 note onsets/s, no meaningful beat",
+   "deam_pred_arousal": 4.418,
+   "deam_pred_valence": 4.409
   },
   {
    "song_id": "1156086",
@@ -16351,7 +17371,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1156086&format=mp31",
    "felt_bpm": 99.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.615,
+   "deam_pred_valence": 4.429
   },
   {
    "song_id": "1157090",
@@ -16383,7 +17405,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1157090&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.737,
+   "deam_pred_valence": 3.915
   },
   {
    "song_id": "1165278",
@@ -16415,7 +17439,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1165278&format=mp31",
    "felt_bpm": 68.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.346,
+   "deam_pred_valence": 4.384
   },
   {
    "song_id": "1165400",
@@ -16447,7 +17473,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1165400&format=mp31",
    "felt_bpm": 68.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.049,
+   "deam_pred_valence": 4.808
   },
   {
    "song_id": "1165401",
@@ -16479,7 +17507,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1165401&format=mp31",
    "felt_bpm": 76.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.508,
+   "deam_pred_valence": 5.273
   },
   {
    "song_id": "1165640",
@@ -16511,7 +17541,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1165640&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.269,
+   "deam_pred_valence": 5.092
   },
   {
    "song_id": "1165641",
@@ -16543,7 +17575,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1165641&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.262,
+   "deam_pred_valence": 4.197
   },
   {
    "song_id": "1165703",
@@ -16575,7 +17609,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1165703&format=mp31",
    "felt_bpm": 99.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.224,
+   "deam_pred_valence": 5.145
   },
   {
    "song_id": "1166387",
@@ -16607,7 +17643,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1166387&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.295,
+   "deam_pred_valence": 5.047
   },
   {
    "song_id": "1166871",
@@ -16639,7 +17677,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1166871&format=mp31",
    "felt_bpm": 99.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.353,
+   "deam_pred_valence": 4.42
   },
   {
    "song_id": "1167225",
@@ -16671,7 +17711,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1167225&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.331,
+   "deam_pred_valence": 4.464
   },
   {
    "song_id": "1167541",
@@ -16703,7 +17745,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1167541&format=mp31",
    "felt_bpm": 99.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.876,
+   "deam_pred_valence": 3.826
   },
   {
    "song_id": "1168053",
@@ -16735,7 +17779,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1168053&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 3.872,
+   "deam_pred_valence": 4.035
   },
   {
    "song_id": "1168273",
@@ -16767,7 +17813,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1168273&format=mp31",
    "felt_bpm": 99.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.341,
+   "deam_pred_valence": 5.427
   },
   {
    "song_id": "1168283",
@@ -16799,7 +17847,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1168283&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.158,
+   "deam_pred_valence": 4.184
   },
   {
    "song_id": "1168711",
@@ -16831,7 +17881,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1168711&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.484,
+   "deam_pred_valence": 4.652
   },
   {
    "song_id": "1169718",
@@ -16863,7 +17915,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1169718&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.06,
+   "deam_pred_valence": 3.74
   },
   {
    "song_id": "1172834",
@@ -16895,7 +17949,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1172834&format=mp31",
    "felt_bpm": 99.4,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 3.438,
+   "deam_pred_valence": 3.441
   },
   {
    "song_id": "1176145",
@@ -16927,7 +17983,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1176145&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.08,
+   "deam_pred_valence": 4.737
   },
   {
    "song_id": "1176149",
@@ -16959,7 +18017,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1176149&format=mp31",
    "felt_bpm": 99.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.289,
+   "deam_pred_valence": 4.09
   },
   {
    "song_id": "1179446",
@@ -16991,7 +18051,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1179446&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.363,
+   "deam_pred_valence": 5.258
   },
   {
    "song_id": "1180823",
@@ -17023,7 +18085,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1180823&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.951,
+   "deam_pred_valence": 5.205
   },
   {
    "song_id": "1181542",
@@ -17055,7 +18119,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1181542&format=mp31",
    "felt_bpm": 76.0,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 5.481,
+   "deam_pred_valence": 5.465
   },
   {
    "song_id": "1181641",
@@ -17087,7 +18153,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1181641&format=mp31",
    "felt_bpm": 61.5,
    "calm": true,
-   "calm_reason": "ambient: 0.66 note onsets/s, no meaningful beat"
+   "calm_reason": "ambient: 0.66 note onsets/s, no meaningful beat",
+   "deam_pred_arousal": 3.365,
+   "deam_pred_valence": 3.922
   },
   {
    "song_id": "1184891",
@@ -17119,7 +18187,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1184891&format=mp31",
    "felt_bpm": 68.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.71,
+   "deam_pred_valence": 4.961
   },
   {
    "song_id": "1189414",
@@ -17151,7 +18221,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1189414&format=mp31",
    "felt_bpm": 58.8,
    "calm": true,
-   "calm_reason": "slow pulse ~59 bpm (half-time reading), sparse notes"
+   "calm_reason": "slow pulse ~59 bpm (half-time reading), sparse notes",
+   "deam_pred_arousal": 3.202,
+   "deam_pred_valence": 3.981
   },
   {
    "song_id": "1189603",
@@ -17183,7 +18255,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1189603&format=mp31",
    "felt_bpm": 103.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.82,
+   "deam_pred_valence": 5.793
   },
   {
    "song_id": "1189608",
@@ -17215,7 +18289,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1189608&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.933,
+   "deam_pred_valence": 5.132
   },
   {
    "song_id": "1189614",
@@ -17247,7 +18323,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1189614&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.411,
+   "deam_pred_valence": 5.512
   },
   {
    "song_id": "1189615",
@@ -17279,7 +18357,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1189615&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.553,
+   "deam_pred_valence": 5.457
   },
   {
    "song_id": "1191330",
@@ -17311,7 +18391,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1191330&format=mp31",
    "felt_bpm": 107.7,
    "calm": true,
-   "calm_reason": "ambient: 1.22 note onsets/s, no meaningful beat"
+   "calm_reason": "ambient: 1.22 note onsets/s, no meaningful beat",
+   "deam_pred_arousal": 3.811,
+   "deam_pred_valence": 4.101
   },
   {
    "song_id": "1192283",
@@ -17343,7 +18425,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1192283&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.923,
+   "deam_pred_valence": 5.074
   },
   {
    "song_id": "1193297",
@@ -17375,7 +18459,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1193297&format=mp31",
    "felt_bpm": 86.1,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 5.845,
+   "deam_pred_valence": 5.831
   },
   {
    "song_id": "1194595",
@@ -17407,7 +18493,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1194595&format=mp31",
    "felt_bpm": 56.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.043,
+   "deam_pred_valence": 4.122
   },
   {
    "song_id": "1195639",
@@ -17439,7 +18527,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1195639&format=mp31",
    "felt_bpm": 80.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.169,
+   "deam_pred_valence": 4.947
   },
   {
    "song_id": "1196479",
@@ -17471,7 +18561,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1196479&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.274,
+   "deam_pred_valence": 5.449
   },
   {
    "song_id": "1197618",
@@ -17503,7 +18595,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1197618&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.932,
+   "deam_pred_valence": 4.631
   },
   {
    "song_id": "1197619",
@@ -17535,7 +18629,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1197619&format=mp31",
    "felt_bpm": 68.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.286,
+   "deam_pred_valence": 3.958
   },
   {
    "song_id": "1203033",
@@ -17567,7 +18663,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1203033&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 3.115,
+   "deam_pred_valence": 3.625
   },
   {
    "song_id": "1204397",
@@ -17599,7 +18697,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1204397&format=mp31",
    "felt_bpm": 86.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.861,
+   "deam_pred_valence": 4.687
   },
   {
    "song_id": "1205705",
@@ -17631,7 +18731,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1205705&format=mp31",
    "felt_bpm": 107.7,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 4.95,
+   "deam_pred_valence": 4.871
   },
   {
    "song_id": "1209516",
@@ -17663,7 +18765,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1209516&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.61,
+   "deam_pred_valence": 3.933
   },
   {
    "song_id": "1209701",
@@ -17695,7 +18799,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1209701&format=mp31",
    "felt_bpm": 92.3,
    "calm": true,
-   "calm_reason": "ambient: 1.42 note onsets/s, no meaningful beat"
+   "calm_reason": "ambient: 1.42 note onsets/s, no meaningful beat",
+   "deam_pred_arousal": 5.596,
+   "deam_pred_valence": 5.637
   },
   {
    "song_id": "1209703",
@@ -17727,7 +18833,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1209703&format=mp31",
    "felt_bpm": 95.7,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.733,
+   "deam_pred_valence": 5.616
   },
   {
    "song_id": "1210426",
@@ -17759,7 +18867,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1210426&format=mp31",
    "felt_bpm": 107.7,
    "calm": true,
-   "calm_reason": "ambient: 1.23 note onsets/s, no meaningful beat"
+   "calm_reason": "ambient: 1.23 note onsets/s, no meaningful beat",
+   "deam_pred_arousal": 3.719,
+   "deam_pred_valence": 4.02
   },
   {
    "song_id": "1210604",
@@ -17791,7 +18901,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1210604&format=mp31",
    "felt_bpm": 99.4,
    "calm": true,
-   "calm_reason": "ambient: 1.11 note onsets/s, no meaningful beat"
+   "calm_reason": "ambient: 1.11 note onsets/s, no meaningful beat",
+   "deam_pred_arousal": 2.703,
+   "deam_pred_valence": 3.912
   },
   {
    "song_id": "1210732",
@@ -17823,7 +18935,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1210732&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.056,
+   "deam_pred_valence": 5.034
   },
   {
    "song_id": "1210742",
@@ -17855,7 +18969,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1210742&format=mp31",
    "felt_bpm": 76.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.633,
+   "deam_pred_valence": 4.369
   },
   {
    "song_id": "1210841",
@@ -17887,7 +19003,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1210841&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.603,
+   "deam_pred_valence": 5.65
   },
   {
    "song_id": "1212386",
@@ -17919,7 +19037,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1212386&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.188,
+   "deam_pred_valence": 4.846
   },
   {
    "song_id": "1212588",
@@ -17951,7 +19071,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1212588&format=mp31",
    "felt_bpm": 107.7,
    "calm": true,
-   "calm_reason": "ambient: 1.17 note onsets/s, no meaningful beat"
+   "calm_reason": "ambient: 1.17 note onsets/s, no meaningful beat",
+   "deam_pred_arousal": 3.404,
+   "deam_pred_valence": 3.861
   },
   {
    "song_id": "1212782",
@@ -17983,7 +19105,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1212782&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.315,
+   "deam_pred_valence": 5.343
   },
   {
    "song_id": "1213843",
@@ -18015,7 +19139,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1213843&format=mp31",
    "felt_bpm": 99.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.244,
+   "deam_pred_valence": 4.85
   },
   {
    "song_id": "1214515",
@@ -18047,7 +19173,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1214515&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.315,
+   "deam_pred_valence": 4.847
   },
   {
    "song_id": "1214580",
@@ -18079,7 +19207,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1214580&format=mp31",
    "felt_bpm": 80.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.813,
+   "deam_pred_valence": 3.951
   },
   {
    "song_id": "1215266",
@@ -18111,7 +19241,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1215266&format=mp31",
    "felt_bpm": 68.0,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 4.347,
+   "deam_pred_valence": 4.465
   },
   {
    "song_id": "1215268",
@@ -18143,7 +19275,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1215268&format=mp31",
    "felt_bpm": 92.3,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 3.92,
+   "deam_pred_valence": 3.877
   },
   {
    "song_id": "1215400",
@@ -18175,7 +19309,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1215400&format=mp31",
    "felt_bpm": 56.1,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 5.109,
+   "deam_pred_valence": 4.944
   },
   {
    "song_id": "1215510",
@@ -18207,7 +19343,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1215510&format=mp31",
    "felt_bpm": 68.0,
    "calm": true,
-   "calm_reason": "slow pulse ~68 bpm (half-time reading), sparse notes"
+   "calm_reason": "slow pulse ~68 bpm (half-time reading), sparse notes",
+   "deam_pred_arousal": 3.716,
+   "deam_pred_valence": 3.975
   },
   {
    "song_id": "1216490",
@@ -18239,7 +19377,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1216490&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.909,
+   "deam_pred_valence": 4.796
   },
   {
    "song_id": "1218955",
@@ -18271,7 +19411,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1218955&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.81,
+   "deam_pred_valence": 4.74
   },
   {
    "song_id": "1220399",
@@ -18303,7 +19445,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1220399&format=mp31",
    "felt_bpm": 99.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.798,
+   "deam_pred_valence": 5.914
   },
   {
    "song_id": "1220722",
@@ -18335,7 +19479,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1220722&format=mp31",
    "felt_bpm": 80.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 6.316,
+   "deam_pred_valence": 6.688
   },
   {
    "song_id": "1220730",
@@ -18367,7 +19513,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1220730&format=mp31",
    "felt_bpm": 56.1,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.908,
+   "deam_pred_valence": 5.656
   },
   {
    "song_id": "1221936",
@@ -18399,7 +19547,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1221936&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.811,
+   "deam_pred_valence": 5.934
   },
   {
    "song_id": "1221997",
@@ -18431,7 +19581,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1221997&format=mp31",
    "felt_bpm": 58.8,
    "calm": true,
-   "calm_reason": "ambient: 0.96 note onsets/s, no meaningful beat"
+   "calm_reason": "ambient: 0.96 note onsets/s, no meaningful beat",
+   "deam_pred_arousal": 3.869,
+   "deam_pred_valence": 3.999
   },
   {
    "song_id": "1222618",
@@ -18463,7 +19615,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1222618&format=mp31",
    "felt_bpm": 61.5,
    "calm": true,
-   "calm_reason": "slow pulse ~62 bpm (half-time reading), sparse notes"
+   "calm_reason": "slow pulse ~62 bpm (half-time reading), sparse notes",
+   "deam_pred_arousal": 4.887,
+   "deam_pred_valence": 4.927
   },
   {
    "song_id": "1223252",
@@ -18495,7 +19649,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1223252&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.454,
+   "deam_pred_valence": 5.278
   },
   {
    "song_id": "1227905",
@@ -18527,7 +19683,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1227905&format=mp31",
    "felt_bpm": 99.4,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.787,
+   "deam_pred_valence": 5.055
   },
   {
    "song_id": "1228291",
@@ -18559,7 +19717,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1228291&format=mp31",
    "felt_bpm": 76.0,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 4.614,
+   "deam_pred_valence": 4.595
   },
   {
    "song_id": "1228459",
@@ -18591,7 +19751,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1228459&format=mp31",
    "felt_bpm": 71.8,
    "calm": false,
-   "calm_reason": "tempo outside 55-70 bpm"
+   "calm_reason": "tempo outside 55-70 bpm",
+   "deam_pred_arousal": 4.827,
+   "deam_pred_valence": 4.547
   },
   {
    "song_id": "1230727",
@@ -18623,7 +19785,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1230727&format=mp31",
    "felt_bpm": 61.5,
    "calm": true,
-   "calm_reason": "slow pulse ~62 bpm (half-time reading), sparse notes"
+   "calm_reason": "slow pulse ~62 bpm (half-time reading), sparse notes",
+   "deam_pred_arousal": 4.157,
+   "deam_pred_valence": 4.291
   },
   {
    "song_id": "1234069",
@@ -18655,7 +19819,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1234069&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.627,
+   "deam_pred_valence": 4.899
   },
   {
    "song_id": "1236358",
@@ -18687,7 +19853,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1236358&format=mp31",
    "felt_bpm": 68.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.921,
+   "deam_pred_valence": 5.098
   },
   {
    "song_id": "1240700",
@@ -18719,7 +19887,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1240700&format=mp31",
    "felt_bpm": 61.5,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.99,
+   "deam_pred_valence": 4.86
   },
   {
    "song_id": "1242645",
@@ -18751,7 +19921,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1242645&format=mp31",
    "felt_bpm": 58.8,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.202,
+   "deam_pred_valence": 4.31
   },
   {
    "song_id": "1243017",
@@ -18783,7 +19955,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1243017&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 4.541,
+   "deam_pred_valence": 4.504
   },
   {
    "song_id": "1245069",
@@ -18815,7 +19989,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1245069&format=mp31",
    "felt_bpm": 92.3,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.242,
+   "deam_pred_valence": 5.051
   },
   {
    "song_id": "1245661",
@@ -18847,7 +20023,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1245661&format=mp31",
    "felt_bpm": 64.6,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 3.116,
+   "deam_pred_valence": 3.868
   },
   {
    "song_id": "1245959",
@@ -18879,7 +20057,9 @@
    "stream_url": "https://mp3l.jamendo.com/?trackid=1245959&format=mp31",
    "felt_bpm": 76.0,
    "calm": false,
-   "calm_reason": "notes too dense"
+   "calm_reason": "notes too dense",
+   "deam_pred_arousal": 5.86,
+   "deam_pred_valence": 5.612
   }
  ],
  "calm_rule": "Label each library track calm / not calm and record the reason. Updates app/data/music_library.json.\n\nThe brief's calm list is \"slow, steady, low-intensity tracks (roughly 55-70 bpm)\" (Bernardi 2006).\nAutomatic tempo is ambiguous on this library: librosa's estimate leans toward ~120 bpm, so slow\npieces often read at double time, and ambient pieces have no steady beat at all. So calm means:\n  - sparse notes (onset density <= 2.5/s, about the bottom 15% of the library), and either\n  - a steady pulse whose felt tempo is 55-70 bpm (readings of 110-140 count at half time), or\n  - ambient texture with almost no note onsets (<= 1.5/s), where tempo is not meaningful.\nOnset density and the half-time reading are engineering heuristics, not trial-tested measures."

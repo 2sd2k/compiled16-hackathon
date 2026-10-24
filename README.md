@@ -15,7 +15,8 @@ heart rate (fake data now, Garmin later) → controller → audio in the room
 - **Controller** (`resonance/controller.py`) runs the whole loop by itself, offline, at 1 Hz:
   - Baseline = median heart rate over the first 120 s of rest.
   - **Elevated** = 10 s median heart rate ≥ baseline + 10 bpm for 20 s (the `hr_test.py` rule).
-  - Elevated → play the top-ranked track from the **calm list**: reliable tempo of 55–70 bpm (Bernardi 2006), approved in advance by the patient (Cochrane 2013, Zhang 2026).
+  - Elevated → play the top-ranked track from the **calm list**: slow (about 55–70 bpm felt tempo, Bernardi 2006) and sparse or ambient tracks, approved in advance by the patient (Cochrane 2013, Zhang 2026). 67 of 590 tracks qualify (`analysis/classify_calm.py`).
+  - Within the calm list, tracks are ordered by **Josh's DEAM arousal model** through his `rank_music` (patient preference first, then lowest predicted arousal). The predictions agree with HKU956 listeners' own arousal ratings (ρ = 0.59). See `BASELINE-INTEGRATION.md`.
   - Still elevated after 3 min of music → 2 min of silence, which lowered heart rate most in Bernardi 2006.
   - Back near baseline for 1 min → music fades to silence. Music sessions are capped at about 30 min (Zhang 2026).
   - **Nurse present** → fade out, resume after they leave. **Stop** → instant silence until the patient resumes.

@@ -19,6 +19,7 @@ import json
 import os
 import random
 import statistics
+import sys
 import threading
 import time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -32,6 +33,14 @@ LIBRARY = REPO / "app" / "data" / "music_library.json"
 SESSIONS = REPO / "app" / "data" / "sessions.json"
 AUDIO_DIR = REPO / "data" / "raw" / "audio"
 CONSOLE = Path(__file__).resolve().parent / "console.html"
+# Optional patient preferences gathered by voice or a caregiver, never on a screen:
+# {"preferences": {"<song_id>": 0..1}, "excluded": ["<song_id>", ...]}
+PREFS = Path(__file__).resolve().parent / "patient_preferences.json"
+
+sys.path.insert(0, str(REPO / "baseline"))
+from ranking import rank_music  # noqa: E402  (Josh's preference-first ranking)
+
+TARGET_AROUSAL = 2.5    # Josh's elevated-state arousal target on DEAM's 1-9 scale (unvalidated prior)
 
 BASELINE_S = 120        # hr_test.py: baseline from the first 120 s
 SMOOTH_S = 10           # hr_test.py: 10 s rolling median
@@ -105,20 +114,21 @@ def load_calm_list():
         return []
     tracks = json.loads(LIBRARY.read_text(encoding="utf-8"))["tracks"]
     calm = [t for t in tracks if t.get("calm") and (AUDIO_DIR / f"{t['song_id']}.mp3").exists()]
+    if not calm:
+        return []
+    if any(t.get("deam_pred_arousal") is None for t in calm):
+        return sorted(calm, key=lambda t: t.get("felt_bpm", t["bpm"]))  # slower first (Bernardi 2006)
 
-    def z(key):
-        vals = [t[key] for t in tracks]
-        m, sd = statistics.mean(vals), statistics.pstdev(vals) or 1
-        return lambda t: (t[key] - m) / sd
-
-    zs = [z(k) for k in ("onsets_per_s", "loudness_dbfs", "dynamics_db", "treble_share", "brightness_hz")]
-    for t in calm:
-        felt = min(max(t.get("felt_bpm", t["bpm"]), CALM_BPM[0]), CALM_BPM[1])
-        tempo = 1 - (felt - CALM_BPM[0]) / (CALM_BPM[1] - CALM_BPM[0])       # slower is better (evidence)
-        texture = -sum(f(t) for f in zs) / len(zs)                          # calmer texture (heuristic)
-        observed = -(t["hku_hr_delta_mean"] or 0) / 4 if t.get("hku_listeners", 0) >= 2 else 0
-        t["score"] = tempo + 0.6 * texture + 0.4 * observed
-    return sorted(calm, key=lambda t: -t["score"])
+    # Order within the calm list with Josh's preference-first ranking (baseline/ranking.py), using
+    # his DEAM model's predicted arousal. Valence is off: predicted valence did not track listener
+    # valence on this library (analysis/out/deam_on_hku_validation.json).
+    prefs = json.loads(PREFS.read_text()) if PREFS.exists() else {}
+    preferences = {int(k): float(v) for k, v in prefs.get("preferences", {}).items()}
+    excluded = {int(s) for s in prefs.get("excluded", [])}
+    cands = [{**t, "song_id": int(t["song_id"]), "predicted_arousal_mean": t["deam_pred_arousal"],
+              "predicted_valence_mean": t["deam_pred_valence"]} for t in calm]
+    ranked = rank_music(cands, preferences, excluded, target_arousal=TARGET_AROUSAL, valence_weight=0)
+    return [{**t, "song_id": str(t["song_id"])} for t in ranked]
 
 
 class Player:
@@ -188,8 +198,8 @@ class Controller:
         self.t = 0
         self.done = False
         self.warned_empty = False
-        self.log(f"Started. Input: {source.label}. Calm list: {len(self.calm)} local tracks at "
-                 f"{CALM_BPM[0]}-{CALM_BPM[1]} bpm [Bernardi 2006].")
+        self.log(f"Started. Input: {source.label}. Calm list: {len(self.calm)} local tracks, slow "
+                 f"(~{CALM_BPM[0]}-{CALM_BPM[1]} bpm felt tempo) and sparse [Bernardi 2006].")
         if not self.calm:
             self.log("No calm tracks available: the room will stay silent. Build the music library first.")
 
@@ -313,9 +323,11 @@ class Controller:
         t = choices[0]
         self.recent.append(t["song_id"])
         self.player.play(t)
+        arousal = f", predicted arousal {t['deam_pred_arousal']:.1f}/9" if t.get("deam_pred_arousal") else ""
         self.log(f"{why} → playing “{t.get('title') or t['song_id']}” by {t.get('artist') or 'unknown'} "
-                 f"({t['bpm']:.0f} bpm, {t['key']} {t['mode']}) from the approved calm list "
-                 f"[slow tempo: Bernardi 2006; patient-approved: Cochrane 2013].")
+                 f"({t.get('calm_reason', 'calm list')}; {t['key']} {t['mode']}{arousal}) from the "
+                 f"approved calm list [slow, sparse music: Bernardi 2006; patient-approved: Cochrane 2013; "
+                 f"ranked by Josh's arousal model, checked against HKU956 listener ratings].")
 
     def snapshot(self):
         with self.lock:
