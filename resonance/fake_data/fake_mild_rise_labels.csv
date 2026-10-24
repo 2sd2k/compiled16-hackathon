@@ -1,0 +1,5 @@
+start_s,end_s,label
+0,180,rest
+180,300,rising
+300,480,mild
+480,600,rest

@@ -1,0 +1,6 @@
+start_s,end_s,label
+0,180,rest
+180,240,rising
+240,420,stress
+420,660,recovery
+660,780,rest

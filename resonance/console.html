@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resonance Demo Console</title>
+<style>
+:root {
+  color-scheme: light;
+  --bg: #f4f3f0; --card: #fcfcfb; --border: #e2e1dc;
+  --ink: #0b0b0b; --ink-2: #52514e; --muted: #77756f;
+  --series: #2a78d6; --ref: #77756f;
+  --rest: #0ca30c; --elev: #d03b3b; --nurse: #6250d6; --stop: #52514e;
+  --band: rgba(208, 59, 59, 0.10); --sim: rgba(250, 178, 25, 0.18); --sim-border: #fab219;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #121211; --card: #1a1a19; --border: #2f2f2c;
+    --ink: #f0efec; --ink-2: #c3c2b7; --muted: #94938b;
+    --series: #3987e5; --ref: #94938b; --nurse: #9085e9; --stop: #c3c2b7;
+    --band: rgba(230, 103, 103, 0.14); --sim: rgba(250, 178, 25, 0.14);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #121211; --card: #1a1a19; --border: #2f2f2c;
+  --ink: #f0efec; --ink-2: #c3c2b7; --muted: #94938b;
+  --series: #3987e5; --ref: #94938b; --nurse: #9085e9; --stop: #c3c2b7;
+  --band: rgba(230, 103, 103, 0.14); --sim: rgba(250, 178, 25, 0.14);
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+.wrap { max-width: 1040px; margin: 0 auto; padding: 16px; }
+header { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; flex-wrap: wrap; margin-bottom: 14px; }
+h1 { margin: 0; font-size: 18px; }
+.disclaimer { margin: 2px 0 0; color: var(--muted); font-size: 13px; }
+.badge { font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--border); }
+.badge.sim { background: var(--sim); border-color: var(--sim-border); }
+.grid { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 14px; }
+@media (max-width: 820px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; min-width: 0; }
+.room { display: flex; align-items: center; gap: 14px; }
+.dot { width: 18px; height: 18px; border-radius: 50%; flex: none; background: var(--muted); }
+.roomName { font-size: 34px; font-weight: 700; line-height: 1.1; }
+.roomSub { color: var(--ink-2); font-size: 14px; }
+.nums { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 16px 0 10px; }
+.nums div { background: var(--bg); border-radius: 8px; padding: 8px 10px; }
+.nums .k { font-size: 12px; color: var(--muted); display: block; }
+.nums .v { font-size: 26px; font-weight: 650; font-variant-numeric: tabular-nums; }
+.playing { padding: 10px 12px; border-radius: 8px; background: var(--bg); font-size: 14px; }
+.playing b { font-size: 15px; }
+canvas { width: 100%; height: 170px; display: block; margin-top: 12px; }
+.legend { display: flex; gap: 12px; flex-wrap: wrap; font-size: 12px; color: var(--muted); margin-top: 4px; }
+.sw { display: inline-block; width: 16px; vertical-align: middle; margin-right: 4px; }
+.sw.l { border-top: 2px solid var(--series); } .sw.b { border-top: 2px dashed var(--ref); } .sw.t { border-top: 2px dotted var(--ink-2); }
+.sw.e { height: 10px; background: var(--band); border: 1px solid var(--elev); }
+h2 { font-size: 13px; margin: 0 0 8px; color: var(--ink-2); text-transform: uppercase; letter-spacing: .05em; }
+.controls { display: flex; flex-wrap: wrap; gap: 8px; }
+button { font: inherit; font-size: 14px; color: var(--ink); background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; cursor: pointer; }
+button:hover { border-color: var(--muted); }
+button.on { background: var(--sim); border-color: var(--sim-border); }
+.hint { font-size: 12px; color: var(--muted); margin: 8px 0 0; }
+.log { list-style: none; margin: 0; padding: 0; max-height: 420px; overflow: auto; font-size: 13px; }
+.log li { padding: 6px 0; border-bottom: 1px solid var(--border); }
+.log time { color: var(--muted); font-variant-numeric: tabular-nums; margin-right: 6px; }
+.offline { color: var(--elev); font-size: 13px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Resonance · Developer / Demo Console</h1>
+      <p class="disclaimer">Not the patient's interface. Resonance runs with this page closed; the buttons below only simulate real-world inputs.</p>
+    </div>
+    <span id="input" class="badge">connecting…</span>
+  </header>
+
+  <div class="grid">
+    <section class="card">
+      <div class="room" role="status" aria-live="polite">
+        <span id="dot" class="dot"></span>
+        <div>
+          <div id="room" class="roomName">–</div>
+          <div id="roomSub" class="roomSub"></div>
+        </div>
+      </div>
+      <div class="nums">
+        <div><span class="k">Heart rate</span><span id="hr" class="v">–</span></div>
+        <div><span class="k">Baseline</span><span id="base" class="v">–</span></div>
+        <div><span class="k">Elevated at</span><span id="thr" class="v">–</span></div>
+      </div>
+      <div class="playing" id="playing">Room is silent.</div>
+      <canvas id="chart" aria-label="Heart rate, last 5 minutes"></canvas>
+      <div class="legend"><span><i class="sw l"></i>heart rate (10 s median)</span><span><i class="sw b"></i>baseline</span><span><i class="sw t"></i>threshold</span><span><i class="sw e"></i>above threshold</span></div>
+    </section>
+
+    <section class="card">
+      <h2>Test controls (simulate real-world inputs)</h2>
+      <div class="controls">
+        <button data-a="rise" class="simOnly">Heart rate rises</button>
+        <button data-a="rest" class="simOnly">Heart rate rests</button>
+        <button data-a="nurse" id="nurseBtn">Nurse enters</button>
+        <button data-a="stop" id="stopBtn">Patient says “stop”</button>
+        <button id="thrDown">Threshold −1</button>
+        <button id="thrUp">Threshold +1</button>
+      </div>
+      <p class="hint">Same as keys in the controller window: r rise · c rest · n nurse · s stop.</p>
+      <h2 style="margin-top:16px">Event log</h2>
+      <ul id="log" class="log"></ul>
+    </section>
+  </div>
+</div>
+<script>
+const $ = (id) => document.getElementById(id);
+const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const COLORS = { Resting: "--rest", Elevated: "--elev", "Nurse present": "--nurse", Stopped: "--stop", "Learning baseline": "--muted" };
+let last = null;
+
+async function send(action) {
+  await fetch("/input", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action }) });
+  poll();
+}
+document.querySelectorAll("button[data-a]").forEach((b) => b.onclick = () => send(b.dataset.a));
+$("thrDown").onclick = () => last && send(`threshold:${last.threshold - 1}`);
+$("thrUp").onclick = () => last && send(`threshold:${last.threshold + 1}`);
+
+function esc(s) { return String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]); }
+
+function render(s) {
+  last = s;
+  $("input").textContent = s.input;
+  $("input").className = "badge" + (s.simulated ? " sim" : "");
+  document.querySelectorAll(".simOnly").forEach((b) => b.hidden = !s.interactive);
+  $("room").textContent = s.room;
+  $("dot").style.background = css(COLORS[s.room] || "--muted");
+  const d = s.hr != null && s.baseline != null ? s.hr - s.baseline : null;
+  $("roomSub").textContent = s.room === "Learning baseline"
+    ? `Learning resting baseline: ${s.baseline_progress} / ${s.baseline_needed} s`
+    : d == null ? "" : `${d >= 0 ? "+" : ""}${d.toFixed(1)} bpm vs baseline${s.silent_pause_s ? ` · silent pause ${s.silent_pause_s} s` : ""}`;
+  $("hr").textContent = s.hr == null ? "–" : `${Math.round(s.hr)}`;
+  $("base").textContent = s.baseline == null ? "–" : `${Math.round(s.baseline)}`;
+  $("thr").textContent = s.baseline == null ? `+${s.threshold}` : `${Math.round(s.baseline + s.threshold)}`;
+  const p = s.now_playing;
+  $("playing").innerHTML = p
+    ? `♪ <b>${esc(p.title)}</b> · ${esc(p.artist)}<br><span style="color:var(--muted)">${p.bpm.toFixed(0)} bpm · ${esc(p.key)} · ${esc(p.license || "license unknown")} · from the approved calm list</span>`
+    : "Room is silent.";
+  $("nurseBtn").textContent = s.room === "Nurse present" ? "Nurse leaves" : "Nurse enters";
+  $("nurseBtn").classList.toggle("on", s.room === "Nurse present");
+  $("stopBtn").textContent = s.room === "Stopped" ? "Patient resumes" : "Patient says “stop”";
+  $("stopBtn").classList.toggle("on", s.room === "Stopped");
+  $("log").innerHTML = s.events.map((e) => `<li><time>${e.time}</time>${esc(e.msg)}</li>`).join("");
+  draw(s);
+}
+
+function draw(s) {
+  const c = $("chart"), w = c.clientWidth, h = c.clientHeight, dpr = devicePixelRatio || 1;
+  c.width = w * dpr; c.height = h * dpr;
+  const ctx = c.getContext("2d"); ctx.scale(dpr, dpr); ctx.clearRect(0, 0, w, h);
+  const v = s.history; if (!v.length) return;
+  const base = s.baseline ?? v[0], thr = base + s.threshold;
+  const lo = Math.min(base - 8, ...v), hi = Math.max(thr + 8, ...v);
+  const pad = { l: 30, r: 6, t: 6, b: 6 }, n = 300;
+  const x = (i) => pad.l + (i + (n - v.length)) / (n - 1) * (w - pad.l - pad.r);
+  const y = (val) => pad.t + (1 - (val - lo) / (hi - lo)) * (h - pad.t - pad.b);
+  ctx.font = "11px system-ui"; ctx.fillStyle = css("--muted"); ctx.strokeStyle = css("--border"); ctx.lineWidth = 1;
+  for (let g = Math.ceil(lo / 10) * 10; g <= hi; g += 10) { ctx.beginPath(); ctx.moveTo(pad.l, y(g)); ctx.lineTo(w - pad.r, y(g)); ctx.stroke(); ctx.fillText(g, 2, y(g) + 4); }
+  if (s.baseline != null) {
+    ctx.fillStyle = css("--band"); ctx.fillRect(pad.l, pad.t, w - pad.l - pad.r, y(thr) - pad.t);
+    ctx.setLineDash([6, 4]); ctx.strokeStyle = css("--ref"); ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(pad.l, y(base)); ctx.lineTo(w - pad.r, y(base)); ctx.stroke();
+    ctx.setLineDash([2, 3]); ctx.strokeStyle = css("--ink-2");
+    ctx.beginPath(); ctx.moveTo(pad.l, y(thr)); ctx.lineTo(w - pad.r, y(thr)); ctx.stroke(); ctx.setLineDash([]);
+  }
+  ctx.strokeStyle = css("--series"); ctx.lineWidth = 2; ctx.lineJoin = "round"; ctx.beginPath();
+  v.forEach((val, i) => i ? ctx.lineTo(x(i), y(val)) : ctx.moveTo(x(i), y(val))); ctx.stroke();
+}
+
+async function poll() {
+  try { render(await (await fetch("/state", { cache: "no-store" })).json()); }
+  catch { $("input").textContent = "controller not running"; $("input").className = "badge offline"; }
+}
+poll(); setInterval(poll, 700);
+addEventListener("resize", () => last && draw(last));
+</script>
+</body>
+</html>
