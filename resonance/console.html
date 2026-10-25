@@ -109,6 +109,8 @@ code { font-size: 12px; }
       <div class="playing" id="playing">Room is silent.</div>
       <div id="live" class="spotify" hidden></div>
       <div id="adaptive" class="spotify" hidden></div>
+      <button id="learningBtn" type="button" aria-pressed="false" disabled>Learning unavailable</button>
+      <p id="learningMessage" class="hint" role="status">Waiting for controller.</p>
       <canvas id="chart" aria-label="Heart rate, last 5 minutes"></canvas>
       <div class="legend"><span><i class="sw l"></i>heart rate (10 s median)</span><span><i class="sw b"></i>baseline</span><span><i class="sw t"></i>threshold</span><span><i class="sw e"></i>above threshold</span></div>
     </section>
@@ -203,6 +205,24 @@ $("comfortSubmit").onclick = async () => {
   poll();
 };
 
+let learningPending = false;
+let learningError = "";
+$("learningBtn").onclick = async () => {
+  learningPending = true;
+  learningError = "";
+  $("learningBtn").disabled = true;
+  try {
+    const action = $("learningBtn").getAttribute("aria-pressed") === "true" ? "learning:off" : "learning:on";
+    const response = await fetch("/input", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({action})});
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error || "Could not change learning.");
+  } catch (error) {
+    learningError = error.message;
+  } finally {
+    learningPending = false;
+    poll();
+  }
+};
 async function send(action) {
   await fetch("/input", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action }) });
   poll();
@@ -269,6 +289,14 @@ function render(s) {
     lvBox.textContent = `Garmin: ${STATE[lv.state] || lv.state}${fresh}${contact}`;
     lvBox.className = "spotify" + (lv.state === "connected" && age != null && age <= 3 && lv.sensor_contact !== false ? "" : " err");
   }
+  const learningButton = $("learningBtn");
+  learningButton.disabled = learningPending || !s.learning_available;
+  learningButton.setAttribute("aria-pressed", String(Boolean(s.learning_enabled)));
+  learningButton.textContent = !s.learning_available ? "Learning unavailable" : s.learning_enabled ? "Learning ON — turn off" : "Learning OFF — turn on";
+  $("learningMessage").textContent = learningError || (!s.learning_available
+    ? "Learning requires a compatible source, patient profile, approved songs, and a working adapter."
+    : s.learning_enabled ? "Valid completed responses update this patient's preferences."
+    : "Preferences are saved and still guide song selection. New responses are not learned.");
   const ad = s.adaptive, adBox = $("adaptive");
   adBox.hidden = !(s.learning_enabled && ad && !ad.external);
   if (!adBox.hidden) {

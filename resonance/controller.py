@@ -319,7 +319,16 @@ class Controller(AdaptiveControllerMixin):
     # Inputs from keys or the console. Each one stands in for a real-world signal.
     def input(self, action):
         with self.lock:
-            if action == "stop":
+            if action in ("learning:on", "learning:off"):
+                if not self.selection_enabled or not self.approved_ids or self._adaptive_fault:
+                    raise ValueError("Learning unavailable: start with a patient profile and approved songs; resolve any adapter error.")
+                paused = action == "learning:off"
+                if self.learning_paused == paused:
+                    return
+                self.learning_paused = paused
+                self.log("Learning paused; saved preferences retained." if paused else
+                         "Learning enabled for new response windows.")
+            elif action == "stop":
                 self.stopped = not self.stopped
                 if self.stopped:
                     self.player.silence(fade_s=0.3)

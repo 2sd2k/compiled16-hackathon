@@ -449,3 +449,19 @@ def test_http_upload_and_return_to_sim_keep_existing_console_interface(setup):
         assert ctrl.snapshot()['learning_enabled'] is True
     finally:
         server.shutdown();server.server_close()
+
+
+def test_learning_off_playback_then_fresh_enabled_exposure(setup):
+    ctrl, learner = setup()
+    ctrl.input('learning:off')
+    wait_for_start(ctrl)
+    advance(ctrl, 65)
+    assert learner.summary(ctrl.patient_id)['updates'] == 0
+    assert learner.summary(ctrl.patient_id)['last_observation']['reason'] == 'learning_disabled'
+    ctrl.input('learning:on')
+    ctrl.input('stop')
+    advance(ctrl, 35)
+    ctrl.input('stop')
+    wait_for_start(ctrl)
+    advance(ctrl, 65)
+    assert learner.summary(ctrl.patient_id)['updates'] == 1

@@ -84,13 +84,14 @@ test('complete console polls state and renders learning outcomes alongside Stop'
   const doc = {getElementById(id) {
     if (!ids.has(id)) return null;
     if (!elements.has(id)) elements.set(id, {textContent:'', innerHTML:'', style:{}, classList:{toggle() {}},
+      setAttribute(key,value) {this[key]=value;}, getAttribute(key) {return this[key];},
       clientWidth:600, clientHeight:170, getContext:() => context});
     return elements.get(id);
   }, querySelectorAll:() => []};
   const state = {input:'SIMULATED test', simulated:true, interactive:true, source_kind:'simulated',
     patient_id:'p1', session_id:'s1', room:'Elevated', hr:90, baseline:72, threshold:10,
     history:[null,89,90], baseline_progress:120, baseline_needed:120, events:[],
-    learning_enabled:true, adaptive:{updates:2,last_observation:{session_id:'s1',song_id:'jamendo:1',
+    learning_available:true, learning_enabled:true, adaptive:{updates:2,last_observation:{session_id:'s1',song_id:'jamendo:1',
       updated:true,context:{mean:90},later_hr:84,reward:.5,state_only_trend_forecast:89}}};
   const requests = [];
   let poll;
@@ -106,6 +107,13 @@ test('complete console polls state and renders learning outcomes alongside Stop'
   await poll();
   assert.ok(requests.every(([url]) => url === '/state'));
   assert.equal(elements.get('obs-updates').textContent, '2');
+  assert.equal(elements.get('learningBtn').disabled, false);
+  await elements.get('learningBtn').onclick();
+  assert.ok(requests.some(([url, options]) => url === '/input' && JSON.parse(options.body).action === 'learning:off'));
+  state.learning_enabled = false;
+  await poll();
+  assert.match(elements.get('learningBtn').textContent, /Learning OFF/);
+  state.learning_enabled = true;
   state.stopped=true;state.room='Stopped';
   await poll();
   assert.equal(elements.get('obs-status').textContent, 'Stopped');

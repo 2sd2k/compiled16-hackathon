@@ -242,3 +242,39 @@ def test_reconnect_does_not_switch_to_another_watch(monkeypatch):
     source._run()
     assert connections == ['watch-A']
     assert source.status()['device_id'] == 'watch-A'
+
+
+def test_learning_toggle_discards_window_and_retains_profile(live):
+    ctrl, learner, tick = live
+    ctrl.input('learning:off')
+    assert ctrl.snapshot()['learning_enabled'] is False
+    assert ctrl.snapshot()['learning_available'] is True
+    assert ctrl.snapshot()['feedback_open'] is False
+    for _ in range(65):
+        tick(87)
+    assert learner.summary(ctrl.patient_id)['updates'] == 0
+    ctrl.input('learning:on')
+    assert ctrl.snapshot()['learning_enabled'] is True
+    for _ in range(65):
+        tick(87)
+    assert learner.summary(ctrl.patient_id)['updates'] == 0
+
+
+def test_learning_toggle_is_idempotent_and_preserves_saved_updates(live):
+    ctrl, learner, tick = live
+    for _ in range(65):
+        tick(87)
+    assert learner.summary(ctrl.patient_id)['updates'] == 1
+    ctrl.input('learning:off')
+    revision = ctrl.control_revision
+    ctrl.input('learning:off')
+    assert ctrl.control_revision == revision
+    ctrl.input('learning:on')
+    assert learner.summary(ctrl.patient_id)['updates'] == 1
+
+
+def test_learning_cannot_enable_without_adapter(live):
+    ctrl, _, _ = live
+    ctrl.selection_enabled = False
+    with pytest.raises(ValueError, match='Learning unavailable'):
+        ctrl.input('learning:on')

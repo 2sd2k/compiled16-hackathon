@@ -240,7 +240,7 @@ class AdaptiveAdapter:
                     session['samples'].append(record)
                     session['samples'] = session['samples'][-180:]
                     for exposure, pending in list(session['pending'].items()):
-                        if (not record['signal_ok'] or record['stopped'] or record['nurse_present'] or
+                        if (not record.get('learning_enabled', True) or not record['signal_ok'] or record['stopped'] or record['nurse_present'] or
                                 record['baseline'] != pending['context']['baseline'] or
                                 record['source_revision'] != pending['context']['source_revision']):
                             self._finish(session, exposure, 'interrupted_or_reference_changed')
@@ -256,6 +256,8 @@ class AdaptiveAdapter:
                                'start': record['sample_index']}
                     session['pending'][exposure] = pending
                     try:
+                        if not record.get('learning_enabled', True):
+                            raise ValueError('learning_disabled')
                         if record['source_kind'] != self.mode or record['simulated'] != (self.mode == 'simulated'):
                             raise ValueError('source_mode_mismatch')
                         pending['source_kind'] = record['source_kind']

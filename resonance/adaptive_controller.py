@@ -35,6 +35,7 @@ class AdaptiveControllerMixin:
         self.selection_enabled = bool(adapter or external_selection) and kind in ('simulated', 'live')
         if adapter and adapter.mode != kind:
             self.selection_enabled = False
+        self.learning_paused = getattr(self, 'learning_paused', False)
         self._session_started_at = time.monotonic()
         self._last_live_tick = None
         self._exposure_started_at = None
@@ -71,6 +72,7 @@ class AdaptiveControllerMixin:
                                     else float(self.t if sample_index is None else sample_index)),
                   'source_kind': self._source_kind(),
                   'simulated': bool(getattr(self.source, 'interactive_simulation', False)),
+                  'learning_enabled': self.selection_enabled and not self.learning_paused,
                   'source_revision': self.source_revision, 'source_changed_at': self._source_changed_at, **fields}
         self._telemetry.append(record)
         return record
@@ -144,7 +146,7 @@ class AdaptiveControllerMixin:
             return {'accepted': True}
 
     def _feedback_open(self):
-        return bool(self.selection_enabled and self._active_exposure and self._exposure_started_at is not None
+        return bool(self.selection_enabled and not self.learning_paused and self._active_exposure and self._exposure_started_at is not None
                     and self._active_exposure not in self._feedback_invalidated
                     and self.t < self._exposure_started_at+59 and self.signal_ok
                     and not self.stopped and not self.nurse and not self._adaptive_fault)
@@ -264,7 +266,9 @@ class AdaptiveControllerMixin:
                 'signal_ok': self.signal_ok, 'source_ended': self.done, 'stopped': self.stopped,
                 'source_revision': self.source_revision, 'source_changed_at': self._source_changed_at,
                 'nurse_present': self.nurse, 'selection_opportunity': self._opportunity,
-                'active_exposure_id': self._active_exposure, 'learning_enabled': self.selection_enabled,
+                'active_exposure_id': self._active_exposure,
+                'learning_enabled': self.selection_enabled and not self.learning_paused and not self._adaptive_fault,
+                'learning_available': bool(self.selection_enabled and self.approved_ids and not self._adaptive_fault),
                 'feedback_open': self._feedback_open(),
                 'adaptive': {**(self.adapter.summary(self.patient_id, nonblocking=True) if self.adapter else {'external': self.external_selection}),
                              'error': self._adaptive_fault}}

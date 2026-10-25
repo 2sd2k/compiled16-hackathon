@@ -242,3 +242,16 @@ no-audio-effect control both were 0.012. This run does **not** establish a
 performance advantage for adaptation; exploration and limited observations can
 reduce short-run reward. It verifies the connected mechanics and exposes the
 limits of observational reward. Keep the saved report alongside any demo claims.
+
+### Learning toggle
+
+The console's **Learning ON/OFF** button controls new preference updates. Learning
+starts on for a configured compatible adaptive profile. Turning it off rejects
+any unfinished response window, closes comfort feedback, and retains learned
+preferences for song selection. Turning it back on permits learning from new
+playback windows only. Stop and nurse controls still operate independently.
+The off setting survives source changes within the process; restarting returns
+to the configured default (on). The button is unavailable for replay, missing
+adaptive setup or approved songs, or an adapter error. It does not create a
+patient profile or grant song approval. External adapters must run the updated
+code to honor the telemetry's `learning_enabled` flag.
