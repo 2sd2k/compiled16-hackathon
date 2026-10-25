@@ -33,6 +33,9 @@ class FakePlayer:
     def ended(self):
         return False
 
+    def status(self):
+        return {'configured': False, 'connected': False}
+
 
 def fake_receiver(tmp_path, scan_stderr, stream_stdout="", stream_stderr=""):
     """A stand-in for garmin_hr.py that prints what the real one prints, without Bluetooth."""

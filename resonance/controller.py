@@ -12,9 +12,8 @@ Usage:
     python resonance/controller.py --source sim         simulated heart rate (labeled, for testing)
     python resonance/controller.py --source csv:FILE    replay a t,hr CSV at 1 Hz (hr_test.py format)
     python resonance/controller.py --source hku:hku1903 replay a recorded HKU956 session
-    --music spotify (default) plays calm Music-Mouv songs through the Spotify app (see spotify.py);
-    --music jamendo plays the offline local Jamendo files instead.
-    Adaptive layer (Josh): --sim-response --demo-approve-calm --adaptive-state FILE (see ADAPTIVE.md).
+    --music jamendo (default) plays local audio; Spotify is a legacy opt-in.
+    Adaptive modes use separate Spotify-descriptor or Jamendo-waveform schemas.
 """
 import argparse
 import collections
@@ -40,11 +39,13 @@ try:
     from .adaptive_player import Player
     from .adaptive_adapter import AdaptiveAdapter
     from .response_simulator import ResponseSimSource
+    from .spotify import SpotifyAuth, SpotifyPlayer, SpotifyError
 except ImportError:
     from adaptive_controller import AdaptiveControllerMixin, CONTRACT, song_id
     from adaptive_player import Player
     from adaptive_adapter import AdaptiveAdapter
     from response_simulator import ResponseSimSource
+    from spotify import SpotifyAuth, SpotifyPlayer, SpotifyError
 
 REPO = Path(__file__).resolve().parent.parent
 LIBRARY = REPO / "app" / "data" / "music_library.json"
@@ -52,6 +53,7 @@ SPOTIFY_LIBRARY = REPO / "app" / "data" / "spotify_library.json"
 SESSIONS = REPO / "app" / "data" / "sessions.json"
 AUDIO_DIR = REPO / "data" / "raw" / "audio"
 CONSOLE = Path(__file__).resolve().parent / "console.html"
+OBSERVER = Path(__file__).resolve().parent / "observer.js"
 # Optional patient preferences gathered by voice or a caregiver, never on a screen:
 # {"preferences": {"<song_id>": 0..1}, "excluded": ["<song_id>", ...]}
 PREFS = Path(__file__).resolve().parent / "patient_preferences.json"
@@ -193,33 +195,24 @@ def make_source(spec):
 
 
 # ---------- music ----------
-def _prefs():
-    prefs = json.loads(PREFS.read_text()) if PREFS.exists() else {}
-    return prefs.get("preferences", {}), [str(s) for s in prefs.get("excluded", [])]
-
-
-def calm_list_for(music):
-    return load_spotify_calm_list() if music == "spotify" else load_calm_list()
-
-
 def load_spotify_calm_list():
-    """Calm Spotify tracks from Music-Mouv (analysis/build_spotify_library.py), played via the Spotify app.
-
-    Ranked with Josh's rank_music: patient preference first, then lowest Spotify energy (its
-    perceptual intensity, standing in for arousal; mapped to the 1-9 scale). Valence is off.
-    This order is the cold-start prior; with the adaptive layer on, it chooses within the list.
-    """
+    """Use actual Spotify descriptors, without inventing native acoustic fields."""
     if not SPOTIFY_LIBRARY.exists():
         return []
     tracks = json.loads(SPOTIFY_LIBRARY.read_text(encoding="utf-8"))["tracks"]
-    prefs, excluded = _prefs()
-    cands = [{**t, "song_id": t["track_id"], "bpm": t["tempo"], "license": "Spotify",
-              "predicted_arousal_mean": 1 + 8 * t["energy"],
-              "predicted_valence_mean": 1 + 8 * (t["valence"] if t["valence"] is not None else 0.5),
-              "detail": f"{t['key_name']}, Spotify energy {t['energy']:.2f}"}
-             for t in tracks if t.get("calm")]
-    return rank_music(cands, {str(k): float(v) for k, v in prefs.items()}, set(excluded),
-                      target_arousal=1.0, valence_weight=0)
+    prefs = json.loads(PREFS.read_text()) if PREFS.exists() else {}
+    preferences = {str(k).removeprefix('spotify:'): float(v)
+                   for k, v in prefs.get('preferences', {}).items()
+                   if not str(k).startswith('jamendo:')}
+    excluded = {str(k).removeprefix('spotify:') for k in prefs.get('excluded', [])
+                if not str(k).startswith('jamendo:')}
+    candidates = [{**t, 'song_id': t['track_id'], 'bpm': t['tempo'], 'license': 'Spotify',
+                   'predicted_arousal_mean': 1+8*t['energy'],
+                   'predicted_valence_mean': 1+8*(t['valence'] if t['valence'] is not None else .5),
+                   'detail': f"{t['key_name']}, Spotify energy {t['energy']:.2f}"}
+                  for t in tracks if t.get('calm')]
+    ranked = rank_music(candidates, preferences, excluded, target_arousal=1, valence_weight=0)
+    return [{**t, 'song_id': 'spotify:'+t['track_id']} for t in ranked]
 
 
 def load_calm_list():
@@ -230,21 +223,21 @@ def load_calm_list():
     calm = [t for t in tracks if t.get("calm") and (AUDIO_DIR / f"{t['song_id']}.mp3").exists()]
     if not calm:
         return []
-    for t in calm:
-        arousal = f", predicted arousal {t['deam_pred_arousal']:.1f}/9" if t.get("deam_pred_arousal") else ""
-        t["detail"] = f"{t['key']} {t['mode']}{arousal}"
     if any(t.get("deam_pred_arousal") is None for t in calm):
         return sorted(calm, key=lambda t: t.get("felt_bpm", t["bpm"]))  # slower first (Bernardi 2006)
 
     # Order within the calm list with Josh's preference-first ranking (baseline/ranking.py), using
     # his DEAM model's predicted arousal. Valence is off: predicted valence did not track listener
     # valence on this library (analysis/out/deam_on_hku_validation.json).
-    prefs, excluded = _prefs()
+    prefs = json.loads(PREFS.read_text()) if PREFS.exists() else {}
+    preferences = {int(str(k).removeprefix('jamendo:')): float(v)
+                   for k, v in prefs.get("preferences", {}).items()
+                   if str(k).removeprefix('jamendo:').isdigit()}
+    excluded = {int(str(s).removeprefix('jamendo:')) for s in prefs.get("excluded", [])
+                if str(s).removeprefix('jamendo:').isdigit()}
     cands = [{**t, "song_id": int(t["song_id"]), "predicted_arousal_mean": t["deam_pred_arousal"],
               "predicted_valence_mean": t["deam_pred_valence"]} for t in calm]
-    ranked = rank_music(cands, {int(k): float(v) for k, v in prefs.items() if str(k).isdigit()},
-                        {int(s) for s in excluded if s.isdigit()}, target_arousal=TARGET_AROUSAL,
-                        valence_weight=0)
+    ranked = rank_music(cands, preferences, excluded, target_arousal=TARGET_AROUSAL, valence_weight=0)
     return [{**t, "song_id": str(t["song_id"])} for t in ranked]
 
 
@@ -253,12 +246,19 @@ class Controller(AdaptiveControllerMixin):
     def __init__(self, source, threshold, baseline_s=BASELINE_S, player=None, quiet=False,
                  patient_id="sim-patient-01", adapter=None, external_selection=False, approved_ids=None,
                  music="jamendo"):
+        if music not in ('spotify', 'jamendo'):
+            raise ValueError('Unknown music catalog')
+        expected_schema = {'spotify': 'spotify-descriptors-state/1', 'jamendo': 'native-acoustics-state/1'}[music]
+        if adapter and adapter.schema != expected_schema:
+            raise ValueError('Adapter checkpoint schema does not match the music catalog')
+        self.music = music
         self.source, self.thr, self.baseline_s = source, threshold, baseline_s
-        self.quiet, self.music = quiet, music
+        self.quiet = quiet
         self.speed = 1.0
         self.sim_source_factory = SimSource
-        self.player = player or Player()
-        self.calm = calm_list_for(music)
+        self.player = player or (SpotifyPlayer(SpotifyAuth()) if music == 'spotify' else Player())
+        self.spotify_auth = getattr(self.player, 'auth', None) if music == 'spotify' else None
+        self.calm = self._load_music()
         self.lock = threading.RLock()
         self.hr, self.smooth = [], []
         self.baseline = None
@@ -273,18 +273,12 @@ class Controller(AdaptiveControllerMixin):
         self.done = False
         self.warned_empty = False
         self._adaptive_init(patient_id, adapter, external_selection, approved_ids)
-        if music == "spotify":
-            self.rank_note = "ranked by lowest Spotify energy via Josh's rank_music"
-            what = f"{len(self.calm)} Spotify tracks from Music-Mouv, slow (~{CALM_BPM[0]}-{CALM_BPM[1]} bpm felt) and low energy"
-        else:
-            self.rank_note = "ranked by Josh's arousal model, checked against HKU956 listener ratings"
-            what = f"{len(self.calm)} local Jamendo tracks, slow (~{CALM_BPM[0]}-{CALM_BPM[1]} bpm felt tempo) and sparse"
-        self.log(f"Started. Input: {source.label}. Calm list: {what} [Bernardi 2006].")
-        if self.adapter:
-            self.log("Adaptive layer on: Josh's per-person learner picks within the calm list and learns "
-                     "from simulated heart-rate responses (simulation only, not a clinical claim).")
+        self.log(f"Started. Input: {source.label}. Calm list: {len(self.calm)} {self.music} tracks.")
         if not self.calm:
             self.log("No calm tracks available: the room will stay silent. Build the music library first.")
+
+    def _load_music(self):
+        return load_spotify_calm_list() if self.music == 'spotify' else load_calm_list()
 
     def _reset(self):
         """Fresh source/session; retain per-person model, never pending windows."""
@@ -308,6 +302,8 @@ class Controller(AdaptiveControllerMixin):
             raise ValueError('Adaptive simulated playback requires speed 1')
         with self.lock:
             self.player.silence(fade_s=1.5)
+            if getattr(self.source, 'live', False) and getattr(self.source, 'device_id', None):
+                self.live_source_spec = 'garmin:'+self.source.device_id
             if hasattr(self.source, "close"):
                 self.source.close()  # e.g. release the Garmin Bluetooth connection
             self.source, self.speed = source, speed
@@ -384,6 +380,11 @@ class Controller(AdaptiveControllerMixin):
             return
         self.t += 1
         self.signal_ok = isinstance(v, (float, int)) and math.isfinite(v) and v > 0
+        if self._source_kind() == 'live' and self.selection_enabled:
+            now = time.monotonic()
+            if self._last_live_tick is not None and not .5 <= now-self._last_live_tick <= 1.5:
+                self.signal_ok = False
+            self._last_live_tick = now
         self.hr.append(v if self.signal_ok else None)
         window = self.hr[-SMOOTH_S:]
         smooth_valid = all(x is not None for x in window)
@@ -409,8 +410,8 @@ class Controller(AdaptiveControllerMixin):
         self._drain_player_events()
 
     def _track_available(self, track):
-        if self.music == "spotify":
-            return bool(track.get("uri"))  # streamed by the Spotify app, nothing cached locally
+        if self.music == 'spotify':
+            return bool(track.get('uri', '').startswith('spotify:track:'))
         return (AUDIO_DIR / f"{track['song_id']}.mp3").exists()
 
     def _update_elevated(self):
@@ -464,7 +465,7 @@ class Controller(AdaptiveControllerMixin):
 
     def _play_next(self, why):
         if not self.calm:  # library may have been built after start-up
-            self.calm = calm_list_for(self.music)
+            self.calm = self._load_music()
             if self.calm:
                 self.log(f"Music library loaded: {len(self.calm)} calm tracks.")
         pool = self.calm
@@ -482,9 +483,9 @@ class Controller(AdaptiveControllerMixin):
         t = choices[0]
         self.recent.append(t["song_id"])
         self.player.play(t)
+        arousal = f", predicted arousal {t['deam_pred_arousal']:.1f}/9" if t.get("deam_pred_arousal") else ""
         self.log(f"{why} → playing “{t.get('title') or t['song_id']}” by {t.get('artist') or 'unknown'} "
-                 f"({t.get('calm_reason', 'calm list')}; {t.get('detail', '')}) from the approved calm list "
-                 f"[slow, calm music: Bernardi 2006; patient-approved: Cochrane 2013; {self.rank_note}].")
+                 f"({t.get('calm_reason', 'calm list')}{arousal}) from the approved {self.music} list.")
 
     def snapshot(self):
         with self.lock:
@@ -507,10 +508,14 @@ class Controller(AdaptiveControllerMixin):
                 "now_playing": None if not tr else {
                     "song_id": song_id(tr["song_id"]), "exposure_id": self._active_exposure,
                     "title": tr.get("title") or tr["song_id"], "artist": tr.get("artist", ""),
-                    "why": tr.get("calm_reason", ""), "detail": tr.get("detail", ""),
-                    "source": "Spotify" if self.music == "spotify" else "local file"},
+                    "bpm": tr["bpm"], "key": tr.get('key_name') or f"{tr.get('key', '')} {tr.get('mode', '')}".strip(),
+                    "license": tr.get("license", ""),
+                    "why": tr.get("calm_reason", ""), "arousal": tr.get("deam_pred_arousal"),
+                    "detail": tr.get('detail') or (f"predicted arousal {tr['deam_pred_arousal']:.1f}/9"
+                              if tr.get('deam_pred_arousal') is not None else f"{tr['bpm']:.0f} bpm"),
+                    "source": 'Spotify' if self.music == 'spotify' else 'local file'},
                 "music": self.music,
-                "spotify": self.player.status() if hasattr(self.player, "status") else None,
+                "spotify": self.player.status() if self.music == 'spotify' else None,
                 "silent_pause_s": max(0, self.pause_until - self.t),
                 "events": list(self.events),
             }
@@ -529,33 +534,9 @@ def serve(ctrl, port):
             self.end_headers()
             self.wfile.write(body)
 
-        def _page(self, code, title, body):
-            html = (f"<!doctype html><meta charset=utf-8><title>{title}</title>"
-                    f"<body style='font:16px system-ui;padding:32px;max-width:640px'><h2>{title}</h2>{body}"
-                    f"<p><a href='/'>Back to the Demo Console</a></p></body>")
-            self._send(code, html.encode(), "text/html; charset=utf-8")
-
         def do_GET(self):
             parsed = urlparse(self.path)
-            auth = getattr(ctrl, "spotify_auth", None)
-            if parsed.path == "/spotify/login":
-                if not auth or not auth.configured:
-                    return self._page(400, "Spotify is not set up yet",
-                                      "<p>Add your Spotify app's Client ID to <code>resonance/spotify_config.json</code> "
-                                      "(see README), then restart the controller.</p>")
-                self.send_response(302)
-                self.send_header("Location", auth.login_url())
-                self.end_headers()
-                return
-            if parsed.path == "/callback" and auth:
-                try:
-                    auth.handle_callback(parsed.query)
-                except Exception as e:  # SpotifyError or network failure
-                    ctrl.log(f"Spotify sign-in failed: {e}")
-                    return self._page(400, "Spotify sign-in failed", f"<p>{e}</p>")
-                ctrl.log("Spotify connected. Keep the Spotify app open on this computer.")
-                return self._page(200, "Spotify connected", "<p>Keep the Spotify app open on this computer. "
-                                                            "You can close this tab.</p>")
+            auth = getattr(ctrl, 'spotify_auth', None)
             if parsed.path == "/state":
                 self._send(200, json.dumps(ctrl.snapshot(), allow_nan=False).encode(), "application/json")
             elif parsed.path == "/telemetry":
@@ -567,11 +548,29 @@ def serve(ctrl, port):
                     self._send(409, json.dumps({'error': str(error)}).encode(), "application/json")
             elif parsed.path in ("/", "/index.html"):
                 self._send(200, CONSOLE.read_bytes(), "text/html; charset=utf-8")
+            elif parsed.path == '/observer.js':
+                self._send(200, OBSERVER.read_bytes(), 'application/javascript; charset=utf-8')
+            elif parsed.path == '/spotify/login':
+                if not auth or not auth.configured:
+                    return self._send(400, b'Spotify is not configured. Add the client ID and restart.', 'text/plain')
+                self.send_response(302)
+                self.send_header('Location', auth.login_url())
+                self.end_headers()
+            elif parsed.path == '/callback':
+                if not auth or not auth.configured:
+                    return self._send(400, b'Spotify is not configured.', 'text/plain')
+                try:
+                    auth.handle_callback(parsed.query)
+                except (SpotifyError, ValueError, OSError) as error:
+                    ctrl.log('Spotify sign-in failed.')
+                    return self._send(400, str(error).encode(), 'text/plain; charset=utf-8')
+                ctrl.log('Spotify connected. Keep the Spotify app open on this computer.')
+                self._send(200, b'Spotify connected. You can close this tab.', 'text/plain')
             else:
                 self._send(404, b"not found", "text/plain")
 
         def do_POST(self):
-            if self.path not in ("/input", "/select", "/upload"):
+            if self.path not in ("/input", "/select", "/upload", "/feedback"):
                 return self._send(404, b"not found", "text/plain")
             try:
                 n = int(self.headers.get("Content-Length", 0))
@@ -582,6 +581,8 @@ def serve(ctrl, port):
                 payload = json.loads(self.rfile.read(n) or b'{}')
                 if self.path == "/select":
                     result = ctrl.select(payload)
+                elif self.path == '/feedback':
+                    result = ctrl.feedback(payload)
                 elif self.path == "/upload":
                     name = Path(str(payload.get('name', 'upload.csv'))).name[:80]
                     values, info = parse_hr_csv(str(payload.get('text', '')))
@@ -592,6 +593,8 @@ def serve(ctrl, port):
                 else:
                     action = payload.get("action", "")
                     if action == 'source:live':
+                        if getattr(ctrl.source, 'live', False) and getattr(ctrl.source, 'device_id', None):
+                            ctrl.live_source_spec = 'garmin:'+ctrl.source.device_id
                         live = make_source(getattr(ctrl, 'live_source_spec', 'garmin'))
                         live.on_status = ctrl.log
                         ctrl.load_source(live, speed=1)
@@ -648,72 +651,83 @@ def keyboard(ctrl, stop_event):
             handle(sys.stdin.read(1))
 
 
-def main():
+def parse_args(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--source", default="garmin",
                     help="garmin[:DEVICE_ID] live watch (default); sim; csv:FILE; hku:PARTICIPANT")
     ap.add_argument("--threshold", type=int, default=10)
     ap.add_argument("--port", type=int, default=8765)
     ap.add_argument("--no-console", action="store_true")
+    ap.add_argument('--music', choices=('spotify', 'jamendo'), default='jamendo',
+                    help='Local Jamendo audio (default); legacy Spotify support is optional')
     ap.add_argument("--speed", type=float, default=1.0, help="replay speed for recorded input")
     ap.add_argument("--baseline-s", type=int, default=BASELINE_S,
                     help="seconds of rest used for the baseline (120 normally; shorter only for demos)")
     selection = ap.add_mutually_exclusive_group()
     selection.add_argument('--adaptive-state', type=Path, help='Enable connected adaptive adapter; checkpoint JSON path')
     selection.add_argument('--external-selection', action='store_true', help='Let an external adapter use /select')
-    ap.add_argument('--patient-id', default='sim-patient-01')
+    ap.add_argument('--patient-id', default=None)
     approval = ap.add_mutually_exclusive_group()
     approval.add_argument('--approved-tracks', type=Path, help='JSON {patient_id: {jamendo:song_id: preference}}')
     approval.add_argument('--demo-approve-calm', action='store_true', help='SIMULATION ONLY: approve cached calm tracks')
+    approval.add_argument('--approve-calm', action='store_true', help='Approve the available calm catalog for this volunteer')
     ap.add_argument('--sim-response', action='store_true', help='Use deliberately invented patient/song responses')
     ap.add_argument('--no-audio-effect', action='store_true', help='Synthetic control: song has no HR effect')
     ap.add_argument('--seed', type=int, default=42)
-    ap.add_argument("--music", choices=("spotify", "jamendo"), default="spotify",
-                    help="spotify: Music-Mouv songs via the Spotify app (default); jamendo: offline local files")
-    args = ap.parse_args()
+    args = ap.parse_args(argv)
     adaptive = bool(args.adaptive_state or args.external_selection)
-    if (adaptive or args.sim_response or args.no_audio_effect or args.demo_approve_calm) and args.source != 'sim':
-        ap.error('Adaptive/demo response modes currently support --source sim only')
-    if adaptive and not (args.approved_tracks or args.demo_approve_calm):
-        ap.error('Adaptive mode needs --approved-tracks or explicit --demo-approve-calm')
+    live = args.source == 'garmin' or args.source.startswith('garmin:')
+    if (args.sim_response or args.no_audio_effect or args.demo_approve_calm) and args.source != 'sim':
+        ap.error('Synthetic response flags require --source sim')
+    if adaptive and args.source != 'sim' and not live:
+        ap.error('Adaptive learning requires simulated or live Garmin input; replay cannot teach new song responses')
+    if adaptive and live and not args.patient_id:
+        ap.error('Live learning requires --patient-id to keep each volunteer separate')
+    if adaptive and live and args.music != 'jamendo':
+        ap.error('Live adaptive learning uses --music jamendo')
+    if adaptive and not (args.approved_tracks or args.demo_approve_calm or args.approve_calm):
+        ap.error('Adaptive mode needs --approved-tracks or explicit --approve-calm')
+    args.patient_id = args.patient_id or ('live-volunteer' if live else 'sim-patient-01')
     if adaptive and args.speed != 1:
         ap.error('Adaptive playback requires --speed 1; use offline tests for accelerated simulation')
     if args.speed <= 0 or args.baseline_s < 1:
         ap.error('speed and baseline-s must be positive')
     if args.source.startswith('garmin') and args.speed != 1:
         ap.error('Live Garmin input runs in real time; --speed only applies to recorded files')
+    return args
+
+
+def main():
+    args = parse_args()
+
 
     source = (ResponseSimSource(args.patient_id, args.seed, args.no_audio_effect)
               if args.sim_response or args.no_audio_effect else make_source(args.source))
     approvals = {}
     if args.approved_tracks:
         approvals = json.loads(args.approved_tracks.read_text()).get(args.patient_id, {})
-    elif args.demo_approve_calm:
-        approvals = {song_id(t['song_id']): t.get('preference', .5) for t in calm_list_for(args.music)}
-    adapter = (AdaptiveAdapter(args.adaptive_state, seed=args.seed, catalog=args.music)
-               if args.adaptive_state else None)
-    auth = player = None
-    if args.music == "spotify":
-        from spotify import SpotifyAuth, SpotifyPlayer
-        auth = SpotifyAuth(args.port)
-        player = SpotifyPlayer(auth)
-    ctrl = Controller(source, args.threshold, args.baseline_s, player=player, patient_id=args.patient_id,
+    elif args.demo_approve_calm or args.approve_calm:
+        approvals = {song_id(t['song_id']): t.get('preference', .5) for t in (load_spotify_calm_list() if args.music == 'spotify' else load_calm_list())}
+    mode = 'live' if getattr(source, 'live', False) else 'simulated'
+    adapter = AdaptiveAdapter(args.adaptive_state, seed=args.seed, catalog=args.music, mode=mode) if args.adaptive_state else None
+    auth = SpotifyAuth(args.port) if args.music == 'spotify' else None
+    player = SpotifyPlayer(auth) if auth else None
+    ctrl = Controller(source, args.threshold, args.baseline_s, patient_id=args.patient_id,
                       adapter=adapter, external_selection=args.external_selection, approved_ids=approvals,
-                      music=args.music)
+                      music=args.music, player=player)
     ctrl.live_source_spec = args.source if args.source.startswith("garmin") else "garmin"
+
     if hasattr(source, "on_status"):
         source.on_status = ctrl.log  # live Garmin connection messages go to the event log
-        ctrl.log("Live Garmin input: the adaptive learner stays off (simulation only); music uses the "
-                 "evidence-based calm-list ranking.")
+        ctrl.log('Live Garmin input: response learning enabled.' if adapter or args.external_selection
+                 else 'Live Garmin input: fixed calm-list ranking.')
+
     if auth:
-        ctrl.spotify_auth, player.on_error = auth, ctrl.log
+        player.on_error = ctrl.log
         if not auth.configured:
-            ctrl.log("Spotify not set up: add a Client ID to resonance/spotify_config.json (see README). "
-                     "Until then the room stays silent.")
+            ctrl.log('Spotify is not configured. Add resonance/spotify_config.json and restart.')
         elif not auth.connected:
-            ctrl.log(f"Spotify not connected yet: open http://127.0.0.1:{args.port} and click Connect Spotify.")
-        else:
-            ctrl.log("Spotify connected. Keep the Spotify app open on this computer.")
+            ctrl.log(f'Open http://127.0.0.1:{args.port} and click Connect Spotify.')
     if args.sim_response or args.no_audio_effect:
         ctrl.sim_source_factory = lambda: ResponseSimSource(args.patient_id, args.seed, args.no_audio_effect)
     if not args.no_console:
@@ -730,6 +744,8 @@ def main():
     except KeyboardInterrupt:
         pass
     ctrl.player.silence(fade_s=1)
+    if hasattr(source, 'close'):
+        source.close()
 
 
 if __name__ == "__main__":

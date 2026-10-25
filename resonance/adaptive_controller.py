@@ -4,6 +4,7 @@ import hashlib
 import json
 import math
 import queue
+import time
 import uuid
 try:
     from .adaptive_adapter import CONTRACT, audio_fields
@@ -22,10 +23,23 @@ def song_id(value):
 
 
 class AdaptiveControllerMixin:
+    def _source_kind(self):
+        if getattr(self.source, 'live', False):
+            return 'live'
+        return 'simulated' if getattr(self.source, 'interactive_simulation', False) else 'recorded'
+
     def _adaptive_init(self, patient_id, adapter, external_selection, approved_ids):
         self.patient_id, self.session_id = patient_id, str(uuid.uuid4())
         self.adapter, self.external_selection = adapter, external_selection
-        self.selection_enabled = bool(adapter or external_selection) and bool(getattr(self.source, 'interactive_simulation', False))
+        kind = self._source_kind()
+        self.selection_enabled = bool(adapter or external_selection) and kind in ('simulated', 'live')
+        if adapter and adapter.mode != kind:
+            self.selection_enabled = False
+        self._session_started_at = time.monotonic()
+        self._last_live_tick = None
+        self._exposure_started_at = None
+        self._feedback_ratings = {}
+        self._feedback_invalidated = set()
         self.approved_ids = {song_id(k): float(v) for k, v in (approved_ids or {}).items()}
         if any(not math.isfinite(v) or not 0 <= v <= 1 for v in self.approved_ids.values()):
             raise ValueError('Approval preferences must be [0,1]')
@@ -53,8 +67,9 @@ class AdaptiveControllerMixin:
         record = {'contract_version': CONTRACT, 'seq': self._seq, 'type': kind,
                   'patient_id': self.patient_id, 'session_id': self.session_id,
                   'sample_index': self.t if sample_index is None else sample_index,
-                  'sample_time_s': float(self.t if sample_index is None else sample_index),
-                  'source_kind': 'simulated' if getattr(self.source, 'interactive_simulation', False) else 'recorded',
+                  'sample_time_s': (time.monotonic()-self._session_started_at if self._source_kind() == 'live'
+                                    else float(self.t if sample_index is None else sample_index)),
+                  'source_kind': self._source_kind(),
                   'simulated': bool(getattr(self.source, 'interactive_simulation', False)),
                   'source_revision': self.source_revision, 'source_changed_at': self._source_changed_at, **fields}
         self._telemetry.append(record)
@@ -74,6 +89,7 @@ class AdaptiveControllerMixin:
                     kind, details = 'playback_interrupted', {'reason': 'controls_changed_before_start'}
                 else:
                     self._active_exposure = exposure
+                    self._exposure_started_at = index
             was_active = self._active_exposure == exposure
             if kind in ('playback_ended', 'playback_interrupted'):
                 if was_active:
@@ -87,6 +103,8 @@ class AdaptiveControllerMixin:
                        track=acoustic, baseline=self.baseline, **metadata, **details)
 
     def _control_changed(self, action, source=False):
+        if self._active_exposure:
+            self._feedback_invalidated.add(self._active_exposure)
         self.control_revision += 1
         self._opportunity = None
         if source:
@@ -95,12 +113,41 @@ class AdaptiveControllerMixin:
         self._emit('source_changed' if source else 'control_changed', action=action)
 
     def _sample_event(self, value):
+        measurement = {}
+        if self._source_kind() == 'live':
+            meta = self.source.sample_metadata
+            measurement = {'measurement_id': meta.get('measurement_id'),
+                           'received_time_s': (meta['received_at']-self._session_started_at
+                                               if 'received_at' in meta else None)}
         self._emit('sample', hr_raw_bpm=value if self.signal_ok else None,
                    hr_smoothed_bpm=self.smooth[-1] if self.smooth else None, baseline=self.baseline,
                    signal_ok=self.signal_ok, stopped=self.stopped, nurse_present=self.nurse,
                    audio_busy=bool(self._active_exposure or self.t < self._audio_busy_until),
                    exposure_id=self._active_exposure, source_revision=self.source_revision,
-                   source_changed_at=self._source_changed_at)
+                   source_changed_at=self._source_changed_at, **measurement)
+
+    def feedback(self, payload):
+        with self.lock:
+            rating = payload.get('rating')
+            exposure = payload.get('exposure_id')
+            if (isinstance(rating, bool) or not isinstance(rating, int) or not 1 <= rating <= 5):
+                raise ValueError('Comfort rating must be an integer from 1 to 5')
+            if (payload.get('session_id') != self.session_id or exposure != self._active_exposure
+                    or not self._feedback_open()):
+                raise ValueError('No eligible response window for this feedback')
+            if exposure in self._feedback_ratings:
+                if self._feedback_ratings[exposure] != rating:
+                    raise ValueError('Feedback already recorded for this exposure')
+                return {'accepted': True}
+            self._feedback_ratings[exposure] = rating
+            self._emit('comfort_feedback', exposure_id=exposure, rating=rating)
+            return {'accepted': True}
+
+    def _feedback_open(self):
+        return bool(self.selection_enabled and self._active_exposure and self._exposure_started_at is not None
+                    and self._active_exposure not in self._feedback_invalidated
+                    and self.t < self._exposure_started_at+59 and self.signal_ok
+                    and not self.stopped and not self.nurse and not self._adaptive_fault)
 
     def _candidate(self, track):
         sid = song_id(track['song_id'])
@@ -199,7 +246,7 @@ class AdaptiveControllerMixin:
         self._opportunity = None
         self.recent.append(track['song_id'])
         self.player.play(track, exposure_id=exposure)
-        self.log(f"Adaptive selection → {track.get('title') or selected_id} (simulated response learning).")
+        self.log(f"Adaptive selection → {track.get('title') or selected_id} ({self._source_kind()} response learning).")
         result = {'accepted': True, 'exposure_id': exposure, 'request_id': request_id, 'playback_confirmed': False}
         self._selections[request_id] = (request, result)
         if len(self._selections) > 1024:
@@ -210,7 +257,7 @@ class AdaptiveControllerMixin:
         if not self.elevated or self.stopped or self.nurse or self.done or self.t < self.pause_until:
             self._opportunity = None
         return {'contract_version': CONTRACT, 'patient_id': self.patient_id, 'session_id': self.session_id,
-                'source_kind': 'simulated' if getattr(self.source, 'interactive_simulation', False) else 'recorded',
+                'source_kind': self._source_kind(),
                 'sample_index': self.t, 'sample_time_s': float(self.t), 'sample_period_s': 1.0,
                 'hr_raw_bpm': self.hr[-1] if self.hr else None,
                 'hr_smoothed_bpm': self.smooth[-1] if self.smooth else None,
@@ -218,5 +265,6 @@ class AdaptiveControllerMixin:
                 'source_revision': self.source_revision, 'source_changed_at': self._source_changed_at,
                 'nurse_present': self.nurse, 'selection_opportunity': self._opportunity,
                 'active_exposure_id': self._active_exposure, 'learning_enabled': self.selection_enabled,
+                'feedback_open': self._feedback_open(),
                 'adaptive': {**(self.adapter.summary(self.patient_id, nonblocking=True) if self.adapter else {'external': self.external_selection}),
                              'error': self._adaptive_fault}}

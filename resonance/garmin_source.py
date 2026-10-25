@@ -11,8 +11,8 @@ is none (stale, no skin contact, zero or out of range). next() never returns Non
 the session) and never repeats an old reading as new.
 
 On the watch: Health & Wellness > Wrist Heart Rate > Broadcast Heart Rate > START.
-Live data is not interactive simulation, so the adaptive learner stays off by design; the
-controller uses its regular evidence-based ranking.
+Live data is distinct from interactive simulation. An explicitly configured live adapter
+learns from unique notifications; classic mode keeps fixed calm-list ranking.
 """
 import json
 import math
@@ -32,6 +32,8 @@ HR_RANGE = (30, 220)
 
 
 class GarminSource:
+    live = True
+
     def __init__(self, device_id=None, connect=True, on_status=None, receiver=RECEIVER, python=sys.executable):
         self.device_id = device_id
         self.on_status = on_status or (lambda msg: None)
@@ -40,6 +42,8 @@ class GarminSource:
         self.state, self.device_name, self.error = "starting", "", ""
         self._last_problem = None
         self.readings = 0
+        self._consumed = 0
+        self.sample_metadata = {}
         self._latest = None  # (bpm, sensor_contact, monotonic time)
         self._lock = threading.Lock()
         self._closed = threading.Event()
@@ -54,6 +58,12 @@ class GarminSource:
     def next(self):
         with self._lock:
             latest = self._latest
+            self.sample_metadata = {}
+            if self.readings == self._consumed:
+                return math.nan
+            self._consumed = self.readings
+            if latest is not None:
+                self.sample_metadata = {'measurement_id': self.readings, 'received_at': latest[2]}
         if latest is None:
             return math.nan
         bpm, contact, at = latest
@@ -63,6 +73,8 @@ class GarminSource:
 
     def close(self):
         self._closed.set()
+        with self._lock:
+            self._latest = None
         if self._proc and self._proc.poll() is None:
             self._proc.terminate()
 
@@ -71,6 +83,7 @@ class GarminSource:
             latest = self._latest
         age = None if latest is None else round(time.monotonic() - latest[2], 1)
         return {"state": self.state, "device": self.device_name, "error": self.error,
+                "device_id": self.device_id,
                 "readings": self.readings, "last_reading_age_s": age,
                 "sensor_contact": None if latest is None else latest[1]}
 
@@ -133,6 +146,8 @@ class GarminSource:
     def _run(self):
         while not self._closed.is_set():
             try:
+                with self._lock:
+                    self._latest = None
                 self._set_state("scanning", "Garmin: looking for the watch's heart-rate broadcast...")
                 found = self._scan()
                 if self.device_id:
@@ -144,9 +159,12 @@ class GarminSource:
                     names = ", ".join(f"{name} ({addr})" for addr, name in found)
                     self._set_state("choose", f"Garmin: several heart-rate sensors found ({names}). "
                                     "Start with --source garmin:DEVICE_ID.", "several sensors found")
-                else:
+                elif not self._closed.is_set():
+                    self.device_id = found[0][0]  # Keep this volunteer bound to the same sensor.
                     self._stream(*found[0])
             except Exception as e:  # receiver missing/crashed, Bluetooth off, permissions
+                with self._lock:
+                    self._latest = None
                 reason = e.args[0] if e.args and isinstance(e.args[0], str) else str(e)
                 self._set_state("error", f"Garmin: {reason} (Mac: System Settings > Privacy & Security > "
                                 "Bluetooth, allow Terminal). Retrying every 5 s.", reason[:200])
@@ -166,6 +184,8 @@ class GarminSource:
             if self._closed.is_set():
                 break
         self._proc.wait()
+        with self._lock:
+            self._latest = None
         if self._closed.is_set():
             return
         time.sleep(0.2)  # let the stderr reader finish

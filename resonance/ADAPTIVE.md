@@ -6,10 +6,48 @@ presence, silence and session caps. Existing DEAM-arousal ordering remains the
 cold-start prior within the calm list. This change builds on `chc166/dev`
 revision `446f7d3fae59eb06e28ec08fc09feca34c307a4b`, including CSV uploads and cross-platform keyboard support.
 
-The new learning/control path currently accepts **interactive simulated HR
-only**. Recorded HR cannot label responses to newly selected songs. It is not a
-validated treatment or comfort predictor; the earlier real-data benchmark did
-not show added HR-prediction value from audio features.
+Jamendo local playback and live Garmin input are the defaults. A plain launcher
+starts live readings with fixed ranking; supplying a volunteer profile and audio
+approvals enables live learning. `--simulated` explicitly starts the adaptive
+simulator, and `--classic` starts the fixed-ranking simulator. `--live --classic`
+keeps fixed ranking on the watch. Live Garmin sessions and interactive
+simulations can both learn; they use separate checkpoints and explicit source labels.
+Recorded replay never learns responses to newly selected songs. Legacy Spotify
+simulation support remains opt-in with its separate feature schema.
+
+## Live Garmin learning
+
+```sh
+python resonance/launch.py --live --patient-id volunteer-01 --approve-calm
+```
+
+Use a different profile ID per volunteer. `--approve-calm` approves the currently
+available calm tracks; `--approved-tracks FILE` limits playback to an explicit
+profile allowlist. The launcher stores live checkpoints under a hash of the
+profile in `data/raw/adaptive-live-jamendo-*.json`, separate from simulations.
+It refuses to reuse an existing backend with a different source, profile, or
+learning mode. Stop that backend with Ctrl+C before switching.
+
+Direct controller equivalent:
+
+```sh
+python resonance/controller.py --source garmin --music jamendo --patient-id volunteer-01 --approve-calm --adaptive-state data/raw/live-volunteer-01.json
+```
+
+Garmin notifications are consumed at most once. Repeated poll calls cannot count
+a packet twice. Missing, stale, invalid, or no-contact readings invalidate windows.
+Live samples carry packet IDs and monotonic receipt times. Controller intervals
+must stay within 0.5–1.5 s; 30-sample windows allow at most 2 s total timing drift.
+Receipt gaps over 2 s and playback-window misalignment are rejected. Reconnection
+stays bound to the selected sensor. These are engineering quality gates, not
+clinically validated criteria. No clinical benefit is claimed.
+
+The operator can enter a volunteer's comfort rating (1–5) during the response
+window using `POST /feedback` with `session_id`, `exposure_id`, and `rating`.
+One rating per exposure is accepted; identical retries are harmless and changed
+or late feedback is rejected. A rating never bypasses signal/playback gates.
+If provided, reward is `(rating - 3) / 2`; otherwise the existing HR-distance
+proxy is used. Both reward source and input provenance appear in the observer.
 
 ## Run the connected loop
 
@@ -17,17 +55,17 @@ From the repository root, with Python 3.12:
 
 ```sh
 pip install -r resonance/requirements-adaptive.txt
-python resonance/controller.py --source sim --sim-response --demo-approve-calm --patient-id sim-patient-01 --adaptive-state data/raw/adaptive-patient-01.json
+python resonance/controller.py --music jamendo --source sim --sim-response --demo-approve-calm --patient-id sim-patient-01 --adaptive-state data/raw/adaptive-patient-01.json
 ```
 
 This is one process: the adapter is already connected inside the controller.
-The optional console remains at `http://127.0.0.1:8765`. The controller must have
+The optional console remains at `http://127.0.0.1:8765`. For the Jamendo command above, the controller must have
 the existing local audio cache in `data/raw/audio`; the repository does not
 contain the MP3s. With no eligible cached tracks it stays silent. Existing
 `resonance/fetch_audio.py` downloads the current calm-list audio cache; no dataset is downloaded
 by starting the adapter.
 
-`--demo-approve-calm` explicitly approves the cached calm list **for simulation**.
+`--demo-approve-calm` explicitly approves the selected catalog’s available calm list **for simulation**.
 For an explicit patient/profile allowlist, replace that flag with
 `--approved-tracks path/to/approvals.json`, whose format is:
 
@@ -58,16 +96,21 @@ use the offline virtual-clock benchmark below for faster experiments.
 Console CSV upload/replay remains available. Switching sources creates a new
 session and invalidates unfinished windows while retaining learned person
 models. Replay is logging-only for the learner; it can run at the existing
-accelerated speeds. Returning to simulated input restores the configured
-synthetic response mode and normal 1× timing.
+accelerated speeds. The console's **Back to live Garmin** button reconnects the
+selected watch, starts a new baseline at 1× timing, and preserves a configured
+live learner. A simulation learner never trains on those live readings. Use
+`--simulated` at startup for the synthetic test flow.
 
 ## External HTTP adapter (alternative to embedded mode)
 
 ```sh
-python resonance/controller.py --source sim --sim-response --demo-approve-calm --patient-id sim-patient-01 --external-selection
-python resonance/adaptive_adapter.py --url http://127.0.0.1:8765 --state data/raw/adaptive-patient-01.json
+python resonance/controller.py --music jamendo --source sim --sim-response --demo-approve-calm --patient-id sim-patient-01 --external-selection
+python resonance/adaptive_adapter.py --mode simulated --music jamendo --url http://127.0.0.1:8765 --state data/raw/adaptive-patient-01.json
 ```
 
+For live external mode, use `--source garmin` plus a profile and approvals on the controller,
+and `--mode live --music jamendo` with a separate checkpoint on the adapter.
+For Spotify simulation external mode, use `--music spotify` in both commands and a separate checkpoint.
 Choose one mode/one checkpoint writer. Embedded mode rejects external selection
 requests. The external adapter polls every 0.5 s, but learns from unique 1-Hz
 sample IDs, never poll count or repeated HR values. Its `--once` option performs
@@ -83,7 +126,7 @@ rejected by the controller.
   sample index/source time; signal/end/control flags; active exposure ID;
   a selection opportunity containing an opaque decision ID, control revision,
   catalog hash and eligible candidates. Candidate IDs are namespaced
-  `jamendo:<id>`, with a strict acoustic-feature allowlist and preferences.
+  `jamendo:<id>` or `spotify:<id>`, with catalog-specific feature allowlists and preferences.
 - **GET `/telemetry?session_id=...&after_seq=N`:** ordered structured samples,
   playback requests, mixer starts, ends/interruptions, source and control events.
   Responses include latest sequence and an explicit `gap` flag when history
@@ -99,9 +142,24 @@ Playback notifications originate from the player. A requested track cannot
 teach until the mixer has actually started it. Stop cancels in-flight fades;
 a superseded request or decoder failure never produces a successful learning
 window. The adapter records actual source sample time, not HTTP or wall-clock
-poll time. No real wearable input is connected by this change.
+poll time. Live Garmin input is connected through `garmin_source.py`.
 
 ## Observation and learning protocol
+
+The console's response observer reads the existing `/state` snapshot. It shows
+patient/session and confirmed exposure IDs, update count, the last response's
+pre/post means, observed HR change, reward, and rejection/waiting reason. The
+forecast shown is the pre-trend extrapolation defined below, not the separate
+Music-Mouv model. Stored observations from an older session remain explicitly
+labeled with their original live/simulated provenance when a recorded file is replayed.
+External-adapter mode exposes telemetry and selection but does not publish that
+external process's checkpoint summary; the observer does not invent zero updates
+or response values when that summary is unavailable.
+
+Spotify startup now confirms the requested track through playback state before
+emitting `playback_started`; a successful play request alone is insufficient.
+Stop invalidates in-flight starts/fades. A remote pause still depends on Spotify
+API response latency; this is not a claim of instantaneous remote silence.
 
 Each exposure has a globally unique ID within its session. The adapter requires:
 
@@ -122,12 +180,12 @@ imputed. A checkpoint commits model changes, consumed exposure IDs and cursors
 in a single atomic JSON replacement; retries/restarts cannot apply an exposure
 twice. A new controller session invalidates old pending windows while retaining
 the person's learned model. Use one process per checkpoint file. Checkpoints
-contain simulated observations and are intended to stay in gitignored
+contain observations for their declared live or simulated mode and stay in gitignored
 `data/raw/`, not in commits. An embedded checkpoint/contract error leaves the
 adaptive path silent until restarted; it does not silently fall back to a
 second selection owner.
 
-The exploratory reward compares observed distance from the personal reference
+When no comfort rating is supplied, the exploratory HR proxy compares observed distance from the personal reference
 to a **pre-trend-only forecast**:
 
 ```
@@ -143,9 +201,9 @@ The objective is not the lowest HR: excessive movement below reference can
 receive negative reward. HR is not a comfort measurement. Explicit patient
 preferences/exclusions remain separate inputs.
 
-Per-person online ridge regression uses nine native acoustic fields plus initial
+Per-person online ridge regression uses nine catalog-specific audio fields plus initial
 HR deviation and pre-slope. Fixed, bounded feature scales are versioned as
-`native-acoustics-state/1`. A shrinkage estimate of observed reward for each
+`native-acoustics-state/1` or `spotify-descriptors-state/1`. A shrinkage estimate of observed reward for each
 person/song complements the shared acoustic estimate. Ten-percent epsilon-greedy
 exploration is limited to approved candidates tied for highest preference.
 Choices log their selection probability. A weak ordering prior retains the
@@ -161,6 +219,8 @@ verified library DEAM features from the upstream integration.
 
 ```sh
 pytest -q resonance/test_adaptive_integration.py
+pytest -q resonance/test_reconciliation.py resonance/test_spotify.py
+node --test resonance/test_observer.cjs
 python resonance/benchmark_adaptive.py --output resonance/adaptive_benchmark.json
 ```
 
