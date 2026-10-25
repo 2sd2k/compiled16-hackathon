@@ -1,5 +1,16 @@
 # Live Garmin learning verification
 
+## Merge verification for main `fa27149`
+
+Integrated the teammate's subprocess Garmin receiver, retaining live sample
+metadata, one-time consumption, and pinned watch reconnects. Updated the
+reconnect regression test for the subprocess bridge. Jamendo remains default.
+
+Post-merge checks: **79 Python integration tests, 7 frontend tests, and 5 Garmin
+packet-parser tests passed (91 total)**. Python merge review found no blocking
+regressions. The user confirmed live Garmin data works with the teammate's fix;
+the combined build has not been retested on physical hardware by the agent.
+
 ## Merge verification for main `bb2722f`
 
 Merged the teammate's Garmin-default startup and return-to-live console action.

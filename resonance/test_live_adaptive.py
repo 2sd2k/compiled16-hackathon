@@ -225,32 +225,20 @@ def test_return_to_live_preserves_watch_and_live_learner(live, monkeypatch):
 
 
 def test_reconnect_does_not_switch_to_another_watch(monkeypatch):
-    import asyncio
-    from types import SimpleNamespace
     source = g.GarminSource(connect=False)
     connections = []
     scans = []
-    async def discover(**kwargs):
+
+    def scan():
         scans.append(1)
-        address = 'watch-A' if len(scans) == 1 else 'watch-B'
-        if len(scans) == 2:
+        if len(scans) == 3:
             source.close()
-        return {address:(SimpleNamespace(address=address, name=address), SimpleNamespace(local_name=address))}
-    class Client:
-        def __init__(self, device, disconnected_callback):
-            connections.append(device.address)
-            self.disconnected = disconnected_callback
-        async def __aenter__(self):
-            return self
-        async def __aexit__(self, *args):
-            return False
-        async def start_notify(self, *_):
-            self.disconnected(self)
-    async def no_wait(_):
-        pass
-    monkeypatch.setitem(sys.modules, 'bleak', SimpleNamespace(BleakClient=Client,
-                        BleakScanner=SimpleNamespace(discover=discover)))
-    monkeypatch.setattr(g.asyncio, 'sleep', no_wait)
-    asyncio.run(source._loop())
+        address = 'watch-A' if len(scans) == 1 else 'watch-B'
+        return [(address, address)]
+
+    monkeypatch.setattr(source, '_scan', scan)
+    monkeypatch.setattr(source, '_stream', lambda address, name: connections.append(address))
+    monkeypatch.setattr(g, 'RECONNECT_S', 0)
+    source._run()
     assert connections == ['watch-A']
     assert source.status()['device_id'] == 'watch-A'
