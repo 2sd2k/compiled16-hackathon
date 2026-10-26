@@ -4,7 +4,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 import numpy as np
 import pandas as pd
-from train_hr import AUDIO, trial_row
+from train_hr import AUDIO, evaluate, trial_row
 from data import split_indices
 
 
@@ -45,3 +45,25 @@ def test_null_hr_arrays_are_excluded():
     value = trial()
     value['watch_data']['heart_rate'] = {'time_s': None, 'value': None}
     assert trial_row('p', 'test_1', value)[1] == 'invalid_or_short_timestamps'
+
+
+def test_no_change_baseline_scores_zero_on_each_held_out_partition():
+    count = 60
+    frame = pd.DataFrame({
+        'participant': np.repeat([f'p{i}' for i in range(30)], 2),
+        'track_id': np.repeat([f't{i}' for i in range(20)], 3),
+        'trial': [f'test_{i}' for i in range(count)],
+        'initial_hr': np.linspace(65, 95, count),
+        'prior_hr_slope': np.sin(np.arange(count)) / 10,
+        'hr_change': np.linspace(2, 8, count),
+        **{name: np.linspace(0.1, 0.9, count) for name in AUDIO},
+    })
+    for group_column in ['participant', 'track_id']:
+        report, _, assignments = evaluate(frame, group_column)
+        test = frame.loc[assignments.split == 'test', 'hr_change'].to_numpy()
+        expected_mae = np.abs(test).mean()
+        expected_r2 = 1 - np.square(test).sum() / np.square(test - test.mean()).sum()
+        assert np.isclose(report['test']['no_change']['mae_bpm'], expected_mae)
+        assert np.isclose(report['test']['no_change']['r2'], expected_r2)
+        assert not np.isclose(report['test']['no_change']['mae_bpm'],
+                              report['test']['train_mean']['mae_bpm'])

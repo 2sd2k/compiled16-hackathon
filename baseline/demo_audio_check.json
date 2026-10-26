@@ -1,0 +1,54 @@
+{
+  "simulator_commit": "446f7d3",
+  "approved_calm_tracks_in_library": 67,
+  "tracks_tested": 3,
+  "download_cap_bytes": 1400000,
+  "audio_backend": "Mac CoreAudio via pygame, 44100 Hz signed 16-bit stereo",
+  "playback_volume": 0.12,
+  "brief_playback_seconds_per_track": 2,
+  "scope": "MP3 decoding, playback-start state, fade-out, and stopped state checked on the Mac audio device; loudspeaker audibility and full-length/seek behavior not assessed.",
+  "decoder_note": "Byte-limited MP3 downloads emitted Xing stream-size warnings; tested decoding and playback completed.",
+  "cache_location_on_this_machine": "/Users/davidsu/Documents/hackathon-audio/demo-check/data/raw/audio",
+  "cache_committed_to_git": false,
+  "clips": [
+    {
+      "song_id": 1210604,
+      "title": "Amazed Innocence",
+      "artist": "Aufklarung",
+      "bytes": 1400000,
+      "status": "downloaded",
+      "path": "data/raw/audio/1210604.mp3",
+      "stream_url": "https://mp3l.jamendo.com/?trackid=1210604&format=mp31",
+      "decoded_duration_s": 115.33,
+      "sha256": "625df582f9d8b381c92db6ff89409f3b5572537930da7a44485c728678fc5f74",
+      "playback_started": true,
+      "stopped_after_fade": true
+    },
+    {
+      "song_id": 275229,
+      "title": "Matrosenlied (Canzone di marinai)",
+      "artist": "Marco Tezza",
+      "bytes": 1400000,
+      "status": "downloaded",
+      "path": "data/raw/audio/275229.mp3",
+      "stream_url": "https://mp3l.jamendo.com/?trackid=275229&format=mp31",
+      "decoded_duration_s": 114.78,
+      "sha256": "350cae37f94b3da36326b8215857d8005b5aab20c1059c11bd1f42ed14111283",
+      "playback_started": true,
+      "stopped_after_fade": true
+    },
+    {
+      "song_id": 26436,
+      "title": "Awakening",
+      "artist": "Celestial Aeon Project",
+      "bytes": 1400000,
+      "status": "downloaded",
+      "path": "data/raw/audio/26436.mp3",
+      "stream_url": "https://mp3l.jamendo.com/?trackid=26436&format=mp31",
+      "decoded_duration_s": 115.8,
+      "sha256": "734a59d680ffb64d0ccc09bd5fb370eb2e15ffad94504e329f5141beaf720db9",
+      "playback_started": true,
+      "stopped_after_fade": true
+    }
+  ]
+}
